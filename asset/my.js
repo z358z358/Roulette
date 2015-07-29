@@ -17,7 +17,7 @@ var vue = new Vue({
   watch: {
     // timeago
     'logs': function (val, oldVal) {
-      jQuery("abbr.timeago").timeago();
+      jQuery(".timeago").timeago();
     }
   },
 
@@ -106,7 +106,7 @@ var vue = new Vue({
       this.logs.unshift(log);
 
       this.options[log.target].$set('times',times);
-      this.go();
+      //this.go();
 
     }
   }
