@@ -2,14 +2,29 @@ var vue = new Vue({
   el: '#main',
   data: {
     options:[
-      {name:'German', weight:1},
-      {name:'French', weight:1},
-      {name:'Italian', weight:1},
-      {name:'Romansh', weight:1},
+    {name:'German', weight:1},
+    {name:'French', weight:1},
+    {name:'Italian', weight:1},
+    {name:'Romansh', weight:1},
     ],
     goFlag: false,
     angle: 0,
     target: 0,
+    turn: 0,
+    logs:[],
+  },
+
+  watch: {
+    // timeago
+    'logs': function (val, oldVal) {
+      jQuery("abbr.timeago").timeago();
+    }
+  },
+
+  filters: {
+    persent: function (number) {
+      return Math.round(number*100) + '%';
+    }
   },
 
   ready: function(){
@@ -45,12 +60,11 @@ var vue = new Vue({
     },
 
     go: function(){
-      var that = this;
-      var options = that.options;
+      var options = this.options;
       var addAngle = Math.floor((Math.random() * 360));
       var sum = 0;
       var tmp = 0;
-      if(that.goFlag == true){
+      if(this.goFlag == true){
         return;
       }
 
@@ -58,28 +72,43 @@ var vue = new Vue({
         sum += parseFloat(option.weight, 10);
       });
 
+      //console.log(addAngle);
       for (var i = 0; i <= options.length - 1; i++) {
         tmp += (options[i].weight / sum) * 360;
+        //console.log(tmp,i,options[i].weight / sum);
         if( tmp >= addAngle ){
           this.target = i;
           break;
         }
       };
 
-      that.goFlag = true;
+      this.goFlag = true;
+      this.angle = addAngle;
       $("#lotteryBtn").rotate({
-        angle:that.angle, 
-        duration: 3000,
+        angle:this.angle, 
+        duration: 1000,
         animateTo: addAngle + 1440,
-        callback:function(){
-          var a = {};
-          a[this.target] = {offset: 0.2};
-          that.angle = addAngle;
-          that.goFlag = false;
-          that.draw(a);
-        }
+        callback:this.goDone,
       }); 
     },
+
+    goDone: function(){
+      var a = {};
+      var log = {};
+      var times = (parseInt(this.options[this.target].times) || 0) + 1;      
+      this.goFlag = false;
+      this.turn = this.turn + 1;          
+      this.draw(a);
+
+      log.ts = new Date().toISOString();
+      log.target = this.target;
+      log.content = this.options[this.target].name;
+      this.logs.unshift(log);
+
+      this.options[log.target].$set('times',times);
+      this.go();
+
+    }
   }
 });
 
