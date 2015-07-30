@@ -41,7 +41,7 @@
       refreshMillis: 60000,
       allowPast: true,
       allowFuture: false,
-      localeTitle: false,
+      localeTitle: true,
       cutoff: 0,
       strings: {
         prefixAgo: null,
@@ -113,7 +113,10 @@
       return $.trim([prefix, words, suffix].join(separator));
     },
 
-    parse: function(iso8601) {
+    parse: function(iso8601) {      
+      if(iso8601 % 1 === 0){
+        return new Date( parseInt(iso8601) );
+      }
       var s = $.trim(iso8601);
       s = s.replace(/\.\d+/,""); // remove milliseconds
       s = s.replace(/-/,"/").replace(/-/,"/");

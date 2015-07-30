@@ -47,7 +47,10 @@
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="navbar">
         <ul class="nav navbar-nav">
+          <li><a href="#" data-toggle="modal" data-target="#hot-modal" v-on="click:getList">熱門轉盤</a></li>
+          <li><a href="#" data-toggle="modal" data-target="#new-modal">最新上架</a></li>
           <li><a href="#" data-toggle="modal" data-target="#set-modal">修改轉盤</a></li>
+          <li><a href="#" data-toggle="modal" data-target="#save-modal">儲存轉盤</a></li>
           <li><a href="#" data-toggle="modal" data-target="#disqus-modal">留言</a></li>
         </ul>
         <ul id="nav-share" class="nav navbar-nav navbar-right">
@@ -140,7 +143,7 @@
                 <th><button type="button" class="btn btn-primary" v-on="click:addOption">新增</button></th> 
               </tr>
             </thead>
-            <tbody v-repeat="options">
+            <tbody v-repeat="options" v-transition>
               <tr>
                 <td><input type="text" class="form-control" v-model="name"></td>
                 <td><input type="number" class="form-control " v-model="weight"></td>
@@ -156,6 +159,52 @@
     </div>
   </div>  
 
+  <!-- 熱門 -->
+  <div class="modal fade" id="hot-modal" tabindex="-1" role="dialog" aria-labelledby="hot-modalLabal" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="hot-modalLabel">熱門轉盤</h4>
+        </div>
+        <div class="modal-body">  
+          <div class="list-group">
+            <a href="#{{ id }}" class="list-group-item" data-dismiss="modal" v-repeat="list | orderBy 'hot' true" v-on="click:loadOption(id)">
+              <span v-text="title || '沒名字'"></span>
+              <span class="badge timeago" title="{{ts}}"></span>
+              <span class="badge" title="人氣" v-text="hot">14</span>
+            </a>
+          </div>          
+        </div>        
+      </div>
+    </div>
+  </div>  
+
+  <!-- 儲存 -->
+  <div class="modal fade" id="save-modal" tabindex="-1" role="dialog" aria-labelledby="save-modalLabal" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="save-modalLabel">儲存轉盤</h4>
+        </div>
+        <div class="modal-body">  
+          <form>
+            <div class="form-group">
+            <label>給他個標題吧！</label>
+              <input class="form-control" placeholder="標題" v-model="title">
+            </div>            
+          </form>      
+        </div>  
+        <div class="modal-footer">
+          <button type="button" class="btn" data-dismiss="modal">取消</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" v-on="click:saveOnFireBase">確定</button>
+        </div>
+      </div>
+    </div>
+  </div>  
+
+  <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
   <script type="text/javascript" src="asset/vue.min.js"></script>
   <script type="text/javascript" src="asset/jquery-1.11.3.min.js"></script>
   <script type="text/javascript" src="asset/jquery.easing.1.3.js"></script>
