@@ -11,7 +11,7 @@
     .lottery-star{
       position: absolute;
       top: 50%;
-      left: 38.5%;
+      left: 37.2%;
       margin-top: -2.5em;
       margin-left: -2.5em;
       z-index: 5;
@@ -24,6 +24,13 @@
 
     .piechart{
       height:500px;
+    }
+
+    .ly-plate{
+      position: relative;
+    }
+    body {
+      padding-top: 50px;
     }
   </style>
 
@@ -47,11 +54,26 @@
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="navbar">
         <ul class="nav navbar-nav">
-          <li><a href="#" data-toggle="modal" data-target="#hot-modal" v-on="click:getList">熱門轉盤</a></li>
-          <li><a href="#" data-toggle="modal" data-target="#new-modal">最新上架</a></li>
+          <li><a href="#" data-toggle="modal" data-target="#list-modal" v-on="click:getList('hot')">熱門轉盤</a></li>
+          <li><a href="#" data-toggle="modal" data-target="#list-modal" v-on="click:getList('ts')">最新上架</a></li>
           <li><a href="#" data-toggle="modal" data-target="#set-modal">修改轉盤</a></li>
-          <li><a href="#" data-toggle="modal" data-target="#save-modal">儲存轉盤</a></li>
+          <li><a href="#" data-toggle="modal" data-target="#save-modal" v-on="click:saveType = 'save'">儲存轉盤</a></li>
+          <li><a href="#" data-toggle="modal" data-target="#save-modal" v-show="user.uid && set.uid == user.uid" v-on="click:saveType = 'new'">另存轉盤</a></li>
           <li><a href="#" data-toggle="modal" data-target="#disqus-modal">留言</a></li>
+          <li class="dropdown" v-show="user.uid == ''">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">登入 <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="#" data-toggle="modal" v-on="click:login('facebook')">Facebook</a></li>
+              <li><a href="#" data-toggle="modal" v-on="click:login('google')">Google+</a></li>
+            </ul>
+          </li>
+          <li class="dropdown" v-show="user.uid">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">Hi {{user.displayName}}<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="#" data-toggle="modal" data-target="#list-modal" v-on="click:getList('my')">我的轉盤</a></li>
+              <li><a href="#" data-toggle="modal" v-on="click:login('logout')">登出</a></li>
+            </ul>
+          </li>
         </ul>
         <ul id="nav-share" class="nav navbar-nav navbar-right">
           <li><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://z358z358.github.io/MJ/" title="分享到 Facebook"><i class="fa fa-lg fa-facebook"></i></a></li>
@@ -63,12 +85,27 @@
     </div>
   </nav>
 
-  <div class="container">    
-    <div class="ly-plate col-md-10 col-sm-12">
-      <div class="lottery-star" v-on="click:go"><i id="lotteryBtn" class="fa fa-arrow-up fa-5x"></i></div>
-      <div class="piechart" id="piechart"></div>
+  <div class="container"> 
+    <div class="alert alert-danger alert-dismissible" role="alert" v-if="errorMsg">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close" v-on="click:errorMsg=''"><span aria-hidden="true">&times;</span></button>
+      <strong>Warning!</strong> <span v-text="errorMsg"></span>
     </div> 
 
+    <div class="ly-plate">
+      <div class="lottery-star" v-on="click:go"><i id="lotteryBtn" class="fa fa-arrow-up fa-5x"></i></div>
+      <div class="piechart" id="piechart"></div>         
+    </div> 
+
+    <div>
+      <div v-if="rid">
+        <div class="fb-like pull-right" data-href="http://z358z358.github.io/Roulette/#{{rid}}" data-send="false" data-layout="box_count" data-width="50" data-show-faces="true" data-colorscheme="dark"></div>
+        
+        <div class="fb-comments" data-href="http://z358z358.github.io/Roulette/#{{rid}}" data-numposts="5"></div>
+      </div>
+      <label>
+        <input type="checkbox" v-model="continueFlag">連續旋轉
+      </label>   
+    </div>
     <div class="clearfix"></div>
 
     <div v-show="logs.length">
@@ -84,15 +121,15 @@
             <table class="table table-hover table-striped">
               <thead>
                 <tr>
-                  <th>時間</th>
+                  <th>次數／時間</th>
                   <th>內容</th>
                   <th>分享</th>
                 </tr>
               </thead>
               <tbody v-repeat="logs">
                 <tr>
-                  <td><p class="timeago" title="{{ts}}"></p></td>
-                  <td>{{content}}</td>    
+                  <td ><span v-text="logs.length - $index"></span>／<span class="timeago" title="{{ts}}"></span></td>
+                  <td v-text="content"></td>    
                   <td>分享</td>                            
                 </tr>
               </tbody>
@@ -105,18 +142,22 @@
               <thead>
                 <tr>
                   <th v-text="turn + '次'"></th>
-                  <th v-repeat="options" v-text="name"></th>
+                  <th v-repeat="set.options" v-text="name"></th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <td>次數</td>
-                  <td v-repeat="options" v-text="times || 0"></td>                           
+                  <td v-repeat="set.options" v-text="times || 0"></td>                           
                 </tr>
                 <tr>
                   <td>機率</td>
-                  <td v-repeat="options" v-text="times/turn || 0 | persent"></td>                           
+                  <td v-repeat="set.options" v-text="times/turn || 0 | persent"></td>                           
                 </tr>
+                <tr>
+                  <td>期望機率</td>
+                  <td v-repeat="set.options" v-text="weight/sum | persent"></td>                           
+                </tr>                
               </tbody>
             </table>
           </div>    
@@ -143,7 +184,7 @@
                 <th><button type="button" class="btn btn-primary" v-on="click:addOption">新增</button></th> 
               </tr>
             </thead>
-            <tbody v-repeat="options" v-transition>
+            <tbody v-repeat="set.options" v-transition>
               <tr>
                 <td><input type="text" class="form-control" v-model="name"></td>
                 <td><input type="number" class="form-control " v-model="weight"></td>
@@ -159,20 +200,22 @@
     </div>
   </div>  
 
-  <!-- 熱門 -->
-  <div class="modal fade" id="hot-modal" tabindex="-1" role="dialog" aria-labelledby="hot-modalLabal" aria-hidden="true">
+  <!-- 列表 -->
+  <div class="modal fade" id="list-modal" tabindex="-1" role="dialog" aria-labelledby="list-modalLabal" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="hot-modalLabel">熱門轉盤</h4>
+          <h4 class="modal-title" id="list-modalLabel" v-text="listTitle">熱門轉盤</h4>
         </div>
         <div class="modal-body">  
           <div class="list-group">
-            <a href="#{{ id }}" class="list-group-item" data-dismiss="modal" v-repeat="list | orderBy 'hot' true" v-on="click:loadOption(id)">
-              <span v-text="title || '沒名字'"></span>
-              <span class="badge timeago" title="{{ts}}"></span>
-              <span class="badge" title="人氣" v-text="hot">14</span>
+            <a href="#{{ id }}" class="list-group-item" data-dismiss="modal" v-repeat="list | orderBy listType true" v-on="click:loadOption(id)">
+              <span class="" v-text="title || '沒名字'"></span>  
+              <p class="text-right">            
+                <small class="" title="人氣" v-text="hot + '人氣:'" v-show="hot > 0"></small>
+                <small class="timeago" title="{{ts}}"></small>
+              </p>
             </a>
           </div>          
         </div>        
@@ -186,13 +229,13 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="save-modalLabel">儲存轉盤</h4>
+          <h4 class="modal-title" id="save-modalLabel" v-text="(saveType == 'new') ? '另存轉盤' : '儲存轉盤' ">儲存轉盤</h4>
         </div>
         <div class="modal-body">  
           <form>
             <div class="form-group">
             <label>給他個標題吧！</label>
-              <input class="form-control" placeholder="標題" v-model="title">
+              <input class="form-control" placeholder="標題" v-model="set.title">
             </div>            
           </form>      
         </div>  
@@ -203,6 +246,7 @@
       </div>
     </div>
   </div>  
+  <div id="fb-root"></div>
 
   <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
   <script type="text/javascript" src="asset/vue.min.js"></script>
@@ -213,5 +257,14 @@
   <script type="text/javascript" src="asset/bootstrap.min.js"></script>
   <script type="text/javascript" src="https://www.google.com/jsapi"></script>
   <script type="text/javascript" src="asset/my.js"></script>
+
+
+  <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v2.4&appId=482845198525908";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));</script>
 </body>
 </html>
