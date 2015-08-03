@@ -74,7 +74,7 @@ var vue = new Vue({
     var c = $.cookie(this.cookieKey);
     if(c){
       this.c = c;
-    }
+    }    
   },
 
   methods: {
@@ -96,6 +96,7 @@ var vue = new Vue({
       };
       var chart = new google.visualization.PieChart(document.getElementById('piechart'));
       chart.draw(data, options);
+      $.unblockUI();
       $.cookie(this.cookieKey, this.c, { path: '/' , expires: 365});
     },
 
@@ -306,3 +307,7 @@ google.load("visualization", "1", {packages:["corechart"]});
 google.setOnLoadCallback(vue.draw);
 
 $( window ).resize(vue.draw);
+
+$(function(){
+  $.blockUI({ message: '<h1><i class="fa fa-spinner fa-pulse"></i> 載入中...</h1>' }); 
+});
