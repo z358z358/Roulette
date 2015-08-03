@@ -240,7 +240,7 @@ var vue = new Vue({
       var tmp = fire.child('list/' + id);
       tmp.once("value", this.setOptions); 
       $("#list-modal").modal('hide');
-      $(".navbar-toggle").click();  
+      $(".navbar-toggle:not(.collapsed)").click();  
     },
 
     setOptions: function(snapshot){
@@ -287,7 +287,7 @@ var vue = new Vue({
       this.user.uid = authData.uid;
       this.user.provider = authData.provider;    
       this.user.displayName = authData[this.user.provider].displayName;
-      $(".navbar-toggle").click();
+      $(".navbar-toggle:not(.collapsed)").click();
     },
 
     deleteLog: function(type){
@@ -309,5 +309,5 @@ google.setOnLoadCallback(vue.draw);
 $( window ).resize(vue.draw);
 
 $(function(){
-  $.blockUI({ message: '<h1><i class="fa fa-spinner fa-pulse"></i> 載入中...</h1>' }); 
+  $.blockUI({ message: '<i class="fa fa-spinner fa-pulse"></i> 載入中' }); 
 });
