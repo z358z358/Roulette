@@ -66,8 +66,8 @@
           <span class="icon-bar"></span>
         </button>
         <a class="navbar-brand" href=".">
-          <span class="hidden-xs">麻將紀錄</span>
-          <span class="visible-xs-inline">麻將紀錄</span>
+        <span class="hidden-xs">自訂轉盤</span>
+          <span class="visible-xs-inline">自訂轉盤</span>
         </a>
       </div>
       <!-- Collect the nav links, forms, and other content for toggling -->
@@ -118,7 +118,7 @@
     <div class="ly-plate">
       <div class="lottery-star" v-on="click:go"><i id="lotteryBtn" class="fa fa-arrow-up"></i></div>
       <div class="piechart" id="piechart"></div>   
-      <div class="fb-like" data-href="http://z358z358.github.io/Roulette/#{{rid}}" data-send="false" data-layout="box_count" data-width="50" data-show-faces="true" data-colorscheme="dark"></div>      
+      <div class="fb-like" data-href="http://z358z358.github.io/Roulette/#{{rid}}" data-send="false" data-layout="box_count" data-width="50" data-show-faces="true" data-colorscheme="dark" v-if="rid"></div>      
     </div> 
 
     <div class="alert alert-success alert-dismissible" role="alert" v-if="turnFlag > 0">
@@ -336,7 +336,7 @@
     var disqus_config = function () { 
       this.language = "zh_TW";
     };        
-    
+
     /* * * DON'T EDIT BELOW THIS LINE * * */
     (function() {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
