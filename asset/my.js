@@ -1,19 +1,25 @@
 var fire = new Firebase('https://z358z358-roulette.firebaseio.com/');
+$.cookie.json = true;
 
 var vue = new Vue({
   el: '#main',
   data: {
     set:{
       options:[
-        {name:'German', weight:1},
-        {name:'French', weight:1},
-        {name:'Italian', weight:1},
-        {name:'Romansh', weight:1},
+        {name:'1', weight:1},
+        {name:'2', weight:1},
+        {name:'3', weight:1},
+        {name:'4', weight:1},
       ],
-      title:'',
+      title:'預設轉盤',
       ts:0,
       hot:0,
       uid:'',
+    },
+
+    c:{
+      setTurn: 1,
+      duration: 3000,
     },
 
     user:{
@@ -22,8 +28,9 @@ var vue = new Vue({
       displayName:'',
     },
     
-    rid: '',
-    continueFlag: false,
+    cookieKey: 'z358z358-roulette',
+    rid: '',    
+    turnFlag: -1,
     goFlag: false,
     saveType:'',
     angle: 0,
@@ -63,6 +70,11 @@ var vue = new Vue({
     if(authData){
       this.loginBack(authData);
     }
+
+    var c = $.cookie(this.cookieKey);
+    if(c){
+      this.c = c;
+    }
   },
 
   methods: {
@@ -79,10 +91,12 @@ var vue = new Vue({
         pieSliceText: 'label',
         title: this.set.title,
         pieHole: 0.3,
+        legend:{alignment:'center','position':'bottom'}
         //slices: offset,
       };
       var chart = new google.visualization.PieChart(document.getElementById('piechart'));
       chart.draw(data, options);
+      $.cookie(this.cookieKey, this.c, { path: '/' , expires: 365});
     },
 
     addOption: function(){
@@ -95,12 +109,17 @@ var vue = new Vue({
 
     go: function(type){
       var options = this.set.options;
+      var oldAngle = this.angle;
       var addAngle = Math.floor((Math.random() * 360));
       var sum = 0;
       var tmp = 0;
 
       if(this.goFlag == true){
         return;
+      }
+
+      if(type == 'c'){
+        this.turnFlag = this.c.setTurn;        
       }
 
       options.map(function(option){
@@ -121,9 +140,9 @@ var vue = new Vue({
       this.goFlag = true;
       this.angle = addAngle;
       $("#lotteryBtn").rotate({
-        angle:this.angle, 
-        duration: 1000,
-        animateTo: addAngle + 1440,
+        angle:oldAngle, 
+        duration: this.c.duration,
+        animateTo: addAngle + 1800,
         callback:this.goDone,
       }); 
     },
@@ -140,10 +159,17 @@ var vue = new Vue({
       log.target = this.target;
       log.content = this.set.options[this.target].name;
       this.logs.unshift(log);
+      if(this.logs.length > 500){
+        this.logs.pop();
+      }
 
       this.set.options[log.target].$set('times',times);
-      if(this.continueFlag) this.go();
-
+      if(this.turnFlag >= 1) {
+        this.turnFlag--;
+        if(this.turnFlag >= 1){
+          this.go();
+        }        
+      }
     },
 
     saveOnFireBase: function(){
@@ -212,7 +238,8 @@ var vue = new Vue({
     loadOption: function(id){
       var tmp = fire.child('list/' + id);
       tmp.once("value", this.setOptions); 
-      $("#list-modal").modal('hide');     
+      $("#list-modal").modal('hide');
+      $(".navbar-toggle").click();  
     },
 
     setOptions: function(snapshot){
@@ -226,7 +253,8 @@ var vue = new Vue({
       this.draw();
       this.rid = snapshot.key();
       FB.XFBML.parse(); 
-      this.incHot(snapshot.key());      
+      this.incHot(snapshot.key());  
+      
     },
 
     // 人氣+1
@@ -258,6 +286,17 @@ var vue = new Vue({
       this.user.uid = authData.uid;
       this.user.provider = authData.provider;    
       this.user.displayName = authData[this.user.provider].displayName;
+      $(".navbar-toggle").click();
+    },
+
+    deleteLog: function(type){
+      if(type == 'all'){
+        this.$set('logs', []);
+        this.set.options.map(function(option){
+          option.$set('times', 0);
+        });
+        this.turn = 0;
+      }
     }
   }
 });
@@ -265,3 +304,5 @@ var vue = new Vue({
 
 google.load("visualization", "1", {packages:["corechart"]});
 google.setOnLoadCallback(vue.draw);
+
+$( window ).resize(vue.draw);

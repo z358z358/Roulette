@@ -11,33 +11,52 @@
     .lottery-star{
       position: absolute;
       top: 50%;
-      left: 37.2%;
-      margin-top: -2.5em;
-      margin-left: -2.5em;
+      left: 50%;
+      margin-top: -0.5em;
+      margin-left: -0.5em;
       z-index: 5;
       cursor: pointer;
       background-color: white;
-      -webkit-border-radius: 25px;
-      -moz-border-radius: 25px;
-      border-radius: 25px;
+      -webkit-border-radius: 1em;
+      -moz-border-radius: 1em;
+      border-radius: 1em;
+      font-size: 6em;
     }
 
     .piechart{
-      height:500px;
+      height:50em;
+    }
+
+    .ly-plate .fb-like{
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+    .fb-comments, .fb-comments * {
+      width:100% !important;
+    }
+
+    @media (max-width: 767px){
+      .lottery-star{
+        font-size: 3em;
+        margin-top: -0.5em;
+        margin-left: -0.5em;         
+      }
+      .piechart{
+        height:20em;
+      }
     }
 
     .ly-plate{
       position: relative;
     }
-    body {
-      padding-top: 50px;
-    }
+    body { padding-top: 55px; }
   </style>
 
 
 </head>
 <body id="main">
-  <nav class="navbar navbar-inverse navbar-fixed-top">
+  <nav class="navbar navbar-default  navbar-fixed-top">
     <div class="container">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -59,7 +78,9 @@
           <li><a href="#" data-toggle="modal" data-target="#set-modal">修改轉盤</a></li>
           <li><a href="#" data-toggle="modal" data-target="#save-modal" v-on="click:saveType = 'save'">儲存轉盤</a></li>
           <li><a href="#" data-toggle="modal" data-target="#save-modal" v-show="user.uid && set.uid == user.uid" v-on="click:saveType = 'new'">另存轉盤</a></li>
-          <li><a href="#" data-toggle="modal" data-target="#disqus-modal">留言</a></li>
+          <li><a href="#" data-toggle="modal" data-target="#disqus-modal">留言</a></li>          
+        </ul>
+        <ul id="nav-share" class="nav navbar-nav navbar-right">
           <li class="dropdown" v-show="user.uid == ''">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">登入 <span class="caret"></span></a>
             <ul class="dropdown-menu">
@@ -68,50 +89,50 @@
             </ul>
           </li>
           <li class="dropdown" v-show="user.uid">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">Hi {{user.displayName}}<span class="caret"></span></a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true" v-text="'Hi ' + user.displayName"><span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li><a href="#" data-toggle="modal" data-target="#list-modal" v-on="click:getList('my')">我的轉盤</a></li>
               <li><a href="#" data-toggle="modal" v-on="click:login('logout')">登出</a></li>
             </ul>
           </li>
-        </ul>
-        <ul id="nav-share" class="nav navbar-nav navbar-right">
-          <li><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://z358z358.github.io/MJ/" title="分享到 Facebook"><i class="fa fa-lg fa-facebook"></i></a></li>
-          <li><a target="_blank" href="https://twitter.com/intent/tweet?text=記錄每回合的結果，及時查看目前的比數。新增紀錄照步驟點選，即可設定該局的結果。&url=http://z358z358.github.io/MJ/" title="分享到 Twitter"><i class="fa fa-lg fa-twitter"></i></a></li>
-          <li><a target="_blank" href="https://plus.google.com/share?url=http://z358z358.github.io/MJ/" title="分享到 Google+"><i class="fa fa-lg fa-google-plus"></i></a></li>
-          <li><a target="_blank" href="https://github.com/z358z358/MJ" title="原始碼"><i class="fa fa-lg fa-github"></i></a></li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">分享<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://z358z358.github.io/MJ/" title="分享到 Facebook"><i class="fa fa-lg fa-facebook"></i></a></li>
+              <li><a target="_blank" href="https://twitter.com/intent/tweet?text=記錄每回合的結果，及時查看目前的比數。新增紀錄照步驟點選，即可設定該局的結果。&url=http://z358z358.github.io/MJ/" title="分享到 Twitter"><i class="fa fa-lg fa-twitter"></i></a></li>
+              <li><a target="_blank" href="https://plus.google.com/share?url=http://z358z358.github.io/MJ/" title="分享到 Google+"><i class="fa fa-lg fa-google-plus"></i></a></li>
+              <li><a target="_blank" href="https://github.com/z358z358/MJ" title="原始碼"><i class="fa fa-lg fa-github"></i></a></li>
+            </ul>
+          </li>
         </ul>
       </div>
     </div>
   </nav>
 
   <div class="container"> 
-    <div class="alert alert-danger alert-dismissible" role="alert" v-if="errorMsg">
+    <div class="alert alert-danger alert-dismissible" role="alert" style="display: none" v-if="errorMsg">
       <button type="button" class="close" data-dismiss="alert" aria-label="Close" v-on="click:errorMsg=''"><span aria-hidden="true">&times;</span></button>
       <strong>Warning!</strong> <span v-text="errorMsg"></span>
     </div> 
 
     <div class="ly-plate">
-      <div class="lottery-star" v-on="click:go"><i id="lotteryBtn" class="fa fa-arrow-up fa-5x"></i></div>
-      <div class="piechart" id="piechart"></div>         
+      <div class="lottery-star" v-on="click:go"><i id="lotteryBtn" class="fa fa-arrow-up"></i></div>
+      <div class="piechart" id="piechart"></div>   
+      <div class="fb-like" data-href="http://z358z358.github.io/Roulette/#{{rid}}" data-send="false" data-layout="box_count" data-width="50" data-show-faces="true" data-colorscheme="dark"></div>      
     </div> 
 
-    <div>
-      <div v-if="rid">
-        <div class="fb-like pull-right" data-href="http://z358z358.github.io/Roulette/#{{rid}}" data-send="false" data-layout="box_count" data-width="50" data-show-faces="true" data-colorscheme="dark"></div>
-        
-        <div class="fb-comments" data-href="http://z358z358.github.io/Roulette/#{{rid}}" data-numposts="5"></div>
-      </div>
-      <label>
-        <input type="checkbox" v-model="continueFlag">連續旋轉
-      </label>   
+    <div class="alert alert-success alert-dismissible" role="alert" v-if="turnFlag > 0">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close" v-on="click:turnFlag=-1"><span aria-hidden="true">&times;</span></button>
+      <strong>連續旋轉模式中</strong> 還有 <strong v-text="turnFlag"></strong> 次
     </div>
+    
     <div class="clearfix"></div>
 
-    <div v-show="logs.length">
+    <div v-if="logs.length">
       <ul id="ptt_nav" class="nav nav-tabs" role="tablist">
         <li class="active"><a href="#logs" role="tab" data-toggle="tab">紀錄</a></li>
         <li class=""><a href="#chart" role="tab" data-toggle="tab">分析</a></li>
+        <li class=""><a href="#log-action" role="tab" data-toggle="tab">功能</a></li>
         <!--<li><a href="#chart_table" role="tab" data-toggle="tab">分析table</a></li>-->
       </ul>
 
@@ -121,16 +142,16 @@
             <table class="table table-hover table-striped">
               <thead>
                 <tr>
-                  <th>次數／時間</th>
-                  <th>內容</th>
-                  <th>分享</th>
+                  <th>次數</th>
+                  <th>選項</th> 
+                  <th class="hidden-xs">時間</th>
                 </tr>
               </thead>
               <tbody v-repeat="logs">
-                <tr>
-                  <td ><span v-text="logs.length - $index"></span>／<span class="timeago" title="{{ts}}"></span></td>
-                  <td v-text="content"></td>    
-                  <td>分享</td>                            
+                <tr>                  
+                  <td ><span v-text="logs.length - $index"></span></td>  
+                  <td v-text="content"></td>      
+                  <td class="hidden-xs"><span class="timeago" title="{{ts}}"></span></td>                   
                 </tr>
               </tbody>
             </table>
@@ -162,8 +183,20 @@
             </table>
           </div>    
         </div>
+        <div class="tab-pane" id="log-action">
+          <hr />
+          <button class="btn btn-danger" v-on="click: deleteLog('all')">刪除所有紀錄</button>
+        </div>
       </div>
     </div> 
+
+    <div>
+      <div v-if="rid">
+        <hr />
+        <div class="fb-comments" data-href="http://z358z358.github.io/Roulette/#{{rid}}" data-numposts="5"></div>
+      </div>
+    </div>
+
   </div>
   <pre>{{$data | json}}</pre>
 
@@ -172,10 +205,22 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" v-on="click:draw"><span aria-hidden="true">&times;</span></button>
           <h4 class="modal-title" id="set-modalLabel">設定轉盤內容</h4>
         </div>
-        <div class="modal-body">  
+        <div class="modal-body"> 
+          <div class="form-group">
+            <label for="exampleInputEmail1">旋轉秒數</label>
+            <input class="bar" type="range"  min="1000" max="10000" v-model="c.duration" number/>{{c.duration / 1000}}秒
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail1">旋轉次數</label>
+            <input class="bar" type="range"  min="1" max="100" v-model="c.setTurn" number/>{{c.setTurn}}
+          </div>
+          
+          <button type="button" class="btn btn-success btn-block" data-dismiss="modal" v-show="c.setTurn > 1" v-on="click:go('c')">連續旋轉Go！</button>
+          <hr/>
+          <h4 class="modal-title" id="set-modalLabel">轉盤選項</h4>
           <table class="table table-striped">
             <thead>
               <tr>
@@ -234,7 +279,7 @@
         <div class="modal-body">  
           <form>
             <div class="form-group">
-            <label>給他個標題吧！</label>
+              <label>給他個標題吧！</label>
               <input class="form-control" placeholder="標題" v-model="set.title">
             </div>            
           </form>      
@@ -246,11 +291,29 @@
       </div>
     </div>
   </div>  
+
+  <div class="modal fade" id="disqus-modal" tabindex="-1" role="dialog" aria-labelledby="disqus-modalLabal" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="disqus-modalLabel">留言</h4>
+        </div>
+        <div class="modal-body">
+          <div class="alert alert-info" role="alert">歡迎提供意見!</div>
+          <div id="disqus_thread"></div>
+          <noscript>請開啟 javascript 來檢視 <a href="https://disqus.com/?ref_noscript">Disqus 提供的留言</a></noscript>
+        </div>
+      </div>
+    </div>
+  </div>
   <div id="fb-root"></div>
+  <!--<script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.5.0.min.js"></script>-->
 
   <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
   <script type="text/javascript" src="asset/vue.min.js"></script>
   <script type="text/javascript" src="asset/jquery-1.11.3.min.js"></script>
+  <script type="text/javascript" src="asset/jquery.cookie.js"></script>
   <script type="text/javascript" src="asset/jquery.easing.1.3.js"></script>
   <script type="text/javascript" src="asset/jQueryRotate.js"></script>
   <script type="text/javascript" src="asset/jquery.timeago.js"></script>
@@ -266,5 +329,20 @@
     js.src = "//connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v2.4&appId=482845198525908";
     fjs.parentNode.insertBefore(js, fjs);
   }(document, 'script', 'facebook-jssdk'));</script>
+
+  <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = 'roulette-tw';
+    var disqus_config = function () { 
+      this.language = "zh_TW";
+    };        
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
 </body>
 </html>
