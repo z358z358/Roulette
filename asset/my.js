@@ -74,7 +74,7 @@ var vue = new Vue({
     var c = $.cookie(this.cookieKey);
     if(c){
       this.c = c;
-    }    
+    }
   },
 
   methods: {
@@ -95,8 +95,7 @@ var vue = new Vue({
         //slices: offset,
       };
       var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-      chart.draw(data, options);
-      $.unblockUI();
+      chart.draw(data, options);      
       $.cookie(this.cookieKey, this.c, { path: '/' , expires: 365});
     },
 
@@ -244,6 +243,7 @@ var vue = new Vue({
     },
 
     setOptions: function(snapshot){
+      var oldRid = this.rid;
       if(snapshot.exists() === false) {
         this.rid = '';
         return;
@@ -252,8 +252,12 @@ var vue = new Vue({
       var tmp = snapshot.val();
       this.set = tmp;
       this.draw();
+      
       this.rid = snapshot.key();
-      FB.XFBML.parse(); 
+      if(this.rid != oldRid){
+        FB.XFBML.parse(); 
+      }
+      
       this.incHot(snapshot.key());  
       
     },

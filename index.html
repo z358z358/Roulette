@@ -118,7 +118,7 @@
     <div class="ly-plate">
       <div class="lottery-star" v-on="click:go"><i id="lotteryBtn" class="fa fa-arrow-up"></i></div>
       <div class="piechart" id="piechart"></div>   
-      <div class="fb-like" data-href="http://z358z358.github.io/Roulette/#{{rid}}" data-send="false" data-layout="box_count" data-width="50" data-show-faces="true" data-colorscheme="dark" v-if="rid"></div>      
+      <div class="fb-like" data-href="http://z358z358.github.io/Roulette/#{{rid}}" data-send="false" data-layout="box_count" data-width="50" data-show-faces="true" data-colorscheme="dark"></div>      
     </div> 
 
     <div class="alert alert-success alert-dismissible" role="alert" v-if="turnFlag > 0">
@@ -191,7 +191,7 @@
     </div> 
 
     <div>
-      <div v-if="rid">
+      <div>
         <hr />
         <div class="fb-comments" data-href="http://z358z358.github.io/Roulette/#{{rid}}" data-numposts="5"></div>
       </div>
@@ -308,8 +308,6 @@
   </div>
   <div id="fb-root"></div>
   <script type="text/javascript" src="asset/jquery-1.11.3.min.js"></script> 
-  <script type="text/javascript" src="asset/jquery.blockUI.js"></script>
-  <script>$.blockUI({ message: '<h3><i class="fa fa-spinner fa-pulse"></i> 載入中</h3>' }); </script>
   <!--<script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.5.0.min.js"></script>-->
 
   <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
