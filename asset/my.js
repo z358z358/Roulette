@@ -307,7 +307,3 @@ google.load("visualization", "1", {packages:["corechart"]});
 google.setOnLoadCallback(vue.draw);
 
 $( window ).resize(vue.draw);
-
-$(function(){
-  $.blockUI({ message: '<i class="fa fa-spinner fa-pulse"></i> 載入中' }); 
-});
