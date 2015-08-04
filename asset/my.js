@@ -32,6 +32,7 @@ var vue = new Vue({
     Msg:{type:'',msg:''},
     
     cookieKey: 'z358z358-roulette',
+    hotKey: 'hot-cd',
     rid: '',    
     turnFlag: -1,
     goFlag: false,
@@ -274,8 +275,10 @@ var vue = new Vue({
         FB.XFBML.parse(); 
       }
       
-      this.incHot(snapshot.key());  
-      
+      if( !$.cookie(this.hotKey) ){
+        $.cookie(this.hotKey, '1', { path: '/' , expires: 1});
+        this.incHot(snapshot.key());
+      }
     },
 
     // 人氣+1
