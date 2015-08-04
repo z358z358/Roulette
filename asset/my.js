@@ -20,6 +20,7 @@ var vue = new Vue({
     c:{
       setTurn: 1,
       duration: 3000,
+      volume: true,
     },
 
     user:{
@@ -27,6 +28,8 @@ var vue = new Vue({
       uid:'',
       displayName:'',
     },
+
+    Msg:{type:'',msg:''},
     
     cookieKey: 'z358z358-roulette',
     rid: '',    
@@ -75,6 +78,9 @@ var vue = new Vue({
     if(c){
       this.c = c;
     }
+    else{
+      $('#intro').tooltip('show');
+    }    
   },
 
   methods: {
@@ -139,6 +145,7 @@ var vue = new Vue({
 
       this.goFlag = true;
       this.angle = addAngle;
+      if(this.c.volume) document.getElementById("sound").play();
       $("#lotteryBtn").rotate({
         angle:oldAngle, 
         duration: this.c.duration,
@@ -170,6 +177,9 @@ var vue = new Vue({
           this.go();
         }        
       }
+      else{
+        if(this.c.volume) document.getElementById("end").play();
+      }
     },
 
     saveOnFireBase: function(){
@@ -186,7 +196,10 @@ var vue = new Vue({
       if(tmp.uid && tmp.uid === this.user.uid && this.rid){
         fire.child('list/' + this.rid).update(tmp, function(error){
           if (error) {
-            that.$set('errorMsg' , '儲存轉盤失敗!');
+            that.$set('Msg' , {type:'error',msg:'儲存轉盤 失敗!'});
+          }
+          else{
+            that.$set('Msg' , {type:'success',msg:'儲存轉盤 成功!'});
           }
         });
       }
@@ -196,8 +209,11 @@ var vue = new Vue({
         this.set.uid = tmp.uid = this.user.uid;
         tmp2 = fire.child('list').push(tmp);
         if(!tmp2){
-          this.$set('errorMsg' , '新增轉盤失敗!');
+          that.$set('Msg' , {type:'error',msg:'新增轉盤 失敗!'});
           return;
+        }
+        else{
+          that.$set('Msg' , {type:'success',msg:'新增轉盤 成功!'});
         }
         this.rid = window.location.hash = tmp2.key();        
       }
@@ -302,6 +318,15 @@ var vue = new Vue({
         });
         this.turn = 0;
       }
+    },
+
+    setVolume: function(value){
+      this.c.$set('volume' , value);
+      $.cookie(this.cookieKey, this.c, { path: '/' , expires: 365});
+    },
+
+    showIntro: function(){
+      introJs().setOptions({prevLabel: '&larr; 上一步', nextLabel:'下一步 &rarr;', skipLabel: '跳過' ,doneLabel:'結束'}).start();
     }
   }
 });
