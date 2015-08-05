@@ -268,6 +268,7 @@ var vue = new Vue({
 
       var tmp = snapshot.val();
       this.set = tmp;
+      $("title").text(tmp.title + ' - 自訂轉盤');
       this.draw();
       
       this.rid = snapshot.key();
