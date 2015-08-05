@@ -224,6 +224,12 @@
           
           <button type="button" class="btn btn-success btn-block" data-dismiss="modal" v-show="c.setTurn > 1" v-on="click:go('c')">連續旋轉Go！</button>
           <hr/>
+
+          <div class="form-group">
+            <label for="exampleInputEmail1">轉盤標題</label>
+            <input class="form-control" v-model="set.title"/>
+          </div>
+
           <h4 class="modal-title" id="set-modalLabel">轉盤選項</h4>
           <table class="table table-striped">
             <thead>
@@ -255,9 +261,10 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="list-modalLabel" v-text="listTitle">熱門轉盤</h4>
+          <h4 class="modal-title" id="list-modalLabel" v-text="listTitle"></h4>
         </div>
         <div class="modal-body">  
+          <div class="alert alert-info" role="alert" v-show="list.length > 49">僅顯示前50筆</div>
           <div class="list-group">
             <a href="#{{ id }}" class="list-group-item" data-dismiss="modal" v-repeat="list | orderBy listType true" v-on="click:loadOption(id)">
               <span class="" v-text="title || '沒名字'"></span>  
