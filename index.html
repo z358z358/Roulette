@@ -16,65 +16,10 @@
   <meta property="og:site_name" content="自訂轉盤" />
   <meta property="og:description" content="自訂轉盤、機率、選項！" />
   <meta property="og:image" content="http://z358z358.github.io/Roulette/asset/200x200.jpg" />
-  <!-- Bootstrap core CSS -->
-  <link href="asset/bootstrap.min.css" rel="stylesheet">
-  <link href="asset/introjs.min.css" rel="stylesheet">
+
+  <link href="dist/styles/main.css" rel="stylesheet">
   <link media="all" type="text/css" rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">
 
-  <style type="text/css">
-    .lottery-star{
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      margin-top: -0.55em;
-      margin-left: -0.45em;
-      z-index: 5;
-      cursor: pointer;
-      font-size: 6em;
-    }
-
-    .piechart{
-      height:50em;
-    }
-
-    .ly-plate .fb-like{
-      position: absolute;
-      top: 0;
-      right: 0;
-    }
-
-    .ly-plate .volume{
-      position: absolute;
-      left: 90%;
-      bottom: 20%;
-    }
-
-    .fa-question-circle{
-      font-size: 1.5em;
-    }
-
-
-    .fb-comments, .fb-comments * {
-      width:100% !important;
-    }
-
-    @media (max-width: 767px){
-      .lottery-star{
-        font-size: 3em;        
-      }
-      .piechart{
-        height:20em;
-      }
-    }
-
-    .ly-plate{
-      position: relative;
-    }
-    .tooltip-inner{
-      white-space: nowrap;
-    }
-    body { padding-top: 55px; }
-  </style>
   <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
 </head>
@@ -104,8 +49,8 @@
           <li><a href="#" data-toggle="modal" data-target="#save-modal" v-show="user.uid && set.uid == user.uid" v-on="click:saveType = 'new'">另存轉盤</a></li>
           <li><a href="#" data-toggle="modal" data-target="#disqus-modal">留言</a></li>          
         </ul>
-        <ul id="nav-share" class="nav navbar-nav navbar-right">
-          <li><a id="intro" href="#" data-toggle="tooltip" data-placement="bottom" title="介紹，點我點我!" data-step="8" data-intro='感謝耐心看完介紹，點此可以再看一次喔!' v-on="click:showIntro"><i class="fa fa-question-circle"></i></a></li>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a class="first-intro" href="#" data-toggle="tooltip" data-placement="bottom" title="介紹，點我點我!" data-step="8" data-intro='感謝耐心看完介紹，點此可以再看一次喔!' v-on="click:showIntro"><i class="fa fa-question-circle"></i></a></li>
           <li class="dropdown" v-show="user.uid == ''" data-step="7" data-intro='登入使用更方便，支援修改轉盤，我的轉盤！'>
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">登入 <span class="caret"></span></a>
             <ul class="dropdown-menu">
@@ -122,8 +67,8 @@
           </li>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">分享<span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li class="visible-xs"><a href="http://line.naver.jp/R/msg/text/?{{ encodeURIComponent(s.title) +'%0D%0A' + encodeURIComponent(s.url) }}"><img src="asset/linebutton_20x20_zh-hant.png" alt="用LINE傳送" /></a></li>
+            <ul id="nav-share" class="dropdown-menu">
+              <li class="visible-xs-inline-block"><a href="http://line.naver.jp/R/msg/text/?{{ encodeURIComponent(s.title) +'%0D%0A' + encodeURIComponent(s.url) }}" title="分享到 LINE"><img src="asset/linebutton_20x20_zh-hant.png" alt="用LINE傳送" /></a></li>
               <li><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ encodeURIComponent(s.url) }}" title="分享到 Facebook"><i class="fa fa-lg fa-facebook"></i></a></li>
               <li><a target="_blank" href="https://twitter.com/intent/tweet?text={{s.text}}&url={{ encodeURIComponent(s.url) }}" title="分享到 Twitter"><i class="fa fa-lg fa-twitter"></i></a></li>
               <li><a target="_blank" href="https://plus.google.com/share?url={{ encodeURIComponent(s.url) }}" title="分享到 Google+"><i class="fa fa-lg fa-google-plus"></i></a></li>
@@ -142,7 +87,7 @@
     </div> 
 
     <div class="ly-plate">
-      <div class="lottery-star" data-step="3" data-intro='點選此箭頭即可開始旋轉！' v-on="click:go"><i id="lotteryBtn" class="fa fa-arrow-up"></i></div>
+      <div class="lottery-star first-intro" data-toggle="tooltip" data-placement="bottom" title="點選此箭頭即可開始旋轉！" data-step="3" data-intro='點選此箭頭即可開始旋轉！' v-on="click:go"><i id="lotteryBtn" class="fa fa-arrow-up"></i></div>
       <div class="piechart" id="piechart"data-step="2" data-intro='這是目前的轉盤，每個選項佔的面積就是機率。'></div>   
       <div class="fb-like" data-href="http://z358z358.github.io/Roulette/#{{rid}}" data-send="false" data-layout="box_count" data-width="50" data-show-faces="true" data-colorscheme="dark"></div>
       <div class="volume">
@@ -366,21 +311,12 @@
       </div>
     </div>
   </div>
-  <div id="fb-root"></div>
-  <script type="text/javascript" src="asset/jquery-1.11.3.min.js"></script> 
+  <div id="fb-root"></div>  
   <!--<script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.5.0.min.js"></script>-->
-
-  <script type="text/javascript" src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
-  <script type="text/javascript" src="asset/vue.min.js"></script>
-  <script type="text/javascript" src="asset/jquery.cookie.js"></script>
-  <script type="text/javascript" src="asset/jquery.timeago.js"></script>
   <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-  <script type="text/javascript" src="asset/intro.min.js"></script>  
-  <script type="text/javascript" src="asset/bootstrap.min.js"></script>
-  <script type="text/javascript" src="asset/my.js"></script>
-  <script type="text/javascript" src="asset/jquery.easing.1.3.js" async ></script>
-  <script type="text/javascript" src="asset/jQueryRotate.js" async ></script>
+  <script type="text/javascript" src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
 
+  <script type="text/javascript" src="dist/scripts/main.js"></script>
 
   <script>(function(d, s, id) {
     var js, fjs = d.getElementsByTagName(s)[0];

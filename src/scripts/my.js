@@ -87,7 +87,7 @@ var vue = new Vue({
       this.c = c;
     }
     else{
-      $('#intro').tooltip('show');
+      $('.first-intro').tooltip('show');
     }    
   },
 

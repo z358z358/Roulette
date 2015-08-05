@@ -1,0 +1,55 @@
+.lottery-star{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -0.55em;
+  margin-left: -0.45em;
+  z-index: 5;
+  cursor: pointer;
+  font-size: 6em;
+}
+
+.piechart{
+  height:50em;
+}
+
+.ly-plate .fb-like{
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.ly-plate .volume{
+  position: absolute;
+  left: 90%;
+  bottom: 20%;
+}
+
+.fa-question-circle{
+  font-size: 1.5em;
+}
+
+
+.fb-comments, .fb-comments * {
+  width:100% !important;
+}
+
+@media (max-width: 767px){
+  .lottery-star{
+    font-size: 3em;        
+  }
+  .piechart{
+    height:20em;
+  }
+  #nav-share li {
+    display: inline-block;
+  }
+}
+
+.ly-plate{
+  position: relative;
+}
+.tooltip-inner{
+  white-space: nowrap;
+}
+body { padding-top: 55px; }
