@@ -27,6 +27,7 @@ var vue = new Vue({
       _url:'http://z358z358.github.io/Roulette/',
       url:'http://z358z358.github.io/Roulette/',
       text:$("meta[name='description']").attr('content'),
+      title:$("title").text()
     },
 
     user:{
@@ -273,8 +274,10 @@ var vue = new Vue({
       }
 
       var tmp = snapshot.val();
+      var title = tmp.title + ' - 自訂轉盤';
       this.set = tmp;
-      $("title").text(tmp.title + ' - 自訂轉盤');
+      $("title").text(title);
+      this.s.title = title;
 
       this.draw();
       
