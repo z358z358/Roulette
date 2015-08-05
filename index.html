@@ -6,6 +6,16 @@
   <meta name="google-site-verification" content="kYcmjzq-TI-hxjlWzRE1goDJJ8GUrBd03awieiYpjBw" />
   <link rel="icon" href="asset/favicon.ico">
   <title>自訂轉盤</title>
+  <meta name="description" content="自訂轉盤、機率、選項！">
+  <meta name="og:description" content="自訂轉盤、機率、選項！" />
+  <meta property="fb:app_id" content="1606433366287698" />
+  <meta property="og:locale" content="zh_TW" />    
+  <meta property="og:title" content="自訂轉盤"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="http://z358z358.github.io/Roulette/"/>
+  <meta property="og:site_name" content="自訂轉盤" />
+  <meta property="og:description" content="自訂轉盤、機率、選項！" />
+  <meta property="og:image" content="http://z358z358.github.io/Roulette/asset/200x200.jpg" />
   <!-- Bootstrap core CSS -->
   <link href="asset/bootstrap.min.css" rel="stylesheet">
   <link href="asset/introjs.min.css" rel="stylesheet">
@@ -20,10 +30,6 @@
       margin-left: -0.45em;
       z-index: 5;
       cursor: pointer;
-      background-color: white;
-      -webkit-border-radius: 1em;
-      -moz-border-radius: 1em;
-      border-radius: 1em;
       font-size: 6em;
     }
 
@@ -123,9 +129,9 @@
               new media_line_me.LineButton({"lang":"zh-hant","type":"a"});
               </script>
               </span></li>
-              <li><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://z358z358.github.io/MJ/" title="分享到 Facebook"><i class="fa fa-lg fa-facebook"></i></a></li>
-              <li><a target="_blank" href="https://twitter.com/intent/tweet?text=記錄每回合的結果，及時查看目前的比數。新增紀錄照步驟點選，即可設定該局的結果。&url=http://z358z358.github.io/MJ/" title="分享到 Twitter"><i class="fa fa-lg fa-twitter"></i></a></li>
-              <li><a target="_blank" href="https://plus.google.com/share?url=http://z358z358.github.io/MJ/" title="分享到 Google+"><i class="fa fa-lg fa-google-plus"></i></a></li>
+              <li><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ encodeURIComponent(s.url) }}" title="分享到 Facebook"><i class="fa fa-lg fa-facebook"></i></a></li>
+              <li><a target="_blank" href="https://twitter.com/intent/tweet?text={{s.text}}&url={{ encodeURIComponent(s.url) }}" title="分享到 Twitter"><i class="fa fa-lg fa-twitter"></i></a></li>
+              <li><a target="_blank" href="https://plus.google.com/share?url={{ encodeURIComponent(s.url) }}" title="分享到 Google+"><i class="fa fa-lg fa-google-plus"></i></a></li>
               <li><a target="_blank" href="https://github.com/z358z358/MJ" title="原始碼"><i class="fa fa-lg fa-github"></i></a></li>
             </ul>
           </li>

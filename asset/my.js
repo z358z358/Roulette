@@ -6,12 +6,12 @@ var vue = new Vue({
   data: {
     set:{
       options:[
-        {name:'1', weight:1},
-        {name:'2', weight:1},
-        {name:'3', weight:1},
-        {name:'4', weight:1},
+        {name:'我隨便', weight:1},
+        {name:'我都好', weight:1},
+        {name:'都可以', weight:1},
+        {name:'看你', weight:1},
       ],
-      title:'預設轉盤',
+      title:'今天想吃什麼?',
       ts:0,
       hot:0,
       uid:'',
@@ -21,6 +21,12 @@ var vue = new Vue({
       setTurn: 1,
       duration: 3000,
       volume: true,
+    },
+
+    s:{
+      _url:'http://z358z358.github.io/Roulette/',
+      url:'http://z358z358.github.io/Roulette/',
+      text:$("meta[name='description']").attr('content'),
     },
 
     user:{
@@ -269,9 +275,11 @@ var vue = new Vue({
       var tmp = snapshot.val();
       this.set = tmp;
       $("title").text(tmp.title + ' - 自訂轉盤');
+
       this.draw();
       
       this.rid = snapshot.key();
+      this.s.url = this.s._url + '#' + this.rid;
       if(this.rid != oldRid){
         FB.XFBML.parse(); 
       }
