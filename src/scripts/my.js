@@ -1,4 +1,4 @@
-var fire = new Firebase('https://z358z358-roulette.firebaseio.com/');
+var fire;
 $.cookie.json = true;
 
 var vue = new Vue({
@@ -70,18 +70,7 @@ var vue = new Vue({
     }
   },
 
-  ready: function(){
-    //this.draw();
-    if(window.location.hash){
-      this.rid = window.location.hash.substring(1); //Puts hash in variable, and removes the # character
-      this.loadOption(this.rid);
-    }
-
-    var authData = fire.getAuth();
-    if(authData){
-      this.loginBack(authData);
-    }
-
+  ready: function(){    
     var c = $.cookie(this.cookieKey);
     if(c){
       this.c = c;
@@ -366,13 +355,32 @@ var vue = new Vue({
       })();
 
       this.$set('dsq',true);
+    },
+
+    fireOn: function(){
+      if(window.location.hash){
+        this.rid = window.location.hash.substring(1); //Puts hash in variable, and removes the # character
+        this.loadOption(this.rid);
+      }
+      else{
+        this.draw();
+      }
+
+      var authData = fire.getAuth();
+      if(authData){
+        this.loginBack(authData);
+      }
     }
     
   }
 });
 
-
-google.load("visualization", "1", {packages:["corechart"]});
-google.setOnLoadCallback(vue.draw);
+var script = document.createElement('script');
+script.onload = function() {
+  fire = new Firebase('https://z358z358-roulette.firebaseio.com/');
+  vue.fireOn();
+};
+script.src = "https://cdn.firebase.com/js/client/2.2.1/firebase.js";
+document.getElementsByTagName('head')[0].appendChild(script);
 
 $( window ).resize(vue.draw);
