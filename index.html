@@ -47,10 +47,11 @@
           <li><a href="#" data-toggle="modal" data-target="#set-modal" data-step="4" data-intro='點此可以自行設定轉盤內容、選項、機率！'>修改轉盤</a></li>
           <li><a href="#" data-toggle="modal" data-target="#save-modal" data-step="5" data-intro='轉盤設定完成後，點此即可儲存內容！' v-on="click:saveType = 'save'">儲存轉盤</a></li>
           <li><a href="#" data-toggle="modal" data-target="#save-modal" v-show="user.uid && set.uid == user.uid" v-on="click:saveType = 'new'">另存轉盤</a></li>
-          <li><a href="#" data-toggle="modal" data-target="#disqus-modal">留言</a></li>          
+          
         </ul>
         <ul class="nav navbar-nav navbar-right">
-          <li><a class="first-intro" href="#" data-toggle="tooltip" data-placement="bottom" title="介紹，點我點我!" data-step="8" data-intro='感謝耐心看完介紹，點此可以再看一次喔!' v-on="click:showIntro"><i class="fa fa-question-circle"></i></a></li>
+          
+          <li><a href="#" data-toggle="modal" data-target="#disqus-modal">留言</a></li>  
           <li class="dropdown" v-show="user.uid == ''" data-step="7" data-intro='登入使用更方便，支援修改轉盤，我的轉盤！'>
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">登入 <span class="caret"></span></a>
             <ul class="dropdown-menu">
@@ -65,6 +66,7 @@
               <li><a href="#" data-toggle="modal" v-on="click:login('logout')">登出</a></li>
             </ul>
           </li>
+          <li><a class="first-intro" href="#" data-toggle="tooltip" data-placement="bottom" title="介紹，點我點我!" data-step="8" data-intro='感謝耐心看完介紹，點此可以再看一次喔!' v-on="click:showIntro"><i class="fa fa-question-circle"></i></a></li>
           <li class="share-li visible-xs-inline-block"><a href="http://line.naver.jp/R/msg/text/?{{ encodeURIComponent(s.title) +'%0D%0A' + encodeURIComponent(s.url) }}" title="分享到 LINE"><img src="asset/linebutton_20x20_zh-hant.png" alt="用LINE傳送" /></a></li>
           <li class="share-li"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ encodeURIComponent(s.url) }}" title="分享到 Facebook"><i class="fa fa-lg fa-facebook"></i></a></li>
           <li class="share-li"><a target="_blank" href="https://twitter.com/intent/tweet?text={{s.text}}&url={{ encodeURIComponent(s.url) }}" title="分享到 Twitter"><i class="fa fa-lg fa-twitter"></i></a></li>
@@ -216,7 +218,7 @@
                   <label for="exampleInputEmail1">旋轉次數</label>
                   <input class="bar" type="range"  min="1" max="100" v-model="c.setTurn" number/>{{c.setTurn}}
                 </div>
-                
+
                 <button type="button" class="btn btn-success btn-block" data-dismiss="modal" v-show="c.setTurn > 1" v-on="click:go('c')">連續旋轉Go！</button>
                 <hr/>
 
