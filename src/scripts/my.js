@@ -212,7 +212,7 @@ var vue = new Vue({
         });
       }
       else {
-        console.log('新增');
+        //console.log('新增');
         tmp.hot = 0;
         this.set.uid = tmp.uid = this.user.uid;
         tmp2 = fire.child('list').push(tmp);
@@ -247,7 +247,7 @@ var vue = new Vue({
       }
 
       tmp.limitToLast(50).once("value", function(snapshot) {
-        console.log(snapshot);
+        //console.log(snapshot);
         var tmp = [];
         snapshot.forEach(function(data) {
           var a = data.val();
@@ -342,6 +342,16 @@ var vue = new Vue({
 
     showIntro: function(){
       introJs().setOptions({prevLabel: '&larr; 上一步', nextLabel:'下一步 &rarr;', skipLabel: '跳過' ,doneLabel:'結束'}).start();
+    },
+
+    // firebase斷線  官方說1連接大概是1000瀏覽次數/月，所以50連接限制大概要每個月50K瀏覽才會到
+    // 應該不會破表 暫時不用
+    goOffline: function(){
+      Firebase.goOffline();
+    },
+
+    goOnline: function(){
+      Firebase.goOnline();
     }
   }
 });

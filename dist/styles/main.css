@@ -47,7 +47,7 @@
   .piechart{
     height:20em;
   }
-  #nav-share li {
+  .nav>li.share-li {
     display: inline-block;
   }
 }

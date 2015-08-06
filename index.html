@@ -65,17 +65,12 @@
               <li><a href="#" data-toggle="modal" v-on="click:login('logout')">登出</a></li>
             </ul>
           </li>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">分享<span class="caret"></span></a>
-            <ul id="nav-share" class="dropdown-menu">
-              <li class="visible-xs-inline-block"><a href="http://line.naver.jp/R/msg/text/?{{ encodeURIComponent(s.title) +'%0D%0A' + encodeURIComponent(s.url) }}" title="分享到 LINE"><img src="asset/linebutton_20x20_zh-hant.png" alt="用LINE傳送" /></a></li>
-              <li><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ encodeURIComponent(s.url) }}" title="分享到 Facebook"><i class="fa fa-lg fa-facebook"></i></a></li>
-              <li><a target="_blank" href="https://twitter.com/intent/tweet?text={{s.text}}&url={{ encodeURIComponent(s.url) }}" title="分享到 Twitter"><i class="fa fa-lg fa-twitter"></i></a></li>
-              <li><a target="_blank" href="https://plus.google.com/share?url={{ encodeURIComponent(s.url) }}" title="分享到 Google+"><i class="fa fa-lg fa-google-plus"></i></a></li>
-              <li><a target="_blank" href="https://github.com/z358z358/MJ" title="原始碼"><i class="fa fa-lg fa-github"></i></a></li>
-            </ul>
-          </li>
-        </ul>
+          <li class="share-li visible-xs-inline-block"><a href="http://line.naver.jp/R/msg/text/?{{ encodeURIComponent(s.title) +'%0D%0A' + encodeURIComponent(s.url) }}" title="分享到 LINE"><img src="asset/linebutton_20x20_zh-hant.png" alt="用LINE傳送" /></a></li>
+          <li class="share-li"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ encodeURIComponent(s.url) }}" title="分享到 Facebook"><i class="fa fa-lg fa-facebook"></i></a></li>
+          <li class="share-li"><a target="_blank" href="https://twitter.com/intent/tweet?text={{s.text}}&url={{ encodeURIComponent(s.url) }}" title="分享到 Twitter"><i class="fa fa-lg fa-twitter"></i></a></li>
+          <li class="share-li"><a target="_blank" href="https://plus.google.com/share?url={{ encodeURIComponent(s.url) }}" title="分享到 Google+"><i class="fa fa-lg fa-google-plus"></i></a></li>
+          <li class="share-li"><a target="_blank" href="https://github.com/z358z358/MJ" title="原始碼"><i class="fa fa-lg fa-github"></i></a></li>
+        </ul>        
       </div>
     </div>
   </nav>
@@ -190,173 +185,173 @@
 
     <audio id="sound" class="hidden" controls>
       <source src="asset/coin04.mp3" type="audio/mpeg">
-      Your browser does not support the audio element.
-    </audio>
-    <audio id="sound2" class="hidden" controls>
-      <source src="asset/coin05.mp3" type="audio/mpeg">
-      Your browser does not support the audio element.
-    </audio>
-    <audio id="end" class="hidden" controls>
-      <source src="asset/crrect_answer3.mp3" type="audio/mpeg">
-      Your browser does not support the audio element.
-    </audio>
+        Your browser does not support the audio element.
+      </audio>
+      <audio id="sound2" class="hidden" controls>
+        <source src="asset/coin05.mp3" type="audio/mpeg">
+          Your browser does not support the audio element.
+        </audio>
+        <audio id="end" class="hidden" controls>
+          <source src="asset/crrect_answer3.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+          </audio>
 
-  </div>
-  <!--<pre>{{ $data|json }}</pre>-->
-
-  <!-- 設定轉盤 -->
-  <div class="modal fade" id="set-modal" tabindex="-1" role="dialog" aria-labelledby="set-modalLabal" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close" v-on="click:draw"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="set-modalLabel">設定轉盤內容</h4>
         </div>
-        <div class="modal-body"> 
-          <div class="form-group">
-            <label for="exampleInputEmail1">旋轉秒數</label>
-            <input class="bar" type="range"  min="1000" max="10000" v-model="c.duration" number/>{{c.duration / 1000}}秒
+        <!--<pre>{{ $data|json }}</pre>-->
+
+        <!-- 設定轉盤 -->
+        <div class="modal fade" id="set-modal" tabindex="-1" role="dialog" aria-labelledby="set-modalLabal" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" v-on="click:draw"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="set-modalLabel">設定轉盤內容</h4>
+              </div>
+              <div class="modal-body"> 
+                <div class="form-group">
+                  <label for="exampleInputEmail1">旋轉秒數</label>
+                  <input class="bar" type="range"  min="1000" max="10000" v-model="c.duration" number/>{{c.duration / 1000}}秒
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputEmail1">旋轉次數</label>
+                  <input class="bar" type="range"  min="1" max="100" v-model="c.setTurn" number/>{{c.setTurn}}
+                </div>
+                
+                <button type="button" class="btn btn-success btn-block" data-dismiss="modal" v-show="c.setTurn > 1" v-on="click:go('c')">連續旋轉Go！</button>
+                <hr/>
+
+                <div class="form-group">
+                  <label for="exampleInputEmail1">轉盤標題</label>
+                  <input class="form-control" v-model="set.title"/>
+                </div>
+
+                <h4 class="modal-title" id="set-modalLabel">轉盤選項</h4>
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>名稱</th>
+                      <th>比重</th> 
+                      <th><button type="button" class="btn btn-primary" v-on="click:addOption">新增</button></th> 
+                    </tr>
+                  </thead>
+                  <tbody v-repeat="set.options" v-transition>
+                    <tr>
+                      <td><input type="text" class="form-control" v-model="name"></td>
+                      <td><input type="number" class="form-control " v-model="weight"></td>
+                      <td><button type="button" class="btn btn-danger" v-on="click:removeOption(this)">刪除</button></td>
+                    </tr>
+                  </tbody>
+                </table>       
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal" v-on="click:draw">確定</button>
+              </div>
+            </div>
           </div>
-          <div class="form-group">
-            <label for="exampleInputEmail1">旋轉次數</label>
-            <input class="bar" type="range"  min="1" max="100" v-model="c.setTurn" number/>{{c.setTurn}}
-          </div>
-          
-          <button type="button" class="btn btn-success btn-block" data-dismiss="modal" v-show="c.setTurn > 1" v-on="click:go('c')">連續旋轉Go！</button>
-          <hr/>
-
-          <div class="form-group">
-            <label for="exampleInputEmail1">轉盤標題</label>
-            <input class="form-control" v-model="set.title"/>
-          </div>
-
-          <h4 class="modal-title" id="set-modalLabel">轉盤選項</h4>
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th>名稱</th>
-                <th>比重</th> 
-                <th><button type="button" class="btn btn-primary" v-on="click:addOption">新增</button></th> 
-              </tr>
-            </thead>
-            <tbody v-repeat="set.options" v-transition>
-              <tr>
-                <td><input type="text" class="form-control" v-model="name"></td>
-                <td><input type="number" class="form-control " v-model="weight"></td>
-                <td><button type="button" class="btn btn-danger" v-on="click:removeOption(this)">刪除</button></td>
-              </tr>
-            </tbody>
-          </table>       
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-dismiss="modal" v-on="click:draw">確定</button>
-        </div>
-      </div>
-    </div>
-  </div>  
-
-  <!-- 列表 -->
-  <div class="modal fade" id="list-modal" tabindex="-1" role="dialog" aria-labelledby="list-modalLabal" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="list-modalLabel" v-text="listTitle"></h4>
-        </div>
-        <div class="modal-body">  
-          <div class="alert alert-info" role="alert" v-show="list.length > 49">僅顯示前50筆</div>
-          <div class="list-group">
-            <a href="#{{ id }}" class="list-group-item" data-dismiss="modal" v-repeat="list | orderBy listType true" v-on="click:loadOption(id)">
-              <span class="" v-text="title || '沒名字'"></span>  
-              <p class="text-right">            
-                <small class="" title="人氣" v-text="hot + '人氣:'" v-show="hot > 0"></small>
-                <small class="timeago" title="{{ts}}"></small>
-              </p>
-            </a>
-          </div>          
-        </div>        
-      </div>
-    </div>
-  </div>  
-
-  <!-- 儲存 -->
-  <div class="modal fade" id="save-modal" tabindex="-1" role="dialog" aria-labelledby="save-modalLabal" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="save-modalLabel" v-text="(saveType == 'new') ? '另存轉盤' : '儲存轉盤' ">儲存轉盤</h4>
-        </div>
-        <div class="modal-body">  
-          <form>
-            <div class="form-group">
-              <label>給他個標題吧！</label>
-              <input class="form-control" placeholder="標題" v-model="set.title">
-            </div>            
-          </form>      
         </div>  
-        <div class="modal-footer">
-          <button type="button" class="btn" data-dismiss="modal">取消</button>
-          <button type="button" class="btn btn-primary" data-dismiss="modal" v-on="click:saveOnFireBase">確定</button>
+
+        <!-- 列表 -->
+        <div class="modal fade" id="list-modal" tabindex="-1" role="dialog" aria-labelledby="list-modalLabal" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="list-modalLabel" v-text="listTitle"></h4>
+              </div>
+              <div class="modal-body">  
+                <div class="alert alert-info" role="alert" v-show="list.length > 49">僅顯示前50筆</div>
+                <div class="list-group">
+                  <a href="#{{ id }}" class="list-group-item" data-dismiss="modal" v-repeat="list | orderBy listType true" v-on="click:loadOption(id)">
+                    <span class="" v-text="title || '沒名字'"></span>  
+                    <p class="text-right">            
+                      <small class="" title="人氣" v-text="hot + '人氣:'" v-show="hot > 0"></small>
+                      <small class="timeago" title="{{ts}}"></small>
+                    </p>
+                  </a>
+                </div>          
+              </div>        
+            </div>
+          </div>
+        </div>  
+
+        <!-- 儲存 -->
+        <div class="modal fade" id="save-modal" tabindex="-1" role="dialog" aria-labelledby="save-modalLabal" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="save-modalLabel" v-text="(saveType == 'new') ? '另存轉盤' : '儲存轉盤' ">儲存轉盤</h4>
+              </div>
+              <div class="modal-body">  
+                <form>
+                  <div class="form-group">
+                    <label>給他個標題吧！</label>
+                    <input class="form-control" placeholder="標題" v-model="set.title">
+                  </div>            
+                </form>      
+              </div>  
+              <div class="modal-footer">
+                <button type="button" class="btn" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" v-on="click:saveOnFireBase">確定</button>
+              </div>
+            </div>
+          </div>
+        </div>  
+
+        <div class="modal fade" id="disqus-modal" tabindex="-1" role="dialog" aria-labelledby="disqus-modalLabal" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="disqus-modalLabel">留言</h4>
+              </div>
+              <div class="modal-body">
+                <div class="alert alert-info" role="alert">歡迎提供意見!</div>
+                <div id="disqus_thread"></div>
+                <noscript>請開啟 javascript 來檢視 <a href="https://disqus.com/?ref_noscript">Disqus 提供的留言</a></noscript>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-  </div>  
+        <div id="fb-root"></div>  
+        <!--<script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.5.0.min.js"></script>-->
+        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+        <script type="text/javascript" src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
 
-  <div class="modal fade" id="disqus-modal" tabindex="-1" role="dialog" aria-labelledby="disqus-modalLabal" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="disqus-modalLabel">留言</h4>
-        </div>
-        <div class="modal-body">
-          <div class="alert alert-info" role="alert">歡迎提供意見!</div>
-          <div id="disqus_thread"></div>
-          <noscript>請開啟 javascript 來檢視 <a href="https://disqus.com/?ref_noscript">Disqus 提供的留言</a></noscript>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div id="fb-root"></div>  
-  <!--<script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.5.0.min.js"></script>-->
-  <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-  <script type="text/javascript" src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
+        <script type="text/javascript" src="dist/scripts/main.js"></script>
 
-  <script type="text/javascript" src="dist/scripts/main.js"></script>
+        <script>(function(d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) return;
+          js = d.createElement(s); js.id = id;
+          js.src = "//connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v2.4&appId=482845198525908";
+          fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
 
-  <script>(function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = "//connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v2.4&appId=482845198525908";
-    fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));</script>
+        <script type="text/javascript">
+          /* * * CONFIGURATION VARIABLES * * */
+          var disqus_shortname = 'roulette-tw';
+          var disqus_config = function () { 
+            this.language = "zh_TW";
+          };        
 
-  <script type="text/javascript">
-    /* * * CONFIGURATION VARIABLES * * */
-    var disqus_shortname = 'roulette-tw';
-    var disqus_config = function () { 
-      this.language = "zh_TW";
-    };        
+          /* * * DON'T EDIT BELOW THIS LINE * * */
+          (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+        </script>
 
-    /* * * DON'T EDIT BELOW THIS LINE * * */
-    (function() {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-  </script>
+        <!-- Google Tag Manager -->
+        <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-MNGDS4"
+          height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+          <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+          j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+          '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-MNGDS4');</script>
+        <!-- End Google Tag Manager -->
 
-  <!-- Google Tag Manager -->
-  <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-MNGDS4"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-  })(window,document,'script','dataLayer','GTM-MNGDS4');</script>
-  <!-- End Google Tag Manager -->
-
-</body>
-</html>
+      </body>
+      </html>
