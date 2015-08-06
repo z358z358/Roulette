@@ -21,6 +21,7 @@ gulp.task('scripts', function() {
 	return gulp.src([
 		'src/scripts/jquery-1.11.3.min.js',
 		'src/scripts/vue.min.js',
+		'src/scripts/lazyload.js',
 		'src/scripts/*.js'])
 	.pipe(concat('main.js'))
 	.pipe(gulp.dest('dist/scripts'))
@@ -42,4 +43,13 @@ gulp.task('styles', function() {
 // Clean
 gulp.task('clean', function(cb) {
 	del(['dist/'], cb)
+});
+
+gulp.task('watch', function() {
+
+  // 看守 .scss 檔
+  gulp.watch('src/styles/*.css', ['styles']);
+
+  // 看守 .js 檔
+  gulp.watch('src/scripts/*.js', ['scripts']);
 });

@@ -47,11 +47,11 @@
           <li><a href="#" data-toggle="modal" data-target="#set-modal" data-step="4" data-intro='點此可以自行設定轉盤內容、選項、機率！'>修改轉盤</a></li>
           <li><a href="#" data-toggle="modal" data-target="#save-modal" data-step="5" data-intro='轉盤設定完成後，點此即可儲存內容！' v-on="click:saveType = 'save'">儲存轉盤</a></li>
           <li><a href="#" data-toggle="modal" data-target="#save-modal" v-show="user.uid && set.uid == user.uid" v-on="click:saveType = 'new'">另存轉盤</a></li>
-          
+
         </ul>
         <ul class="nav navbar-nav navbar-right">
-          
-          <li><a href="#" data-toggle="modal" data-target="#disqus-modal">留言</a></li>  
+
+          <li><a href="#" data-toggle="modal" data-target="#disqus-modal" v-on="click:showDsq">留言</a></li>  
           <li class="dropdown" v-show="user.uid == ''" data-step="7" data-intro='登入使用更方便，支援修改轉盤，我的轉盤！'>
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">登入 <span class="caret"></span></a>
             <ul class="dropdown-menu">
@@ -335,14 +335,7 @@
           var disqus_shortname = 'roulette-tw';
           var disqus_config = function () { 
             this.language = "zh_TW";
-          };        
-
-          /* * * DON'T EDIT BELOW THIS LINE * * */
-          (function() {
-            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-          })();
+          };       
         </script>
 
         <!-- Google Tag Manager -->
