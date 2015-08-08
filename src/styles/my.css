@@ -9,14 +9,27 @@
   font-size: 6em;
 }
 
+.ly-plate{
+ padding:1em;
+}
+
 .piechart{
   height:50em;
+ 
 }
 
 .ly-plate .fb-like{
   position: absolute;
   top: 0;
   right: 0;
+}
+
+.ly-plate .chart-title{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width:30%;
+  word-wrap: break-word;
 }
 
 .ly-plate .volume{
@@ -52,4 +65,7 @@
 .tooltip-inner{
   white-space: nowrap;
 }
-body { padding-top: 55px; }
+body { 
+  padding-top: 55px;
+  overflow-x: hidden; 
+   }

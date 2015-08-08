@@ -24,7 +24,6 @@ gulp.task('scripts', function() {
 		'src/scripts/lazyload.js',
 		'src/scripts/*.js'])
 	.pipe(concat('main.js'))
-	.pipe(gulp.dest('dist/scripts'))
 	.pipe(uglify())
 	.pipe(gulp.dest('dist/scripts'))
 	.pipe(notify({ message: 'Scripts task complete' }));
@@ -34,9 +33,9 @@ gulp.task('scripts', function() {
 gulp.task('styles', function() {
 	return gulp.src('src/styles/*.css')
 	.pipe(autoprefixer('last 2 version'))
-	.pipe(concat('main.css'))
-	.pipe(gulp.dest('dist/styles'))
 	.pipe(minifycss())
+	.pipe(concat('main.css'))
+	.pipe(gulp.dest('dist/styles'))	
 	.pipe(notify({ message: 'Styles task complete' }));
 });
 

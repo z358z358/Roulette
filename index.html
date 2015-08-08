@@ -21,11 +21,13 @@
   <link media="all" type="text/css" rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">
 
   <script src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" async></script>
+  <!-- google chart
   <script type="text/javascript" src="https://www.google.com/jsapi"></script>  
   <script type="text/javascript">       
     var vue = {}; 
     google.load("visualization", "1", {packages:["corechart"]});
   </script>
+-->
 </head>
 <body id="main">
 
@@ -88,6 +90,7 @@
     </div> 
 
     <div class="ly-plate">
+      <p class="chart-title" v-text="set.title"></p>
       <div class="lottery-star first-intro" data-toggle="tooltip" data-placement="bottom" title="點選此箭頭即可開始旋轉！" data-step="3" data-intro='點選此箭頭即可開始旋轉！' v-on="click:go"><i id="lotteryBtn" class="fa fa-arrow-up"></i></div>
       <div class="piechart" id="piechart" data-step="2" data-intro='這是目前的轉盤，每個選項佔的面積就是機率。'></div>   
       <div class="fb-like" data-href="http://z358z358.github.io/Roulette/#{{rid}}" data-send="false" data-layout="box_count" data-width="50" data-show-faces="true" data-colorscheme="dark"></div>
@@ -214,6 +217,14 @@
           <h4 class="modal-title" id="set-modalLabel">設定轉盤內容</h4>
         </div>
         <div class="modal-body"> 
+          <div class="form-group">
+            <label class="radio-inline">
+              <input type="radio" name="aaa" value="piechart" v-model="c.targetTag"> 轉盤旋轉
+            </label>
+            <label class="radio-inline">
+              <input type="radio" name="aaa" value="lotteryBtn" v-model="c.targetTag"> 箭頭旋轉
+            </label>            
+          </div>
           <div class="form-group">
             <label for="exampleInputEmail1">旋轉秒數</label>
             <input class="bar" type="range"  min="1000" max="10000" v-model="c.duration" number/>{{c.duration / 1000}}秒

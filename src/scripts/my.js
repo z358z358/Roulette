@@ -6,10 +6,10 @@ var vue = new Vue({
   data: {
     set:{
       options:[
-        {name:'我隨便', weight:1},
-        {name:'我都好', weight:1},
-        {name:'都可以', weight:1},
-        {name:'看你', weight:1},
+      {name:'我隨便', weight:1},
+      {name:'我都好', weight:1},
+      {name:'都可以', weight:1},
+      {name:'看你', weight:1},
       ],
       title:'今天想吃什麼?',
       ts:0,
@@ -21,6 +21,7 @@ var vue = new Vue({
       setTurn: 1,
       duration: 3000,
       volume: true,
+      targetTag: 'piechart',
     },
 
     s:{
@@ -72,7 +73,7 @@ var vue = new Vue({
 
   ready: function(){    
     var c = $.cookie(this.cookieKey);
-    if(c){
+    if(c && Object.keys(this.c).length == Object.keys(c).length){
       this.c = c;
     }
     else{
@@ -81,6 +82,7 @@ var vue = new Vue({
   },
 
   methods: {
+    /* google chart
     draw: function(offset){
       var tmp = [['名稱', '比重']];
       this.set.options.map(function(option){
@@ -99,6 +101,34 @@ var vue = new Vue({
       };
       var chart = new google.visualization.PieChart(document.getElementById('piechart'));
       chart.draw(data, options);      
+      $.cookie(this.cookieKey, this.c, { path: '/' , expires: 365});
+    },*/
+
+    draw: function(){
+      var data = [];
+      this.set.options.map(function(option){
+        var weight = parseFloat(option.weight, 10);
+        data.push({data:weight,label:option.name});
+      });
+
+      $.plot('#piechart', data, {
+        series: {
+        pie: {
+            show: true,
+            radius: 1,
+            label: {
+                show: true,
+                radius: 2/3,
+                formatter: labelFormatter,
+                threshold: 0.1
+            }
+        }
+    },
+        legend: {
+          show: false
+        }
+      });
+      $("#piechart,#lotteryBtn").css('transform','rotate(0)');
       $.cookie(this.cookieKey, this.c, { path: '/' , expires: 365});
     },
 
@@ -140,10 +170,14 @@ var vue = new Vue({
         }
       };
 
+      if(this.c.targetTag == 'piechart'){
+        addAngle = 360 - addAngle;
+      }
+
       this.goFlag = true;
       this.angle = addAngle;
       if(this.c.volume) document.getElementById("sound").play();
-      $("#lotteryBtn").rotate({
+      $("#" + this.c.targetTag).rotate({
         angle:oldAngle, 
         duration: this.c.duration,
         animateTo: addAngle + 1800,
@@ -156,8 +190,7 @@ var vue = new Vue({
       var log = {};
       var times = (parseInt(this.set.options[this.target].times) || 0) + 1;      
       this.goFlag = false;
-      this.turn = this.turn + 1;          
-      this.draw(a);
+      this.turn = this.turn + 1;
 
       log.ts = new Date().getTime();
       log.target = this.target;
@@ -380,7 +413,12 @@ script.onload = function() {
   fire = new Firebase('https://z358z358-roulette.firebaseio.com/');
   vue.fireOn();
 };
+script.async=true;
 script.src = "https://cdn.firebase.com/js/client/2.2.1/firebase.js";
 document.getElementsByTagName('head')[0].appendChild(script);
 
 $( window ).resize(vue.draw);
+
+function labelFormatter(label, series) {
+  return "<div style='text-anchor: start;font-family: Arial;font-size: 15px;text-align:center; padding:2px; color:white;'>" + label + "<br/>" + Math.round(series.percent) + "%</div>";
+}
