@@ -222,11 +222,11 @@
               <input type="radio" name="bbb" value="google" v-model="c.chatType"> 使用google chart
             </label>            
           </div>
-          <div class="form-group">            
+          <div class="form-group" v-show="c.chatType == 'plot'">            
             <label class="radio-inline">
               <input type="radio" name="aaa" value="lotteryBtn" v-model="c.targetTag"> 箭頭旋轉
             </label>
-            <label class="radio-inline" v-show="c.chatType == 'plot'">
+            <label class="radio-inline">
               <input type="radio" name="aaa" value="piechart" v-model="c.targetTag"> 轉盤旋轉
             </label>            
           </div>
