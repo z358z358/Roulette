@@ -304,6 +304,7 @@ var vue = new Vue({
       var oldRid = this.rid;
       if(snapshot.exists() === false) {
         this.rid = '';
+        this.draw();
         return;
       }
 
