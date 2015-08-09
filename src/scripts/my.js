@@ -430,7 +430,7 @@ script.async=true;
 script.src = "https://cdn.firebase.com/js/client/2.2.1/firebase.js";
 document.getElementsByTagName('head')[0].appendChild(script);
 
-//$( window ).resize(vue.draw);
+$( window ).resize(vue.draw);
 
 function labelFormatter(label, series) {
   return "<div style='text-anchor: start;font-family: Arial;font-size: 15px;text-align:center; padding:2px; color:white;'>" + label + "<br/>" + Math.round(series.percent) + "%</div>";
