@@ -2,8 +2,8 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  margin-top: -0.55em;
-  margin-left: -0.45em;
+      margin-top: -.5em;
+    margin-left: -.22em;
   z-index: 5;
   cursor: pointer;
   font-size: 6em;

@@ -22,6 +22,7 @@ var vue = new Vue({
       duration: 3000,
       volume: true,
       targetTag: 'piechart',
+      chatType: 'plot',
     },
 
     s:{
@@ -82,8 +83,18 @@ var vue = new Vue({
   },
 
   methods: {
-    /* google chart
-    draw: function(offset){
+    draw: function(){
+      if(this.c.chatType == 'plot'){
+        this.drawByPlot();
+      }
+      else{
+        this.drawByGoole();
+      }
+      $("#piechart,#lotteryBtn").css('transform','rotate(0)');
+      $.cookie(this.cookieKey, this.c, { path: '/' , expires: 365});
+    },
+    // google chart
+    drawByGoole: function(){
       var tmp = [['名稱', '比重']];
       this.set.options.map(function(option){
         var weight = parseFloat(option.weight, 10);
@@ -101,10 +112,9 @@ var vue = new Vue({
       };
       var chart = new google.visualization.PieChart(document.getElementById('piechart'));
       chart.draw(data, options);      
-      $.cookie(this.cookieKey, this.c, { path: '/' , expires: 365});
-    },*/
+    },
 
-    draw: function(){
+    drawByPlot: function(){
       var data = [];
       this.set.options.map(function(option){
         var weight = parseFloat(option.weight, 10);
@@ -127,9 +137,7 @@ var vue = new Vue({
         legend: {
           show: false
         }
-      });
-      $("#piechart,#lotteryBtn").css('transform','rotate(0)');
-      $.cookie(this.cookieKey, this.c, { path: '/' , expires: 365});
+      });      
     },
 
     addOption: function(){
@@ -169,6 +177,10 @@ var vue = new Vue({
           break;
         }
       };
+
+      if(this.c.chatType == 'google'){
+        this.c.targetTag = 'lotteryBtn';
+      }
 
       if(this.c.targetTag == 'piechart'){
         addAngle = 360 - addAngle;
