@@ -15,7 +15,13 @@
 
 .piechart{
   height:50em;
- 
+  width: 50em;
+  margin: 0 auto;
+  z-index: 3;
+}
+
+.z-10{
+  z-index: 10;
 }
 
 .ly-plate .fb-like{
@@ -53,6 +59,7 @@
   }
   .piechart{
     height:20em;
+    width: 20em;
   }
   .nav>li.share-li {
     display: inline-block;

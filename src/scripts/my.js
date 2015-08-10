@@ -23,6 +23,7 @@ var vue = new Vue({
       volume: true,
       targetTag: 'piechart',
       chatType: 'plot',
+      angleType: 1,
     },
 
     s:{
@@ -154,6 +155,7 @@ var vue = new Vue({
       var addAngle = Math.floor((Math.random() * 360));
       var sum = 0;
       var tmp = 0;
+      var moreAngle = 1800;
 
       if(this.goFlag == true){
         return;
@@ -186,13 +188,18 @@ var vue = new Vue({
         addAngle = 360 - addAngle;
       }
 
+      if(this.c.angleType == -1){
+        moreAngle *= -1;
+        addAngle = addAngle - 360;
+      }
+
       this.goFlag = true;
       this.angle = addAngle;
       if(this.c.volume) document.getElementById("sound").play();
       $("#" + this.c.targetTag).rotate({
         angle:oldAngle, 
         duration: this.c.duration,
-        animateTo: addAngle + 1800,
+        animateTo: addAngle + moreAngle,
         callback:this.goDone,
       }); 
     },
@@ -210,6 +217,10 @@ var vue = new Vue({
       this.logs.unshift(log);
       if(this.logs.length > 500){
         this.logs.pop();
+      }
+
+      if(this.c.targetTag == 'piechart'){
+        $("#piechart .pieLabel").css('transform' ,'rotate(' + (360-this.angle) + 'deg)');
       }
 
       this.set.options[log.target].$set('times',times);

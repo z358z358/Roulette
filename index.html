@@ -47,7 +47,7 @@
         <ul class="nav navbar-nav">
           <li><a href="#" data-toggle="modal" data-target="#list-modal" data-step="6" data-intro='點此可察看那些轉盤很熱門，旁邊則是可以看最新的轉盤！' v-on="click:getList('hot')">熱門轉盤</a></li>
           <li><a href="#" data-toggle="modal" data-target="#list-modal" v-on="click:getList('ts')">最新上架</a></li>
-          <li><a href="#" data-toggle="modal" data-target="#set-modal" data-step="4" data-intro='點此可以自行設定轉盤內容、選項、機率！'>修改轉盤</a></li>
+          <li><a href="#" data-toggle="modal" data-target="#set-modal" data-step="4" data-intro='點此可以自行設定轉盤內容、選項、機率！' v-show="goFlag == false">修改轉盤</a></li>
           <li><a href="#" data-toggle="modal" data-target="#save-modal" data-step="5" data-intro='轉盤設定完成後，點此即可儲存內容！' v-on="click:saveType = 'save'">儲存轉盤</a></li>
           <li><a href="#" data-toggle="modal" data-target="#save-modal" v-show="user.uid && set.uid == user.uid" v-on="click:saveType = 'new'">另存轉盤</a></li>
 
@@ -89,7 +89,7 @@
     <div class="ly-plate">
       <p class="chart-title" v-text="set.title" v-show="c.chatType == 'plot'"></p>
       <div class="lottery-star first-intro" data-toggle="tooltip" data-placement="bottom" title="點選此箭頭即可開始旋轉！" data-step="3" data-intro='點選此箭頭即可開始旋轉！' v-on="click:go"><i id="lotteryBtn" class="fa fa-long-arrow-up"></i></div>
-      <div class="piechart" id="piechart" data-step="2" data-intro='這是目前的轉盤，每個選項佔的面積就是機率。'></div>   
+      <div class="piechart" id="piechart" data-step="2" data-intro='這是目前的轉盤，每個選項佔的面積就是機率。' v-on="click:go"></div>   
       <div class="fb-like" data-href="http://z358z358.github.io/Roulette/#{{rid}}" data-send="false" data-layout="box_count" data-width="50" data-show-faces="true" data-colorscheme="dark"></div>
       <div class="volume">
         <i class="fa fa-volume-up fa-2x" title="有聲音" v-show="c.volume" v-on="click: setVolume(false)"></i>
@@ -97,19 +97,19 @@
       </div>      
     </div> 
 
-    <div class="alert alert-success alert-dismissible" role="alert" v-if="logs.length > 0">
+    <div class="alert alert-success alert-dismissible z-10" role="alert" v-if="logs.length > 0">
       <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       結果:<strong v-text="logs[0].content"></strong><div class="pull-right timeago" title="{{logs[0].ts}}"></div> 
     </div>
 
-    <div class="alert alert-success alert-dismissible" role="alert" v-if="turnFlag > 0">
+    <div class="alert alert-success alert-dismissible z-10" role="alert" v-if="turnFlag > 0">
       <button type="button" class="close" data-dismiss="alert" aria-label="Close" v-on="click:turnFlag=-1"><span aria-hidden="true">&times;</span></button>
       <strong>連續旋轉模式中</strong> 還有 <strong v-text="turnFlag"></strong> 次
     </div>
     
     <div class="clearfix"></div>
 
-    <div v-if="logs.length">
+    <div class="z-10" v-if="logs.length">
       <ul id="ptt_nav" class="nav nav-tabs" role="tablist">
         <li class="active"><a href="#logs" role="tab" data-toggle="tab">紀錄</a></li>
         <li class=""><a href="#chart" role="tab" data-toggle="tab">分析</a></li>
@@ -228,6 +228,14 @@
             </label>
             <label class="radio-inline">
               <input type="radio" name="aaa" value="piechart" v-model="c.targetTag"> 轉盤旋轉
+            </label>            
+          </div>
+          <div class="form-group">
+            <label class="radio-inline">
+              <input type="radio" name="ccc" value="1" v-model="c.angleType"> 順時針旋轉
+            </label>
+            <label class="radio-inline">
+              <input type="radio" name="ccc" value="-1" v-model="c.angleType"> 逆時針旋轉
             </label>            
           </div>
           <div class="form-group">
