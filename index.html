@@ -109,11 +109,11 @@
     
     <div class="clearfix"></div>
 
-    <div class="z-10" v-if="logs.length">
+    <div class="z-10">
       <ul id="ptt_nav" class="nav nav-tabs" role="tablist">
         <li class="active"><a href="#logs" role="tab" data-toggle="tab">紀錄</a></li>
         <li class=""><a href="#chart" role="tab" data-toggle="tab">分析</a></li>
-        <li class=""><a href="#log-action" role="tab" data-toggle="tab">功能</a></li>
+        <li class=""><a href="#log-action" role="tab" data-toggle="tab">轉盤設定/功能</a></li>
         <!--<li><a href="#chart_table" role="tab" data-toggle="tab">分析table</a></li>-->
       </ul>
 
@@ -158,13 +158,57 @@
                 </tr>
                 <tr>
                   <td>期望機率</td>
-                  <td v-repeat="set.options" v-text="weight/sum | persent"></td>                           
+                  <td v-repeat="set.options" v-text="((on) ? (weight/sum) : 0 ) | persent"></td>             
                 </tr>                
               </tbody>
             </table>
           </div>    
         </div>
         <div class="tab-pane" id="log-action">
+          <div v-show="goFlag == false">
+            <h5>啟用選項</h5>
+            <div class="form-group">              
+              <label class="checkbox-point checkbox-inline" v-repeat="set.options">
+                <input type="checkbox" v-model="on" v-on="click: draw" > 
+                <span class="text-muted" v-text="name"></span>  
+              </label>
+            </div>
+            <hr />
+            <h5>轉盤設定</h5>
+            <div class="form-group">
+              <label class="radio-inline">
+                <input type="radio" name="bbb" value="plot" v-model="c.chatType" v-on="click:draw"> 使用plot chart
+              </label>
+              <label class="radio-inline">
+                <input type="radio" name="bbb" value="google" v-model="c.chatType" v-on="click:draw"> 使用google chart
+              </label>            
+            </div>
+            <div class="form-group" v-show="c.chatType == 'plot'">            
+              <label class="radio-inline">
+                <input type="radio" name="aaa" value="lotteryBtn" v-model="c.targetTag"> 箭頭旋轉
+              </label>
+              <label class="radio-inline">
+                <input type="radio" name="aaa" value="piechart" v-model="c.targetTag"> 轉盤旋轉
+              </label>            
+            </div>
+            <div class="form-group">
+              <label class="radio-inline">
+                <input type="radio" name="ccc" value="1" v-model="c.angleType"> 順時針旋轉
+              </label>
+              <label class="radio-inline">
+                <input type="radio" name="ccc" value="-1" v-model="c.angleType"> 逆時針旋轉
+              </label>            
+            </div>
+            <div class="form-group">
+              <label for="exampleInputEmail1">旋轉秒數</label>
+              <input class="bar" type="range"  min="1000" max="10000" v-model="c.duration" number/>{{c.duration / 1000}}秒
+            </div>
+            <div class="form-group">
+              <label for="exampleInputEmail1">旋轉次數</label>
+              <input class="bar" type="range"  min="1" max="100" v-model="c.setTurn" number/>{{c.setTurn}}
+            </div>
+            <button type="button" class="btn btn-success btn-block" v-show="c.setTurn > 1" v-on="click:go('c')">連續旋轉Go！</button>
+          </div>
           <hr />
           <button class="btn btn-danger" v-on="click: deleteLog('all')">刪除所有紀錄</button>
         </div>
@@ -213,43 +257,7 @@
           <button type="button" class="close" data-dismiss="modal" aria-label="Close" v-on="click:draw"><span aria-hidden="true">&times;</span></button>
           <h4 class="modal-title" id="set-modalLabel">設定轉盤內容</h4>
         </div>
-        <div class="modal-body"> 
-          <div class="form-group">
-            <label class="radio-inline">
-              <input type="radio" name="bbb" value="plot" v-model="c.chatType"> 使用plot chart
-            </label>
-            <label class="radio-inline">
-              <input type="radio" name="bbb" value="google" v-model="c.chatType"> 使用google chart
-            </label>            
-          </div>
-          <div class="form-group" v-show="c.chatType == 'plot'">            
-            <label class="radio-inline">
-              <input type="radio" name="aaa" value="lotteryBtn" v-model="c.targetTag"> 箭頭旋轉
-            </label>
-            <label class="radio-inline">
-              <input type="radio" name="aaa" value="piechart" v-model="c.targetTag"> 轉盤旋轉
-            </label>            
-          </div>
-          <div class="form-group">
-            <label class="radio-inline">
-              <input type="radio" name="ccc" value="1" v-model="c.angleType"> 順時針旋轉
-            </label>
-            <label class="radio-inline">
-              <input type="radio" name="ccc" value="-1" v-model="c.angleType"> 逆時針旋轉
-            </label>            
-          </div>
-          <div class="form-group">
-            <label for="exampleInputEmail1">旋轉秒數</label>
-            <input class="bar" type="range"  min="1000" max="10000" v-model="c.duration" number/>{{c.duration / 1000}}秒
-          </div>
-          <div class="form-group">
-            <label for="exampleInputEmail1">旋轉次數</label>
-            <input class="bar" type="range"  min="1" max="100" v-model="c.setTurn" number/>{{c.setTurn}}
-          </div>
-
-          <button type="button" class="btn btn-success btn-block" data-dismiss="modal" v-show="c.setTurn > 1" v-on="click:go('c')">連續旋轉Go！</button>
-          <hr/>
-
+        <div class="modal-body">
           <div class="form-group">
             <label for="exampleInputEmail1">轉盤標題</label>
             <input class="form-control" v-model="set.title"/>
@@ -346,7 +354,7 @@
   <div id="fb-root"></div>  
   <!--<script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.5.0.min.js"></script>-->
 
-  <script type="text/javascript" src="dist/scripts/main.js" async></script>
+  <script type="text/javascript" src="dist/scripts/main.js?2015081101" async></script>
 
   <script>(function(d, s, id) {
     var js, fjs = d.getElementsByTagName(s)[0];

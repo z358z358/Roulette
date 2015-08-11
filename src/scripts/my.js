@@ -6,10 +6,10 @@ var vue = new Vue({
   data: {
     set:{
       options:[
-      {name:'我隨便', weight:1},
-      {name:'我都好', weight:1},
-      {name:'都可以', weight:1},
-      {name:'看你', weight:1},
+      {name:'我隨便', weight:1, on:true},
+      {name:'我都好', weight:1, on:true},
+      {name:'都可以', weight:1, on:true},
+      {name:'看你', weight:1, on:true},
       ],
       title:'今天想吃什麼?',
       ts:0,
@@ -80,17 +80,19 @@ var vue = new Vue({
     }
     else{
       $('.first-intro').tooltip('show');
-    }    
+    } 
+    this.setOptionOn();    
   },
 
   methods: {
     draw: function(){
+      this.getSum();
       if(this.c.chatType == 'plot'){
         this.drawByPlot();
       }
       else{
         this.drawByGoole();
-      }
+      }      
       $("#piechart,#lotteryBtn").css('transform','rotate(0)');
       $.cookie(this.cookieKey, this.c, { path: '/' , expires: 365});
     },
@@ -98,6 +100,7 @@ var vue = new Vue({
     drawByGoole: function(){
       var tmp = [['名稱', '比重']];
       this.set.options.map(function(option){
+        if(option.on === false) return;
         var weight = parseFloat(option.weight, 10);
         tmp.push([option.name,weight]);
       });
@@ -118,23 +121,24 @@ var vue = new Vue({
     drawByPlot: function(){
       var data = [];
       this.set.options.map(function(option){
+        if(option.on === false) return;
         var weight = parseFloat(option.weight, 10);
         data.push({data:weight,label:option.name});
       });
 
       $.plot('#piechart', data, {
         series: {
-        pie: {
+          pie: {
             show: true,
             radius: 1,
             label: {
-                show: true,
-                radius: 2/3,
-                formatter: labelFormatter,
-                threshold: 0.1
+              show: true,
+              radius: 2/3,
+              formatter: labelFormatter,
+              threshold: 0.1
             }
-        }
-    },
+          }
+        },
         legend: {
           show: false
         }
@@ -142,7 +146,7 @@ var vue = new Vue({
     },
 
     addOption: function(){
-      this.set.options.unshift({name:'',weight:''});
+      this.set.options.unshift({name:'',weight:'',on:true});
     },
 
     removeOption: function (option) {
@@ -153,26 +157,22 @@ var vue = new Vue({
       var options = this.set.options;
       var oldAngle = this.angle;
       var addAngle = Math.floor((Math.random() * 360));
-      var sum = 0;
       var tmp = 0;
       var moreAngle = 1800;
+      this.getSum();
 
-      if(this.goFlag == true){
+      if(this.goFlag == true || this.sum == 0){
         return;
       }
 
       if(type == 'c'){
         this.turnFlag = this.c.setTurn;        
-      }
-
-      options.map(function(option){
-        sum += parseFloat(option.weight, 10);
-      });
-      this.sum = sum;
+      }      
 
       //console.log(addAngle);
       for (var i = 0; i <= options.length - 1; i++) {
-        tmp += (options[i].weight / sum) * 360;
+        if(options[i].on === false) continue;
+        tmp += (options[i].weight / this.sum) * 360;
         //console.log(tmp,i,options[i].weight / sum);
         if( tmp >= addAngle ){
           this.target = i;
@@ -243,6 +243,7 @@ var vue = new Vue({
       tmp.ts = new Date().getTime();
       for (var i = tmp.options.length - 1; i >= 0; i--) {
         delete tmp.options[i].times;
+        delete tmp.options[i].on;
       };
       delete tmp.hot;
 
@@ -325,6 +326,7 @@ var vue = new Vue({
       $("title").text(title);
       this.s.title = title;
 
+      this.setOptionOn();
       this.draw();
       
       this.rid = snapshot.key();
@@ -427,8 +429,23 @@ var vue = new Vue({
       if(authData){
         this.loginBack(authData);
       }
-    }
-    
+    },
+
+    getSum: function(){
+      var sum = 0;
+      this.set.options.map(function(option){
+        option.$set('weight' , Math.abs(option.weight));
+        if(option.on === false) return;
+        sum += parseFloat(option.weight, 10);
+      });
+      this.sum = sum;
+    },
+
+    setOptionOn: function(){
+      this.set.options.map(function(option){
+        option.$set('on',true);
+      });  
+    }    
   }
 });
 
