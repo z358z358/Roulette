@@ -166,7 +166,7 @@
         </div>
         <div class="tab-pane" id="log-action">
           <div v-show="goFlag == false">
-            <h5>啟用選項</h5>
+            <h5>啟用選項<button class="btn btn-primary pull-right" v-on="click:draw">更新</button></h5>
             <div class="form-group">              
               <label class="checkbox-point checkbox-inline" v-repeat="set.options">
                 <input type="checkbox" v-model="on" v-on="click: draw" > 
