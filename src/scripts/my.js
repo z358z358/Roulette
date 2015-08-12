@@ -55,16 +55,29 @@ var vue = new Vue({
     list:[],
   },
 
+  // 為了讓v-repeat v-model v-on一起用
+  components:{
+    options:{
+      watch:{
+        on:function(v){
+          vue.draw();
+        }
+      }
+    }
+  },
+
   watch: {
     // timeago
-    'logs': function (val, oldVal) {
+    logs: function (val, oldVal) {
       jQuery(".timeago").timeago();
     },
 
     // timeago
-    'list': function (val, oldVal) {
+    list: function (val, oldVal) {
       jQuery(".timeago").timeago();
-    }
+    },
+    'c.chatType': 'draw',
+    'set.options':'draw',
   },
 
   filters: {

@@ -166,21 +166,23 @@
         </div>
         <div class="tab-pane" id="log-action">
           <div v-show="goFlag == false">
-            <h5>啟用選項<button class="btn btn-primary pull-right" v-on="click:draw">更新</button></h5>
-            <div class="form-group">              
-              <label class="checkbox-point checkbox-inline" v-repeat="set.options">
-                <input type="checkbox" v-model="on" v-on="click: draw" > 
-                <span class="text-muted" v-text="name"></span>  
-              </label>
+            <h5>啟用選項</h5>
+            <div class="form-group">      
+              <options v-repeat="set.options" inline-template>        
+                <label class="checkbox-point checkbox-inline">
+                  <input type="checkbox" v-model="on"> 
+                  <span class="text-muted" v-text="name"></span>  
+                </label>
+              </options>
             </div>
             <hr />
             <h5>轉盤設定</h5>
             <div class="form-group">
               <label class="radio-inline">
-                <input type="radio" name="bbb" value="plot" v-model="c.chatType" v-on="click:draw"> 使用plot chart
+                <input type="radio" name="bbb" value="plot" v-model="c.chatType"> 使用plot chart
               </label>
               <label class="radio-inline">
-                <input type="radio" name="bbb" value="google" v-model="c.chatType" v-on="click:draw"> 使用google chart
+                <input type="radio" name="bbb" value="google" v-model="c.chatType"> 使用google chart
               </label>            
             </div>
             <div class="form-group" v-show="c.chatType == 'plot'">            
