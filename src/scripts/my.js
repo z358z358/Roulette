@@ -77,6 +77,7 @@ var vue = new Vue({
       jQuery(".timeago").timeago();
     },
     'c.chatType': 'draw',
+    'c.targetTag': 'draw',
     'set.options':'draw',
   },
 
