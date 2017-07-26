@@ -164,6 +164,10 @@ var vue = new Vue({
 
         addOption: function() {
             this.set.options.unshift({ name: '', weight: 1, on: true });
+            this.$nextTick(function(){
+                $("#option-table input:first").focus();
+            })
+            
         },
 
         removeOption: function(option) {
