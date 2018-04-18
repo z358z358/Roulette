@@ -164,10 +164,9 @@ var vue = new Vue({
 
         addOption: function() {
             this.set.options.unshift({ name: '', weight: 1, on: true });
-            this.$nextTick(function(){
+            this.$nextTick(function() {
                 $("#option-table input:first").focus();
             })
-            
         },
 
         removeOption: function(option) {
@@ -268,7 +267,7 @@ var vue = new Vue({
             delete tmp.hot;
 
             if (tmp.uid && tmp.uid === this.user.uid && this.rid) {
-                fire.child('list/' + this.rid).update(tmp, function(error) {
+                fire.ref('list/' + this.rid).update(tmp, function(error) {
                     if (error) {
                         that.$set('Msg', { type: 'error', msg: '儲存轉盤 失敗!' });
                     } else {
@@ -279,14 +278,14 @@ var vue = new Vue({
                 //console.log('新增');
                 tmp.hot = 0;
                 this.set.uid = tmp.uid = this.user.uid;
-                tmp2 = fire.child('list').push(tmp);
+                tmp2 = fire.ref('list').push(tmp);
                 if (!tmp2) {
                     that.$set('Msg', { type: 'error', msg: '新增轉盤 失敗!' });
                     return;
                 } else {
                     that.$set('Msg', { type: 'success', msg: '新增轉盤 成功!' });
                 }
-                this.rid = window.location.hash = tmp2.key();
+                this.rid = window.location.hash = tmp2.key;
             }
 
             this.draw();
@@ -295,7 +294,7 @@ var vue = new Vue({
         getList: function(type) {
             var that = this;
             var title = (type == 'hot') ? '熱門轉盤' : '最新上架';
-            var tmp = fire.child('list');
+            var tmp = fire.ref('list');
             var type2 = (type == 'my') ? 'ts' : type;
 
             title = (type == 'my') ? '我的轉盤' : title;
@@ -308,12 +307,12 @@ var vue = new Vue({
                 tmp = tmp.orderByChild(type2);
             }
 
-            tmp.limitToLast(50).once("value", function(snapshot) {
-                //console.log(snapshot);
+            tmp.limitToLast(50).once("value").then(function(snapshot) {
+                console.log(snapshot);
                 var tmp = [];
                 snapshot.forEach(function(data) {
                     var a = data.val();
-                    a.id = data.key();
+                    a.id = data.key;
                     tmp.push(a);
                 });
 
@@ -322,7 +321,7 @@ var vue = new Vue({
         },
 
         loadOption: function(id) {
-            var tmp = fire.child('list/' + id);
+            var tmp = fire.ref('list/' + id);
             tmp.once("value", this.setOptions);
             $("#list-modal").modal('hide');
             $(".navbar-toggle:not(.collapsed)").click();
@@ -345,7 +344,7 @@ var vue = new Vue({
             this.setOptionOn();
             this.draw();
 
-            this.rid = snapshot.key();
+            this.rid = snapshot.key;
             this.s.url = this.s._url + '#' + this.rid;
             if (this.rid != oldRid) {
                 FB.XFBML.parse();
@@ -353,13 +352,13 @@ var vue = new Vue({
 
             if (!$.cookie(this.hotKey)) {
                 $.cookie(this.hotKey, '1', { path: '/', expires: 1 });
-                this.incHot(snapshot.key());
+                this.incHot(snapshot.key);
             }
         },
 
         // 人氣+1
         incHot: function(id) {
-            fire.child('list/' + id + '/hot').transaction(function(current_value) {
+            fire.ref('list/' + id + '/hot').transaction(function(current_value) {
                 return (current_value || 0) + 1;
             });
         },
@@ -367,15 +366,34 @@ var vue = new Vue({
         login: function(type) {
             var that = this;
             if (type == 'logout') {
-                fire.unauth();
-                this.$set('user', { uid: '', provider: '', displayName: '' });
+                firebase.auth().signOut().then(function() {
+                    that.$set('user', { uid: '', provider: '', displayName: '' });
+                }, function(error) {
+                    // An error happened.
+                });
             } else {
-                fire.authWithOAuthPopup(type, function(error, authData) {
-                    if (error) {
-                        //console.log("Login Failed!", error);
-                    } else {
-                        that.loginBack(authData);
-                    }
+                if (type == 'facebook') {
+                    var provider = new firebase.auth.FacebookAuthProvider();
+                } else if (type == 'google') {
+                    var provider = new firebase.auth.GoogleAuthProvider();
+                }
+                firebase.auth().signInWithPopup(provider).then(function(result) {
+                    // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+                    var token = result.credential.accessToken;
+                    // The signed-in user info.
+                    var user = result.user;
+                    that.loginBack(user);
+                    // ...
+                }).catch(function(error) {
+                    console.log(error);
+                    // Handle Errors ere.
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    // The email of the user's account used.
+                    var email = error.email;
+                    // The firebase.auth.AuthCredential type that was used.
+                    var credential = error.credential;
+                    // ...
                 });
             }
         },
@@ -383,8 +401,8 @@ var vue = new Vue({
         loginBack: function(authData) {
             //console.log("Authenticated successfully with payload:", authData , that);
             this.user.uid = authData.uid;
-            this.user.provider = authData.provider;
-            this.user.displayName = authData[this.user.provider].displayName;
+            this.user.displayName = authData.providerData[0].displayName;
+            //console.log(authData.providerData);
             $(".navbar-toggle:not(.collapsed)").click();
         },
 
@@ -434,6 +452,7 @@ var vue = new Vue({
         },
 
         fireOn: function() {
+            var that = this;
             if (window.location.hash) {
                 this.rid = window.location.hash.substring(1); //Puts hash in variable, and removes the # character
                 this.loadOption(this.rid);
@@ -441,10 +460,11 @@ var vue = new Vue({
                 this.draw();
             }
 
-            var authData = fire.getAuth();
-            if (authData) {
-                this.loginBack(authData);
-            }
+            firebase.auth().onAuthStateChanged(function(user) {
+                if (user) {
+                    that.loginBack(user);
+                }
+            });
         },
 
         getSum: function() {
@@ -467,11 +487,20 @@ var vue = new Vue({
 
 var script = document.createElement('script');
 script.onload = function() {
-    fire = new Firebase('https://z358z358-roulette.firebaseio.com/');
+    var config = {
+        apiKey: "AIzaSyAtoSqn428jHyekJoMuhPXYJeWQtH8O6Mk",
+        authDomain: "z358z358-roulette.firebaseapp.com",
+        databaseURL: "https://z358z358-roulette.firebaseio.com",
+        projectId: "z358z358-roulette",
+        storageBucket: "",
+        messagingSenderId: "1095342180247"
+    };
+    firebase.initializeApp(config);
+    fire = firebase.database();
     vue.fireOn();
 };
 script.async = true;
-script.src = "https://cdn.firebase.com/js/client/2.2.1/firebase.js";
+script.src = "https://www.gstatic.com/firebasejs/4.12.1/firebase.js";
 document.getElementsByTagName('head')[0].appendChild(script);
 
 $(window).resize(vue.draw);
