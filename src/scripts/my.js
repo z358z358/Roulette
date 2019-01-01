@@ -46,6 +46,7 @@ var vue = new Vue({
         rid: '',
         turnFlag: -1,
         goFlag: false,
+        targetUntil: { target: -1, count: 0, action: '' },
         saveType: '',
         angle: 0,
         target: 0,
@@ -83,7 +84,7 @@ var vue = new Vue({
 
     filters: {
         persent: function(number) {
-            return Math.round(number * 100) + '%';
+            return parseFloat((number * 100).toFixed(2)) + '%';
         }
     },
 
@@ -173,7 +174,7 @@ var vue = new Vue({
             this.set.options.$remove(option.$data);
         },
 
-        go: function(type) {
+        go: function(type, index) {
             var options = this.set.options;
             var oldAngle = this.angle;
             var addAngle = Math.floor((Math.random() * 360));
@@ -187,6 +188,13 @@ var vue = new Vue({
 
             if (type == 'c') {
                 this.turnFlag = this.c.setTurn;
+            } else if (type == 'option') {
+                if (options[index].on === false) {
+                    return;
+                }
+                this.targetUntil.target = index;
+                this.targetUntil.count = 0;
+                this.targetUntil.action = 'run';
             }
 
             //console.log(addAngle);
@@ -235,7 +243,7 @@ var vue = new Vue({
             log.target = this.target;
             log.content = this.set.options[this.target].name;
             this.logs.unshift(log);
-            if (this.logs.length > 500) {
+            if (this.logs.length > 1000) {
                 this.logs.pop();
             }
 
@@ -248,6 +256,14 @@ var vue = new Vue({
                 this.turnFlag--;
                 if (this.turnFlag >= 1) {
                     this.go();
+                }
+            } else if (this.targetUntil.action == 'run') {
+                this.targetUntil.count++;
+                if (this.targetUntil.target !== this.target) {
+                    this.go();
+                } else {
+                    this.targetUntil.action = 'end';
+                    // this.targetUntil.target = -1;
                 }
             } else {
                 if (this.c.volume) document.getElementById("end").play();

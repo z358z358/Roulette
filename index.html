@@ -105,6 +105,10 @@
             <button type="button" class="close" data-dismiss="alert" aria-label="Close" v-on="click:turnFlag=-1"><span aria-hidden="true">&times;</span></button>
             <strong>連續旋轉模式中</strong> 還有 <strong v-text="turnFlag"></strong> 次
         </div>
+        <div class="alert alert-success alert-dismissible z-10" role="alert" v-if="targetUntil.action">
+            <button type="button" class="close" v-on="click:targetUntil.action = ''"><span aria-hidden="true">&times;</span></button>
+            <strong>血統模式中 (<strong title="次數" v-text="targetUntil.count"></strong>) </strong> 不轉到 <strong v-text="set.options[targetUntil.target].name"></strong> 不罷休
+        </div>
         <div class="clearfix"></div>
         <div class="z-10">
             <ul id="ptt_nav" class="nav nav-tabs" role="tablist">
@@ -140,7 +144,7 @@
                             <thead>
                                 <tr>
                                     <th v-text="turn + '次'"></th>
-                                    <th v-repeat="set.options" v-text="name"></th>
+                                    <th v-repeat="set.options" v-text="name" v-on="click:go('option', $index)"></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -199,18 +203,25 @@
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">旋轉秒數</label>
-                            <input class="bar" type="range" min="1000" max="10000" v-model="c.duration" number/>{{c.duration / 1000}}秒
+                            <input class="bar" type="range" min="1000" max="10000" v-model="c.duration" number />{{c.duration / 1000}}秒
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">旋轉次數</label>
-                            <input class="bar" type="range" min="1" max="100" v-model="c.setTurn" number/>{{c.setTurn}}
+                            <input class="bar" type="range" min="1" max="100" v-model="c.setTurn" number />{{c.setTurn}}
                         </div>
                         <button type="button" class="btn btn-success btn-block" v-class="{'disabled':c.setTurn <= 1}" v-on="click:go('c')">連續旋轉Go！</button>
+                        <hr />
+                        <h5>血統模式 (轉到該選項才停止)</h5>
+                        <div>
+                            <label v-repeat="set.options" class="checkbox-point checkbox-inline">
+                                <a href="javascript:void(0)" v-show="on" v-text="name" v-on="click:go('option', $index)"></a>
+                            </label>
+                        </div>
                     </div>
                     <hr />
-                    <button class="btn btn-danger" v-on="click: deleteLog('all')">刪除所有紀錄</button>
                 </div>
             </div>
+            <button class="btn btn-danger" v-on="click: deleteLog('all')">刪除所有紀錄</button>
         </div>
         <div>
             <div>
@@ -222,7 +233,7 @@
         <!-- github2 -->
         <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5518310153941700" data-ad-slot="5554403276" data-ad-format="auto"></ins>
         <script>
-        (adsbygoogle = window.adsbygoogle || []).push({});
+            (adsbygoogle = window.adsbygoogle || []).push({});
         </script>
         <audio id="sound" class="hidden" controls>
             <source src="asset/coin04.mp3" type="audio/mpeg" /> Your browser does not support the audio element.
@@ -343,7 +354,7 @@
     </div>
     <div id="fb-root"></div>
     <!--<script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.5.0.min.js"></script>-->
-    <script type="text/javascript" src="dist/scripts/main.js?20180418"></script>
+    <script type="text/javascript" src="dist/scripts/main.js?19010201"></script>
     <script>
     (function(d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0];
