@@ -174,13 +174,19 @@ var vue = new Vue({
             this.set.options.$remove(option.$data);
         },
 
+        getRandomArbitrary: function(min, max) {
+            return Math.random() * (max - min) + min;
+        },
+
         go: function(type, index) {
             var options = this.set.options;
             var oldAngle = this.angle;
             var tmp = 0;
             var moreAngle = 1800;
             this.getSum();
-            var addAngle = Math.floor((Math.random() * this.sum));
+            var addAngle = this.getRandomArbitrary(0, this.sum);
+            //console.log(addAngle);
+            //return ;
 
             if (this.goFlag == true || this.sum == 0) {
                 return;
@@ -200,18 +206,19 @@ var vue = new Vue({
             //console.log(addAngle);
             for (var i = 0; i <= options.length - 1; i++) {
                 if (options[i].on === false) continue;
+                tmp += options[i].weight;
                 //console.log(tmp,i,options[i].weight / sum);
-                if (tmp >= addAngle) {
+                if (tmp > addAngle) {
                     this.target = i;
                     var next = 360;
                     var targetAngle = Math.floor(tmp / this.sum * 360);
-                    if(options[i + 1]){
+                    if (options[i + 1]) {
                         var next = Math.floor((tmp + options[i + 1].weight) / this.sum * 360);
                     }
                     addAngle = targetAngle + Math.floor(Math.random() * (next - targetAngle));
                     break;
                 }
-                tmp += options[i].weight;
+                //tmp += options[i].weight;
             };
 
             if (this.c.chatType == 'google') {
@@ -249,7 +256,7 @@ var vue = new Vue({
             log.target = this.target;
             log.content = this.set.options[this.target].name;
             this.logs.unshift(log);
-            if (this.logs.length > 500) {
+            if (this.logs.length > 1000) {
                 this.logs.pop();
             }
 
