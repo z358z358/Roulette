@@ -185,7 +185,7 @@ var vue = new Vue({
             var moreAngle = 1800;
             this.getSum();
             var addAngle = this.getRandomArbitrary(0, this.sum);
-            //console.log(addAngle);
+            console.log(addAngle);
             //return ;
 
             if (this.goFlag == true || this.sum == 0) {
@@ -212,12 +212,13 @@ var vue = new Vue({
                 //console.log(tmp,i,options[i].weight / sum);
                 if (tmp > addAngle) {
                     this.target = i;
-                    var pre = 0;
-                    var targetAngle = Math.floor(tmp / this.sum * 360);
+                    var targetAngle = 0;
+                    var nextStart = Math.floor(tmp / this.sum * 360);
                     if (options[i - 1]) {
-                        var pre = Math.floor((tmp - options[i].weight) / this.sum * 360);
+                        var targetAngle = Math.floor((tmp - options[i].weight) / this.sum * 360);
                     }
-                    addAngle = targetAngle + Math.floor(Math.random() * (targetAngle- pre));
+                    console.log(targetAngle, nextStart);
+                    addAngle = targetAngle + this.getRandomArbitrary(0, nextStart - targetAngle);
                     break;
                 }
                 //tmp += options[i].weight;
