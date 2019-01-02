@@ -177,10 +177,10 @@ var vue = new Vue({
         go: function(type, index) {
             var options = this.set.options;
             var oldAngle = this.angle;
-            var addAngle = Math.floor((Math.random() * 360));
             var tmp = 0;
             var moreAngle = 1800;
             this.getSum();
+            var addAngle = Math.floor((Math.random() * this.sum));
 
             if (this.goFlag == true || this.sum == 0) {
                 return;
@@ -200,12 +200,18 @@ var vue = new Vue({
             //console.log(addAngle);
             for (var i = 0; i <= options.length - 1; i++) {
                 if (options[i].on === false) continue;
-                tmp += (options[i].weight / this.sum) * 360;
                 //console.log(tmp,i,options[i].weight / sum);
                 if (tmp >= addAngle) {
                     this.target = i;
+                    var next = 360;
+                    var targetAngle = Math.floor(tmp / this.sum * 360);
+                    if(options[i + 1]){
+                        var next = Math.floor((tmp + options[i + 1].weight) / this.sum * 360);
+                    }
+                    addAngle = targetAngle + Math.floor(Math.random() * (next - targetAngle));
                     break;
                 }
+                tmp += options[i].weight;
             };
 
             if (this.c.chatType == 'google') {
