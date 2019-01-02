@@ -298,7 +298,7 @@ var vue = new Vue({
             };
             delete tmp.hot;
 
-            if (tmp.uid && tmp.uid === this.user.uid && this.rid) {
+            if (tmp.uid && tmp.uid === this.user.uid && this.rid && this.saveType == 'save') {
                 fire.ref('list/' + this.rid).update(tmp, function(error) {
                     if (error) {
                         that.$set('Msg', { type: 'error', msg: '儲存轉盤 失敗!' });
