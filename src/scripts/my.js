@@ -110,7 +110,7 @@ var vue = new Vue({
                 this.drawByGoole();
             }
             $("#piechart,#lotteryBtn").css('transform', 'rotate(0)');
-            $.cookie(this.cookieKey, this.c, { path: '/', expires: 365 });
+            this.saveConfig();
         },
         // google chart
         drawByGoole: function() {
@@ -194,6 +194,7 @@ var vue = new Vue({
 
             if (type == 'c') {
                 this.turnFlag = this.c.setTurn;
+                this.saveConfig();
             } else if (type == 'option') {
                 if (options[index].on === false) {
                     return;
@@ -201,6 +202,7 @@ var vue = new Vue({
                 this.targetUntil.target = index;
                 this.targetUntil.count = 0;
                 this.targetUntil.action = 'run';
+                this.saveConfig();
             }
 
             //console.log(addAngle);
@@ -210,12 +212,12 @@ var vue = new Vue({
                 //console.log(tmp,i,options[i].weight / sum);
                 if (tmp > addAngle) {
                     this.target = i;
-                    var next = 360;
+                    var pre = 0;
                     var targetAngle = Math.floor(tmp / this.sum * 360);
-                    if (options[i + 1]) {
-                        var next = Math.floor((tmp + options[i + 1].weight) / this.sum * 360);
+                    if (options[i - 1]) {
+                        var pre = Math.floor((tmp + options[i - 1].weight) / this.sum * 360);
                     }
-                    addAngle = targetAngle + Math.floor(Math.random() * (next - targetAngle));
+                    addAngle = targetAngle + Math.floor(Math.random() * (targetAngle- pre));
                     break;
                 }
                 //tmp += options[i].weight;
@@ -279,6 +281,7 @@ var vue = new Vue({
                     // this.targetUntil.target = -1;
                 }
             } else {
+                this.saveConfig();
                 if (this.c.volume) document.getElementById("end").play();
             }
         },
@@ -447,7 +450,7 @@ var vue = new Vue({
 
         setVolume: function(value) {
             this.c.$set('volume', value);
-            $.cookie(this.cookieKey, this.c, { path: '/', expires: 365 });
+            this.saveConfig();
         },
 
         showIntro: function() {
@@ -510,6 +513,10 @@ var vue = new Vue({
             this.set.options.map(function(option) {
                 option.$set('on', true);
             });
+        },
+
+        saveConfig: function() {
+            $.cookie(this.cookieKey, this.c, { path: '/', expires: 365 });
         }
     }
 });
