@@ -215,7 +215,7 @@ var vue = new Vue({
                     var pre = 0;
                     var targetAngle = Math.floor(tmp / this.sum * 360);
                     if (options[i - 1]) {
-                        var pre = Math.floor((tmp + options[i - 1].weight) / this.sum * 360);
+                        var pre = Math.floor((tmp - options[i].weight) / this.sum * 360);
                     }
                     addAngle = targetAngle + Math.floor(Math.random() * (targetAngle- pre));
                     break;
