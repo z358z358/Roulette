@@ -243,7 +243,7 @@ var vue = new Vue({
             log.target = this.target;
             log.content = this.set.options[this.target].name;
             this.logs.unshift(log);
-            if (this.logs.length > 1000) {
+            if (this.logs.length > 500) {
                 this.logs.pop();
             }
 

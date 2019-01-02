@@ -203,11 +203,11 @@
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">旋轉秒數</label>
-                            <input class="bar" type="range" min="1000" max="10000" v-model="c.duration" number />{{c.duration / 1000}}秒
+                            <input class="bar" type="range" min="1" max="10000" v-model="c.duration" number />{{c.duration / 1000}}秒
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">旋轉次數</label>
-                            <input class="bar" type="range" min="1" max="100" v-model="c.setTurn" number />{{c.setTurn}}
+                            <input class="bar" type="range" min="1" max="500" v-model="c.setTurn" number />{{c.setTurn}}
                         </div>
                         <button type="button" class="btn btn-success btn-block" v-class="{'disabled':c.setTurn <= 1}" v-on="click:go('c')">連續旋轉Go！</button>
                         <hr />
@@ -354,7 +354,7 @@
     </div>
     <div id="fb-root"></div>
     <!--<script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.5.0.min.js"></script>-->
-    <script type="text/javascript" src="dist/scripts/main.js?19010201"></script>
+    <script type="text/javascript" src="dist/scripts/main.js?19010202"></script>
     <script>
     (function(d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0];
