@@ -84,7 +84,7 @@ var vue = new Vue({
 
     filters: {
         persent: function(number) {
-            return parseFloat((number * 100).toFixed(2)) + '%';
+            return parseFloat((number * 1000).toFixed(3)) + '%';
         }
     },
 
