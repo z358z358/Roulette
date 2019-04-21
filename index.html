@@ -303,6 +303,7 @@
                     <div class="alert alert-info" role="alert" v-show="list.length > 49">僅顯示前50筆</div>
                     <div class="list-group">
                         <a href="#{{ id }}" class="list-group-item" data-dismiss="modal" v-repeat="list | orderBy listType true" v-on="click:loadOption(id)">
+                            <i v-show="isPrivate" class="fa fa-unlock-alt" aria-hidden="true"></i>
                             <span class="" v-text="title || '沒名字'"></span>
                             <p class="text-right">
                                 <small class="" title="人氣" v-text="hot + '人氣:'" v-show="hot > 0"></small>
@@ -327,6 +328,12 @@
                         <div class="form-group">
                             <label>給他個標題吧！</label>
                             <input class="form-control" placeholder="標題" v-model="set.title">
+                        </div>
+                        <div class="form-check" title="不會出現在公開列表裡">
+                            <input class="form-check-input" type="checkbox" v-model="set.isPrivate" value="1" id="defaultCheck1">
+                            <label class="form-check-label" for="defaultCheck1">
+                                不公開的轉盤 (不會出現在公開列表裡)
+                            </label>
                         </div>
                     </form>
                 </div>
@@ -354,7 +361,7 @@
     </div>
     <div id="fb-root"></div>
     <!--<script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.5.0.min.js"></script>-->
-    <script type="text/javascript" src="dist/scripts/main.js?19030501"></script>
+    <script type="text/javascript" src="dist/scripts/main.js?190421"></script>
     <script>
     (function(d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0];

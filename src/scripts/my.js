@@ -15,6 +15,7 @@ var vue = new Vue({
             ts: 0,
             hot: 0,
             uid: '',
+            isPrivate: false,
         },
 
         c: {
@@ -54,6 +55,7 @@ var vue = new Vue({
         sum: 0,
         logs: [],
         list: [],
+        max: 50,
     },
 
     // 為了讓v-repeat v-model v-on一起用
@@ -340,17 +342,35 @@ var vue = new Vue({
                 tmp = tmp.orderByChild(type2);
             }
 
-            tmp.limitToLast(50).once("value").then(function(snapshot) {
-                console.log(snapshot);
-                var tmp = [];
+            var allCount = 0;
+            var count = 0;
+            tmp.limitToLast(that.max).once("value").then(function(snapshot) {
+                // console.log(snapshot);
+                var tmp2 = [];
                 snapshot.forEach(function(data) {
                     var a = data.val();
-                    a.id = data.key;
-                    tmp.push(a);
-                });
+                    allCount++;
+                    if (a.isPrivate && type != 'my') {
 
-                that.list = tmp;
+                    } else {
+                        a.id = data.key;
+                        tmp2.push(a);
+                        count++;
+                    }
+
+                    // console.log(a.ts);
+                });
+                console.log(count);
+
+                if (count < 50 && allCount != count) {
+                    that.max = that.max > 500 ? 500 : that.max + that.max;
+                    that.getList(type);
+                } else {
+                    tmp2.reverse();
+                    that.list = tmp2.slice(0, 50);
+                }
             });
+
         },
 
         loadOption: function(id) {
