@@ -332,8 +332,13 @@
                         <div class="form-check" title="不會出現在公開列表裡">
                             <input class="form-check-input" type="checkbox" v-model="set.isPrivate" value="1" id="defaultCheck1">
                             <label class="form-check-label" for="defaultCheck1">
-                                不公開的轉盤 (不會出現在公開列表裡)
+                                不公開的轉盤
                             </label>
+                            <p>
+                                <span>不會出現在公開列表裡</span>
+                                <span v-show="user.uid == ''">，可以先登入帳號，就會出現在[我的轉盤]中</span>
+                                <span v-show="user.uid">，會出現在[我的轉盤]中</span>
+                            </p>
                         </div>
                     </form>
                 </div>
