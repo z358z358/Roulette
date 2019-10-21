@@ -90,7 +90,7 @@
             <p class="chart-title" v-text="set.title" v-show="c.chatType == 'plot'"></p>
             <div class="lottery-star first-intro" data-toggle="tooltip" data-placement="bottom" title="點選此箭頭即可開始旋轉！" data-step="3" data-intro='點選此箭頭即可開始旋轉！' v-on="click:go"><i id="lotteryBtn" class="fa fa-long-arrow-up"></i></div>
             <div class="piechart" id="piechart" data-step="2" data-intro='這是目前的轉盤，每個選項佔的面積就是機率。' v-on="click:go"></div>
-            <div class="fb-like z-10" data-href="http://z358z358.github.io/Roulette/#{{rid}}" data-send="false" data-layout="box_count" data-width="50" data-show-faces="true" data-colorscheme="dark"></div>
+            <div class="fb-like z-10" data-href="http://z358z358.github.io/Roulette/#{{rid}}" data-layout="box_count" data-width="50" data-action="like" data-show-faces="true" data-share="false" data-colorscheme="dark"></div>
             <div class="volume z-10">
                 <i class="fa fa-volume-up fa-2x" title="有聲音" v-show="c.volume" v-on="click: setVolume(false)"></i>
                 <i class="fa fa-volume-off fa-2x" title="無聲音" v-show="!c.volume" v-on="click: setVolume(true)"></i>
