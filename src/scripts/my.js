@@ -399,14 +399,15 @@ var vue = new Vue({
 
             this.rid = snapshot.key;
             this.s.url = this.s._url + '#' + this.rid;
-            if (this.rid != oldRid) {
-                FB.XFBML.parse();
-            }
 
             if (!$.cookie(this.hotKey)) {
                 $.cookie(this.hotKey, '1', { path: '/', expires: 1 });
                 this.incHot(snapshot.key);
             }
+
+            this.$nextTick(function() {
+                FB.XFBML.parse();
+            });
         },
 
         // 人氣+1
