@@ -99,7 +99,7 @@ var vue = new Vue({
         }
         this.setOptionOn();
         $("#share").jsSocials({
-            shares: ["twitter", "facebook", "messenger", "line"]
+            shares: ["twitter", "facebook", "messenger", "line"],
         });
     },
 
@@ -407,6 +407,9 @@ var vue = new Vue({
 
             this.$nextTick(function() {
                 FB.XFBML.parse();
+                $("#share").jsSocials({
+                    shares: ["twitter", "facebook", "messenger", "line"],
+                });
             });
         },
 
