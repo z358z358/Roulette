@@ -542,6 +542,11 @@ var vue = new Vue({
 
         saveConfig: function() {
             $.cookie(this.cookieKey, this.c, { path: '/', expires: 365 });
+        },
+
+        deleteData: function(id) {
+            fire.ref('list/' + id).remove();
+            this.getList('my');
         }
     }
 });

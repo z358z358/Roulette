@@ -17,7 +17,7 @@
     <meta property="og:site_name" content="自訂轉盤" />
     <meta property="og:description" content="自訂轉盤、機率、選項！" />
     <meta property="og:image" content="http://z358z358.github.io/Roulette/asset/200x200.jpg" />
-    <link href="dist/styles/main.css?19112601" rel="stylesheet">
+    <link href="dist/styles/main.css?19112602" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials.css" />
     <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials-theme-flat.css" />
@@ -302,14 +302,17 @@
                 <div class="modal-body">
                     <div class="alert alert-info" role="alert" v-show="list.length > 49">僅顯示前50筆</div>
                     <div class="list-group">
-                        <a href="#{{ id }}" class="list-group-item" data-dismiss="modal" v-repeat="list | orderBy listType true" v-on="click:loadOption(id)">
-                            <i v-show="isPrivate" class="fa fa-unlock-alt" aria-hidden="true"></i>
-                            <span class="item-title" v-text="title || '沒名字'"></span>
-                            <p class="text-right">
-                                <small class="" title="人氣" v-text="hot + '人氣:'" v-show="hot > 0"></small>
-                                <small class="timeago" title="{{ts}}"></small>
-                            </p>
-                        </a>
+                        <div class="list-wrap" v-repeat="list | orderBy listType true">
+                            <a href="#{{ id }}" class="list-group-item" data-dismiss="modal"  v-on="click:loadOption(id)">
+                                <i v-show="isPrivate" class="fa fa-unlock-alt" aria-hidden="true"></i>
+                                <span class="item-title" v-text="title || '沒名字'"></span>
+                                <p class="text-right">
+                                    <small class="" title="人氣" v-text="hot + '人氣:'" v-show="hot > 0"></small>
+                                    <small class="timeago" title="{{ts}}"></small>
+                                </p>
+                            </a>
+                            <i v-if="listTitle == '我的轉盤'" v-on="click:deleteData(id)" class="fa fa-trash list-trash" title="刪除" aria-hidden="true"></i>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -366,7 +369,7 @@
     </div>
     <div id="fb-root"></div>
     <!--<script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.5.0.min.js"></script>-->
-    <script type="text/javascript" src="dist/scripts/main.js?19102201"></script>
+    <script type="text/javascript" src="dist/scripts/main.js?19102204"></script>
     <script>
     (function(d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0];

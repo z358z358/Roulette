@@ -64,6 +64,16 @@
     white-space: nowrap;
 }
 
+.list-wrap {
+    position: relative;
+}
+
+.list-wrap .list-trash {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+
 @media (max-width: 767px) {
     .lottery-star {
         font-size: 3em;
