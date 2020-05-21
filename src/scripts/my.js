@@ -126,6 +126,10 @@ var vue = new Vue({
                 tmp.push([option.name, weight]);
             });
 
+            if (typeof google == 'undefined' || typeof google.visualization == 'undefined' || typeof google.visualization.arrayToDataTable != 'function') {
+                return false;
+            }
+
             var data = google.visualization.arrayToDataTable(tmp);
 
             var options = {
