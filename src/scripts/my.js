@@ -640,20 +640,22 @@ var vue = new Vue({
 
 var script = document.createElement('script');
 script.onload = function() {
-    var config = {
+    var firebaseConfig = {
         apiKey: "AIzaSyAtoSqn428jHyekJoMuhPXYJeWQtH8O6Mk",
         authDomain: "z358z358-roulette.firebaseapp.com",
         databaseURL: "https://z358z358-roulette.firebaseio.com",
         projectId: "z358z358-roulette",
-        storageBucket: "",
-        messagingSenderId: "1095342180247"
+        storageBucket: "z358z358-roulette.appspot.com",
+        messagingSenderId: "1095342180247",
+        appId: "1:1095342180247:web:575ab78fd455546c9b66d2"
     };
-    firebase.initializeApp(config);
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
     fire = firebase.database();
     vue.fireOn();
 };
 script.async = true;
-script.src = "https://www.gstatic.com/firebasejs/4.12.1/firebase.js";
+script.src = "https://www.gstatic.com/firebasejs/8.2.4/firebase-database.js";
 document.getElementsByTagName('head')[0].appendChild(script);
 
 $(window).resize(vue.draw);
