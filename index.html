@@ -69,7 +69,22 @@
                     <li class="share-li"><a target="_blank" href="https://github.com/z358z358/Roulette" title="原始碼"><i class="fa fa-lg fa-github"></i></a>
                     </li>
                     <li class="share-li hidden-sm">
-                        <div id="share"></div>
+                        <div id="share" class="jssocials">
+                            <div class="jssocials-shares">
+                                <div class="jssocials-share jssocials-share-twitter"><a target="_blank" href="https://twitter.com/share?url={{ encodeURIComponent(s.url) }}&amp;text={{ encodeURIComponent(s.title) }}" class="jssocials-share-link"><i class="fa fa-twitter jssocials-share-logo"></i><span class="jssocials-share-label">Tweet123</span></a>
+                                    <div class="jssocials-share-count-box jssocials-share-no-count"><span class="jssocials-share-count"></span></div>
+                                </div>
+                                <div class="jssocials-share jssocials-share-facebook"><a target="_blank" href="https://facebook.com/sharer/sharer.php?u={{ encodeURIComponent(s.url) }}" class="jssocials-share-link"><i class="fa fa-facebook jssocials-share-logo"></i><span class="jssocials-share-label">Like</span></a>
+                                    <div class="jssocials-share-count-box jssocials-share-no-count"><span class="jssocials-share-count"></span></div>
+                                </div>
+                                <div class="jssocials-share jssocials-share-messenger"><a target="_self" href="fb-messenger://share?link={{ encodeURIComponent(s.url) }}" class="jssocials-share-link"><i class="fa fa-commenting jssocials-share-logo"></i><span class="jssocials-share-label">Share</span></a>
+                                    <div class="jssocials-share-count-box jssocials-share-no-count"><span class="jssocials-share-count"></span></div>
+                                </div>
+                                <div class="jssocials-share jssocials-share-line"><a target="_blank" href="http://line.me/R/msg/text/?{{ encodeURIComponent(s.title) }}{{ encodeURIComponent(s.url) }}" class="jssocials-share-link"><i class="fa fa-comment jssocials-share-logo"></i><span class="jssocials-share-label">LINE</span></a>
+                                    <div class="jssocials-share-count-box jssocials-share-no-count"><span class="jssocials-share-count"></span></div>
+                                </div>
+                            </div>
+                        </div>
                     </li>
                 </ul>
             </div>
@@ -372,11 +387,11 @@
     <!--<script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.5.0.min.js"></script>-->
     <script src="https://www.gstatic.com/firebasejs/8.2.4/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.2.4/firebase-auth.js"></script>
-    <script type="text/javascript" src="dist/scripts/main.js?20210126"></script>
+    <script type="text/javascript" src="dist/scripts/main.js?20210127"></script>
     <script src="https://www.gstatic.com/charts/loader.js"></script>
     <script>
-        google.charts.load('current', {packages: ['corechart']});
-        google.charts.setOnLoadCallback(vue.draw);
+    google.charts.load('current', { packages: ['corechart'] });
+    google.charts.setOnLoadCallback(vue.draw);
     </script>
     <script>
     (function(d, s, id) {
