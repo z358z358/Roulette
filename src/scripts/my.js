@@ -681,9 +681,8 @@ var vue = new Vue({
         },
 
         changeLang: function(lang, trigger) {
-            if (trigger != 'cookie') {
-                ga('send', 'event', 'lang', lang, trigger);
-                ga('send', 'event', 'lang', trigger, lang);
+            if (trigger == 'nav') {
+                ga('send', 'event', 'lang', lang);
             }
             var langs = ['tw', 'en'];
             if (langs.indexOf(lang) === -1) {
