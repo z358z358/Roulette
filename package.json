@@ -1,7 +1,10 @@
 {
   "dependencies": {
+    "gulp-concat": "*",
+    "gulp-ignore": "^3.0.0",
     "gulp-jshint": "*",
-    "gulp-concat": "*"
+    "gulp-util": "^3.0.8",
+    "jquery-i18next": "^1.2.1"
   },
   "devDependencies": {
     "del": "^1.2.0",

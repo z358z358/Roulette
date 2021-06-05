@@ -11,6 +11,8 @@ notify = require('gulp-notify'),
 cache = require('gulp-cache'),
 livereload = require('gulp-livereload'),
 del = require('del');
+var gulpIgnore = require('gulp-ignore');
+var gulpUtil = require('gulp-util');
 
 gulp.task('default', ['clean'], function() {
 	gulp.start('styles', 'scripts');
@@ -20,11 +22,14 @@ gulp.task('default', ['clean'], function() {
 gulp.task('scripts', function() {
 	return gulp.src([
 		'src/scripts/jquery-1.11.3.min.js',
+		'src/scripts/jquery-i18next.js',
+		'src/scripts/jquery.timeago.js',
 		'src/scripts/vue.min.js',
 		'src/scripts/lazyload.js',
 		'src/scripts/*.js'])
 	.pipe(concat('main.js'))
-	.pipe(uglify())
+	.pipe(gulpIgnore.exclude([ "**/*.map" ]))
+	.pipe(uglify().on('error', gulpUtil.log))
 	.pipe(gulp.dest('dist/scripts'))
 	.pipe(notify({ message: 'Scripts task complete' }));
 });

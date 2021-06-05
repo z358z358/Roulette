@@ -5,13 +5,8 @@ var vue = new Vue({
     el: '#main',
     data: {
         set: {
-            options: [
-                { name: '我隨便', weight: 1, on: true },
-                { name: '我都好', weight: 1, on: true },
-                { name: '都可以', weight: 1, on: true },
-                { name: '看你', weight: 1, on: true },
-            ],
-            title: '今天想吃什麼?',
+            options: [],
+            title: '',
             ts: 0,
             hot: 0,
             uid: '',
@@ -43,6 +38,7 @@ var vue = new Vue({
         Msg: { type: '', msg: '' },
 
         cookieKey: 'z358z358-roulette',
+        cookieKeyLang: 'z358z358-roulette-lang',
         hotKey: 'hot-cd',
         rid: '',
         turnFlag: -1,
@@ -57,6 +53,7 @@ var vue = new Vue({
         list: [],
         max: 50,
         uploadReady: true,
+        lang: i18nextDefaultLang
     },
 
     // 為了讓v-repeat v-model v-on一起用
@@ -92,11 +89,25 @@ var vue = new Vue({
     },
 
     ready: function() {
+        var url = new URL(window.location.href);
+        var getLang = url.searchParams.get('lang');
+        if (getLang) {
+            this.changeLang(lang);
+            window.location.href = '/';
+            return;
+        }
+
+
         var c = $.cookie(this.cookieKey);
         if (c && Object.keys(this.c).length == Object.keys(c).length) {
             this.c = c;
         } else {
             $('.first-intro').tooltip('show');
+        }
+
+        var lang = $.cookie(this.cookieKeyLang);
+        if (lang) {
+            this.changeLang(lang);
         }
         this.setOptionOn();
     },
@@ -115,7 +126,7 @@ var vue = new Vue({
         // google chart
         drawByGoole: function() {
             var tmp = [
-                ['名稱', '比重']
+                [i18next.t('js.j6'), i18next.t('js.j7')]
             ];
             this.set.options.map(function(option) {
                 if (option.on === false) return;
@@ -283,9 +294,15 @@ var vue = new Vue({
                     this.go();
                 } else {
                     this.targetUntil.action = 'end';
+                    this.$nextTick(function() {
+                        $('[data-i18n]').localize();
+                    });
                     // this.targetUntil.target = -1;
                 }
             } else {
+                // this.$nextTick(function() {
+                //     $('[data-i18n]').localize();
+                // });
                 this.saveConfig();
                 if (this.c.volume) document.getElementById("end").play();
             }
@@ -306,9 +323,9 @@ var vue = new Vue({
             if (tmp.uid && tmp.uid === this.user.uid && this.rid && this.saveType == 'save') {
                 fire.ref('list/' + this.rid).update(tmp, function(error) {
                     if (error) {
-                        that.$set('Msg', { type: 'error', msg: '儲存轉盤 失敗!' });
+                        that.$set('Msg', { type: 'error', msg: i18next.t('js.j8') });
                     } else {
-                        that.$set('Msg', { type: 'success', msg: '儲存轉盤 成功!' });
+                        that.$set('Msg', { type: 'success', msg: i18next.t('js.j9') });
                     }
                 });
             } else {
@@ -317,10 +334,10 @@ var vue = new Vue({
                 this.set.uid = tmp.uid = this.user.uid;
                 tmp2 = fire.ref('list').push(tmp);
                 if (!tmp2) {
-                    that.$set('Msg', { type: 'error', msg: '新增轉盤 失敗!' });
+                    that.$set('Msg', { type: 'error', msg: i18next.t('js.j10') });
                     return;
                 } else {
-                    that.$set('Msg', { type: 'success', msg: '新增轉盤 成功!' });
+                    that.$set('Msg', { type: 'success', msg: i18next.t('js.j11') });
                 }
                 this.rid = window.location.hash = tmp2.key;
             }
@@ -330,18 +347,19 @@ var vue = new Vue({
 
         getList: function(type) {
             var that = this;
-            var title = (type == 'hot') ? '熱門轉盤' : '最新上架';
+            var title = (type == 'hot') ? i18next.t('js.j12') : i18next.t('js.j17');
             var tmp = fire.ref('list');
-            var type2 = (type == 'my') ? 'ts' : type;
+            var order = (type == 'my') ? 'ts' : type;
 
-            title = (type == 'my') ? '我的轉盤' : title;
-            this.$set('listType', type2);
+            title = (type == 'my') ? i18next.t('js.j13') : title;
+            this.$set('listOrder', order);
+            this.$set('listType', type);
             this.$set('listTitle', title);
 
             if (type == 'my' && this.user.uid) {
                 tmp = tmp.orderByChild('uid').equalTo(this.user.uid);
             } else {
-                tmp = tmp.orderByChild(type2);
+                tmp = tmp.orderByChild(order);
             }
 
             var allCount = 0;
@@ -371,6 +389,8 @@ var vue = new Vue({
                     tmp2.reverse();
                     that.list = tmp2.slice(0, 50);
                 }
+
+                $('[data-i18n]').localize();
             });
 
         },
@@ -391,7 +411,7 @@ var vue = new Vue({
             }
 
             var tmp = snapshot.val();
-            var title = tmp.title + ' - 自訂轉盤';
+            var title = tmp.title + i18next.t('js.j15');
             this.set = tmp;
             $("title").text(title);
             this.s.title = title;
@@ -513,6 +533,13 @@ var vue = new Vue({
                 this.rid = window.location.hash.substring(1); //Puts hash in variable, and removes the # character
                 this.loadOption(this.rid);
             } else {
+                this.set.options = [
+                    { name: i18next.t('js.j1'), weight: 1, on: true },
+                    { name: i18next.t('js.j2'), weight: 1, on: true },
+                    { name: i18next.t('js.j3'), weight: 1, on: true },
+                    { name: i18next.t('js.j4'), weight: 1, on: true },
+                ];
+                this.set.title = i18next.t('js.j5');
                 this.draw();
             }
 
@@ -549,9 +576,9 @@ var vue = new Vue({
         },
 
         csvDownload: function() {
-            var filename = this.set.title + '-轉盤內容.csv';
+            var filename = this.set.title + i18next.t('js.j16');
             var rows = [
-                ['名稱', '比重']
+                [i18next.t('js.j6'), i18next.t('js.j7')]
             ];
             this.set.options.map(function(option) {
                 var weight = parseFloat(option.weight, 10);
@@ -607,12 +634,11 @@ var vue = new Vue({
                 var cval = e.target.result.split("\n");
                 // console.log(cval);
                 for (i in cval) {
+                    if (i == 0) {
+                        continue;
+                    }
                     var data = cval[i].split(',').map(function(e) { return e.trim(); });
                     if (data.length == 2) {
-                        if (data[0] == '名稱' && data[1] == '比重') {
-                            continue;
-                        }
-
                         var weight = parseFloat(data[1], 10);
                         rows.push({ name: data[0], weight: weight, on: true });
                     }
@@ -628,6 +654,20 @@ var vue = new Vue({
             this.$nextTick(function() {
                 that.uploadReady = true;
             })
+        },
+
+        changeLang: function(lang) {
+            var langs = ['tw', 'en'];
+            if (langs.indexOf(lang) === -1) {
+                return;
+            }
+            i18next.changeLanguage(lang);
+            $('[data-i18n]').localize();
+            document.title = i18next.t('nav.home');
+            $.cookie(this.cookieKeyLang, lang, { path: '/', expires: 365 });
+            this.lang = lang;
+
+            $.timeago.settings.strings = webLangCustom[lang].translation.timeago;
         }
     }
 });
