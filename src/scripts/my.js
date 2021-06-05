@@ -92,7 +92,7 @@ var vue = new Vue({
         var url = new URL(window.location.href);
         var getLang = url.searchParams.get('lang');
         if (getLang) {
-            this.changeLang(getLang);
+            this.changeLang(getLang, 'getLang');
             window.location.href = this.s.url;
             return;
         }
@@ -107,7 +107,7 @@ var vue = new Vue({
 
         var lang = $.cookie(this.cookieKeyLang);
         if (lang) {
-            this.changeLang(lang);
+            this.changeLang(lang, 'cookie');
         }
         this.setOptionOn();
     },
@@ -179,6 +179,7 @@ var vue = new Vue({
         },
 
         addOption: function() {
+            ga('send', 'event', '點擊按鈕', '新增選項');
             this.set.options.unshift({ name: '', weight: 1, on: true });
             this.$nextTick(function() {
                 $("#option-table input:first").focus();
@@ -186,6 +187,7 @@ var vue = new Vue({
         },
 
         removeOption: function(option) {
+            ga('send', 'event', '點擊按鈕', '刪除選項');
             this.set.options.$remove(option.$data);
         },
 
@@ -200,7 +202,7 @@ var vue = new Vue({
             var moreAngle = 1800;
             this.getSum();
             var addAngle = this.getRandomArbitrary(0, this.sum);
-            console.log(addAngle);
+            // console.log(addAngle);
             //return ;
 
             if (this.goFlag == true || this.sum == 0) {
@@ -214,6 +216,7 @@ var vue = new Vue({
                 if (options[index].on === false) {
                     return;
                 }
+                ga('send', 'event', '點擊按鈕', '血統模式開始');
                 this.targetUntil.target = index;
                 this.targetUntil.count = 0;
                 this.targetUntil.action = 'run';
@@ -342,6 +345,8 @@ var vue = new Vue({
                 this.rid = window.location.hash = tmp2.key;
             }
 
+            ga('send', 'event', '點擊按鈕', '儲存轉盤');
+
             this.draw();
         },
 
@@ -393,6 +398,8 @@ var vue = new Vue({
                 $('[data-i18n]').localize();
             });
 
+            ga('send', 'event', '取得list', type);
+
         },
 
         loadOption: function(id) {
@@ -400,6 +407,8 @@ var vue = new Vue({
             tmp.once("value", this.setOptions);
             $("#list-modal").modal('hide');
             $(".navbar-toggle:not(.collapsed)").click();
+
+            ga('send', 'event', '讀取option', id);
         },
 
         setOptions: function(snapshot) {
@@ -437,17 +446,21 @@ var vue = new Vue({
             fire.ref('list/' + id + '/hot').transaction(function(current_value) {
                 return (current_value || 0) + 1;
             });
+
+            ga('send', 'event', '人氣inc', id);
         },
 
         login: function(type) {
             var that = this;
             if (type == 'logout') {
+                ga('send', 'event', '登出');
                 firebase.auth().signOut().then(function() {
                     that.$set('user', { uid: '', provider: '', displayName: '' });
                 }, function(error) {
                     // An error happened.
                 });
             } else {
+                ga('send', 'event', '登入', type);
                 if (type == 'facebook') {
                     var provider = new firebase.auth.FacebookAuthProvider();
                 } else if (type == 'google') {
@@ -495,9 +508,12 @@ var vue = new Vue({
         setVolume: function(value) {
             this.c.$set('volume', value);
             this.saveConfig();
+
+            ga('send', 'event', '聲音', value);
         },
 
         showIntro: function() {
+            ga('send', 'event', '介紹');
             introJs().setOptions({ prevLabel: '&larr; 上一步', nextLabel: '下一步 &rarr;', skipLabel: '跳過', doneLabel: '結束' }).start();
         },
 
@@ -525,6 +541,8 @@ var vue = new Vue({
             })();
 
             this.$set('dsq', true);
+
+            ga('send', 'event', '留言');
         },
 
         fireOn: function() {
@@ -573,6 +591,8 @@ var vue = new Vue({
         deleteData: function(id) {
             fire.ref('list/' + id).remove();
             this.getList('my');
+
+            ga('send', 'event', '刪除轉盤', id);
         },
 
         csvDownload: function() {
@@ -623,9 +643,13 @@ var vue = new Vue({
                     document.body.removeChild(link);
                 }
             }
+
+            ga('send', 'event', 'csv', '下載');
         },
 
         csvUpload: function($event) {
+            ga('send', 'event', 'csv', '上傳');
+
             var that = this;
             var files = $event.target.files;
             var reader = new FileReader();
@@ -656,7 +680,11 @@ var vue = new Vue({
             })
         },
 
-        changeLang: function(lang) {
+        changeLang: function(lang, trigger) {
+            if (trigger != 'cookie') {
+                ga('send', 'event', 'lang', lang, trigger);
+                ga('send', 'event', 'lang', trigger, lang);
+            }
             var langs = ['tw', 'en'];
             if (langs.indexOf(lang) === -1) {
                 return;
