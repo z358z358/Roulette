@@ -92,7 +92,7 @@ var vue = new Vue({
         var url = new URL(window.location.href);
         var getLang = url.searchParams.get('lang');
         if (getLang) {
-            this.changeLang(lang);
+            this.changeLang(getLang);
             window.location.href = this.s.url;
             return;
         }
