@@ -668,6 +668,10 @@ var vue = new Vue({
             this.lang = lang;
 
             $.timeago.settings.strings = webLangCustom[lang].translation.timeago;
+
+            if (lang == 'en') {
+                $('html').attr('lang', 'en');
+            }
         }
     }
 });
