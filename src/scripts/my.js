@@ -467,6 +467,9 @@ var vue = new Vue({
                 } else if (type == 'google') {
                     var provider = new firebase.auth.GoogleAuthProvider();
                 }
+                else if(type == 'yahoo'){
+                    var provider = new firebase.auth.OAuthProvider('yahoo.com');
+                }
                 firebase.auth().signInWithPopup(provider).then(function(result) {
                     // This gives you a Facebook Access Token. You can use it to access the Facebook API.
                     var token = result.credential.accessToken;
