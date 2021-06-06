@@ -110,6 +110,7 @@ var vue = new Vue({
             this.changeLang(lang, 'cookie');
         }
         this.setOptionOn();
+        this.sendGa('網址', window.location.href);
     },
 
     methods: {
@@ -179,7 +180,7 @@ var vue = new Vue({
         },
 
         addOption: function() {
-            ga('send', 'event', '點擊按鈕', '新增選項');
+            this.sendGa('點擊按鈕', '新增選項');
             this.set.options.unshift({ name: '', weight: 1, on: true });
             this.$nextTick(function() {
                 $("#option-table input:first").focus();
@@ -187,7 +188,7 @@ var vue = new Vue({
         },
 
         removeOption: function(option) {
-            ga('send', 'event', '點擊按鈕', '刪除選項');
+            this.sendGa('點擊按鈕', '刪除選項');
             this.set.options.$remove(option.$data);
         },
 
@@ -216,7 +217,7 @@ var vue = new Vue({
                 if (options[index].on === false) {
                     return;
                 }
-                ga('send', 'event', '點擊按鈕', '血統模式開始');
+                this.sendGa('點擊按鈕', '血統模式開始');
                 this.targetUntil.target = index;
                 this.targetUntil.count = 0;
                 this.targetUntil.action = 'run';
@@ -345,7 +346,7 @@ var vue = new Vue({
                 this.rid = window.location.hash = tmp2.key;
             }
 
-            ga('send', 'event', '點擊按鈕', '儲存轉盤');
+            this.sendGa('點擊按鈕', '儲存轉盤');
 
             this.draw();
         },
@@ -398,7 +399,7 @@ var vue = new Vue({
                 $('[data-i18n]').localize();
             });
 
-            ga('send', 'event', '取得list', type);
+            this.sendGa('取得list', type);
 
         },
 
@@ -408,7 +409,7 @@ var vue = new Vue({
             $("#list-modal").modal('hide');
             $(".navbar-toggle:not(.collapsed)").click();
 
-            ga('send', 'event', '讀取option', id);
+            this.sendGa('讀取option', id);
         },
 
         setOptions: function(snapshot) {
@@ -447,20 +448,20 @@ var vue = new Vue({
                 return (current_value || 0) + 1;
             });
 
-            ga('send', 'event', '人氣inc', id);
+            this.sendGa('人氣inc', id);
         },
 
         login: function(type) {
             var that = this;
             if (type == 'logout') {
-                ga('send', 'event', '登出');
+                this.sendGa('登出');
                 firebase.auth().signOut().then(function() {
                     that.$set('user', { uid: '', provider: '', displayName: '' });
                 }, function(error) {
                     // An error happened.
                 });
             } else {
-                ga('send', 'event', '登入', type);
+                this.sendGa('登入', type);
                 if (type == 'facebook') {
                     var provider = new firebase.auth.FacebookAuthProvider();
                 } else if (type == 'google') {
@@ -509,11 +510,11 @@ var vue = new Vue({
             this.c.$set('volume', value);
             this.saveConfig();
 
-            ga('send', 'event', '聲音', value);
+            this.sendGa('聲音', value);
         },
 
         showIntro: function() {
-            ga('send', 'event', '介紹');
+            this.sendGa('介紹');
             introJs().setOptions({ prevLabel: '&larr; 上一步', nextLabel: '下一步 &rarr;', skipLabel: '跳過', doneLabel: '結束' }).start();
         },
 
@@ -542,7 +543,7 @@ var vue = new Vue({
 
             this.$set('dsq', true);
 
-            ga('send', 'event', '留言');
+            this.sendGa('留言');
         },
 
         fireOn: function() {
@@ -592,7 +593,7 @@ var vue = new Vue({
             fire.ref('list/' + id).remove();
             this.getList('my');
 
-            ga('send', 'event', '刪除轉盤', id);
+            this.sendGa('刪除轉盤', id);
         },
 
         csvDownload: function() {
@@ -644,11 +645,11 @@ var vue = new Vue({
                 }
             }
 
-            ga('send', 'event', 'csv', '下載');
+            this.sendGa('csv', '下載');
         },
 
         csvUpload: function($event) {
-            ga('send', 'event', 'csv', '上傳');
+            this.sendGa('csv', '上傳');
 
             var that = this;
             var files = $event.target.files;
@@ -682,7 +683,7 @@ var vue = new Vue({
 
         changeLang: function(lang, trigger) {
             if (trigger == 'nav') {
-                ga('send', 'event', 'lang', lang);
+                this.sendGa('lang', lang);
             }
             var langs = ['tw', 'en'];
             if (langs.indexOf(lang) === -1) {
@@ -699,6 +700,13 @@ var vue = new Vue({
             if (lang == 'en') {
                 $('html').attr('lang', 'en');
             }
+        },
+
+        sendGa: function(type, act, tag) {
+            gtag('event', act, {
+                'event_category': type,
+                'event_label': tag
+            });
         }
     }
 });
