@@ -1,4 +1,4 @@
-var fire;
+var fire, db;
 $.cookie.json = true;
 
 var vue = new Vue({
@@ -51,7 +51,7 @@ var vue = new Vue({
         sum: 0,
         logs: [],
         list: [],
-        max: 50,
+        max: 2,
         uploadReady: true,
         lang: i18nextDefaultLang
     },
@@ -354,7 +354,7 @@ var vue = new Vue({
         getList: function(type) {
             var that = this;
             var title = (type == 'hot') ? i18next.t('js.j12') : i18next.t('js.j17');
-            var tmp = fire.ref('list');
+            var tmp = db.collection("list");
             var order = (type == 'my') ? 'ts' : type;
 
             title = (type == 'my') ? i18next.t('js.j13') : title;
@@ -363,41 +363,28 @@ var vue = new Vue({
             this.$set('listTitle', title);
 
             if (type == 'my' && this.user.uid) {
-                tmp = tmp.orderByChild('uid').equalTo(this.user.uid);
-            } else {
-                tmp = tmp.orderByChild(order);
+                tmp = tmp.where('uid', '==', this.user.uid).orderBy('ts', 'desc');
+            } else if (type == 'ts') {
+                tmp = tmp.orderBy('ts', 'desc');
             }
 
             var allCount = 0;
             var count = 0;
-            tmp.limitToLast(that.max).once("value").then(function(snapshot) {
-                // console.log(snapshot);
-                var tmp2 = [];
-                snapshot.forEach(function(data) {
-                    var a = data.val();
-                    allCount++;
-                    if (a.isPrivate && type != 'my') {
+            tmp.limit(that.max).get().then(function(querySnapshot) {
+                var listArray = []
+                querySnapshot.forEach(function(doc) {
+                    var a = doc.data();
+                    a.id = doc.id;
 
-                    } else {
-                        a.id = data.key;
-                        tmp2.push(a);
-                        count++;
-                    }
-
-                    // console.log(a.ts);
+                    listArray.push(a);
+                    console.log(doc.id, doc.data());
                 });
-                console.log(count);
-
-                if (count < 50 && allCount != count) {
-                    that.max = that.max > 500 ? 500 : that.max + that.max;
-                    that.getList(type);
-                } else {
-                    tmp2.reverse();
-                    that.list = tmp2.slice(0, 50);
-                }
+                that.list = listArray;
 
                 $('[data-i18n]').localize();
-            });
+            }).catch(function(error) {
+                console.log("Error getting document:", error);
+            });;
 
             this.sendGa('取得list', type);
 
@@ -466,8 +453,7 @@ var vue = new Vue({
                     var provider = new firebase.auth.FacebookAuthProvider();
                 } else if (type == 'google') {
                     var provider = new firebase.auth.GoogleAuthProvider();
-                }
-                else if(type == 'yahoo'){
+                } else if (type == 'yahoo') {
                     var provider = new firebase.auth.OAuthProvider('yahoo.com');
                 }
                 firebase.auth().signInWithPopup(provider).then(function(result) {
@@ -716,6 +702,8 @@ var vue = new Vue({
 
 var script = document.createElement('script');
 script.onload = function() {
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
     var firebaseConfig = {
         apiKey: "AIzaSyAtoSqn428jHyekJoMuhPXYJeWQtH8O6Mk",
         authDomain: "z358z358-roulette.firebaseapp.com",
@@ -723,15 +711,18 @@ script.onload = function() {
         projectId: "z358z358-roulette",
         storageBucket: "z358z358-roulette.appspot.com",
         messagingSenderId: "1095342180247",
-        appId: "1:1095342180247:web:575ab78fd455546c9b66d2"
+        appId: "1:1095342180247:web:575ab78fd455546c9b66d2",
+        measurementId: "G-4HJT8VYHTF"
     };
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
-    fire = firebase.database();
+    firebase.analytics();
+    //fire = firebase.database();
+    db = firebase.firestore();
     vue.fireOn();
 };
 script.async = true;
-script.src = "https://www.gstatic.com/firebasejs/8.2.4/firebase-database.js";
+script.src = "https://www.gstatic.com/firebasejs/8.6.5/firebase-firestore.js";
 document.getElementsByTagName('head')[0].appendChild(script);
 
 $(window).resize(vue.draw);

@@ -29,7 +29,7 @@ gulp.task('scripts', function() {
 		'src/scripts/*.js'])
 	.pipe(concat('main.js'))
 	.pipe(gulpIgnore.exclude([ "**/*.map" ]))
-	.pipe(uglify().on('error', gulpUtil.log))
+	//.pipe(uglify().on('error', gulpUtil.log))
 	.pipe(gulp.dest('dist/scripts'))
 	.pipe(notify({ message: 'Scripts task complete' }));
 });
