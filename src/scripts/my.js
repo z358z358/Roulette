@@ -51,9 +51,10 @@ var vue = new Vue({
         sum: 0,
         logs: [],
         list: [],
-        max: 2,
+        max: 50,
         uploadReady: true,
-        lang: i18nextDefaultLang
+        lang: i18nextDefaultLang,
+        getOptions: {}
     },
 
     // 為了讓v-repeat v-model v-on一起用
@@ -325,25 +326,26 @@ var vue = new Vue({
             delete tmp.hot;
 
             if (tmp.uid && tmp.uid === this.user.uid && this.rid && this.saveType == 'save') {
-                fire.ref('list/' + this.rid).update(tmp, function(error) {
-                    if (error) {
-                        that.$set('Msg', { type: 'error', msg: i18next.t('js.j8') });
-                    } else {
+                db.collection("list").doc(this.rid).set(tmp).then(function() {
                         that.$set('Msg', { type: 'success', msg: i18next.t('js.j9') });
-                    }
-                });
+                    })
+                    .catch(function(error) {
+                        console.error("Error writing document: ", error);
+                        that.$set('Msg', { type: 'error', msg: i18next.t('js.j8') });
+                    });
             } else {
                 //console.log('新增');
                 tmp.hot = 0;
                 this.set.uid = tmp.uid = this.user.uid;
-                tmp2 = fire.ref('list').push(tmp);
-                if (!tmp2) {
-                    that.$set('Msg', { type: 'error', msg: i18next.t('js.j10') });
-                    return;
-                } else {
-                    that.$set('Msg', { type: 'success', msg: i18next.t('js.j11') });
-                }
-                this.rid = window.location.hash = tmp2.key;
+                db.collection("list").add(tmp)
+                    .then(function(docRef) {
+                        that.rid = window.location.hash = docRef.id;
+                        that.$set('Msg', { type: 'success', msg: i18next.t('js.j11') });
+                    })
+                    .catch(function(error) {
+                        console.error("Error adding document: ", error);
+                        that.$set('Msg', { type: 'error', msg: i18next.t('js.j10') });
+                    });
             }
 
             this.sendGa('點擊按鈕', '儲存轉盤');
@@ -364,8 +366,8 @@ var vue = new Vue({
 
             if (type == 'my' && this.user.uid) {
                 tmp = tmp.where('uid', '==', this.user.uid).orderBy('ts', 'desc');
-            } else if (type == 'ts') {
-                tmp = tmp.orderBy('ts', 'desc');
+            } else {
+                tmp = tmp.where('isPrivate', '==', false).orderBy(type, 'desc');
             }
 
             var allCount = 0;
@@ -391,23 +393,29 @@ var vue = new Vue({
         },
 
         loadOption: function(id) {
-            var tmp = fire.ref('list/' + id);
-            tmp.once("value", this.setOptions);
-            $("#list-modal").modal('hide');
-            $(".navbar-toggle:not(.collapsed)").click();
-
-            this.sendGa('讀取option', id);
+            var that = this;
+            var docRef = db.collection("list").doc(id);
+            docRef.get(this.getOptions).then(function(doc) {
+                that.setOptions(doc);
+                $("#list-modal").modal('hide');
+                $(".navbar-toggle:not(.collapsed)").click();
+                that.sendGa('讀取option', id);
+                window.location.hash = id;
+            }).catch(function(error) {
+                console.log("Error getting cached document:", error);
+            });
         },
 
-        setOptions: function(snapshot) {
+        setOptions: function(doc) {
             var oldRid = this.rid;
-            if (snapshot.exists() === false) {
+            if (doc.exists === false) {
                 this.rid = '';
+                this.loadDefaultOption();
                 this.draw();
                 return;
             }
 
-            var tmp = snapshot.val();
+            var tmp = doc.data();
             var title = tmp.title + i18next.t('js.j15');
             this.set = tmp;
             $("title").text(title);
@@ -416,26 +424,41 @@ var vue = new Vue({
             this.setOptionOn();
             this.draw();
 
-            this.rid = snapshot.key;
+            this.rid = doc.id;
             this.s.url = this.s._url + '#' + this.rid;
 
             if (!$.cookie(this.hotKey)) {
                 $.cookie(this.hotKey, '1', { path: '/', expires: 1 });
-                this.incHot(snapshot.key);
+                this.incHot(doc.id);
             }
 
             this.$nextTick(function() {
-                FB.XFBML.parse();
+                if (typeof FB !== 'undefined') {
+                    FB.XFBML.parse();
+                }
             });
         },
 
         // 人氣+1
         incHot: function(id) {
-            fire.ref('list/' + id + '/hot').transaction(function(current_value) {
-                return (current_value || 0) + 1;
-            });
+            var that = this;
+            var sfDocRef = db.collection("list").doc(id);
+            db.runTransaction(function(transaction) {
+                // This code may get re-run multiple times if there are conflicts.
+                return transaction.get(sfDocRef).then(function(sfDoc) {
+                    if (!sfDoc.exists) {
+                        throw "Document does not exist!";
+                    }
 
-            this.sendGa('人氣inc', id);
+                    var hot = sfDoc.data().hot ? sfDoc.data().hot : 0;
+                    hot++;
+                    transaction.update(sfDocRef, { hot: hot });
+                });
+            }).then(function() {
+                that.sendGa('人氣inc', id);
+            }).catch(function(error) {
+                console.log("Transaction failed: ", error);
+            });
         },
 
         login: function(type) {
@@ -541,13 +564,7 @@ var vue = new Vue({
                 this.rid = window.location.hash.substring(1); //Puts hash in variable, and removes the # character
                 this.loadOption(this.rid);
             } else {
-                this.set.options = [
-                    { name: i18next.t('js.j1'), weight: 1, on: true },
-                    { name: i18next.t('js.j2'), weight: 1, on: true },
-                    { name: i18next.t('js.j3'), weight: 1, on: true },
-                    { name: i18next.t('js.j4'), weight: 1, on: true },
-                ];
-                this.set.title = i18next.t('js.j5');
+                this.loadDefaultOption();
                 this.draw();
             }
 
@@ -579,10 +596,14 @@ var vue = new Vue({
         },
 
         deleteData: function(id) {
-            fire.ref('list/' + id).remove();
-            this.getList('my');
+            var that = this;
+            db.collection("list").doc(id).delete().then(function() {
+                that.getList('my');
 
-            this.sendGa('刪除轉盤', id);
+                that.sendGa('刪除轉盤', id);
+            }).catch(function(error) {
+                console.error("Error removing document: ", error);
+            });
         },
 
         csvDownload: function() {
@@ -696,6 +717,16 @@ var vue = new Vue({
                 'event_category': type,
                 'event_label': tag
             });
+        },
+
+        loadDefaultOption: function() {
+            this.set.options = [
+                { name: i18next.t('js.j1'), weight: 1, on: true },
+                { name: i18next.t('js.j2'), weight: 1, on: true },
+                { name: i18next.t('js.j3'), weight: 1, on: true },
+                { name: i18next.t('js.j4'), weight: 1, on: true },
+            ];
+            this.set.title = i18next.t('js.j5');
         }
     }
 });
