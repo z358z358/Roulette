@@ -379,7 +379,7 @@ var vue = new Vue({
                     a.id = doc.id;
 
                     listArray.push(a);
-                    console.log(doc.id, doc.data());
+                    // console.log(doc.id, doc.data());
                 });
                 that.list = listArray;
 
