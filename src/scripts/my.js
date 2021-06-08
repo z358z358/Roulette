@@ -712,10 +712,9 @@ var vue = new Vue({
             }
         },
 
-        sendGa: function(type, act, tag) {
+        sendGa: function(type, act) {
             gtag('event', act, {
-                'event_category': type,
-                'event_label': tag
+                'method': type
             });
         },
 
