@@ -243,6 +243,10 @@ var webLangCustom = {
 }
 
 var i18nextDefaultLang = 'tw';
+var userLang = navigator.language || navigator.userLanguage;
+if (/^en\b/.test(userLang)) {
+    i18nextDefaultLang = 'en';
+}
 
 // use plugins and options as needed, for options, detail see
 // http://i18next.com/docs/
