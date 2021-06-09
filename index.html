@@ -50,7 +50,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="." data-step="1" data-intro='自訂轉盤、機率、選項！'>
+                <a class="navbar-brand intro-step" href="." data-step="1" data-intro-key='intro.s1' data-intro="hi">
                     <span class="hidden-xs" data-i18n="nav.home">自訂轉盤</span>
                     <span class="visible-xs-inline" data-i18n="nav.home">自訂轉盤</span>
                 </a>
@@ -58,10 +58,10 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="navbar">
                 <ul class="nav navbar-nav">
-                    <li><a href="#" data-toggle="modal" data-target="#list-modal" data-step="6" data-intro='點此可察看那些轉盤很熱門，旁邊則是可以看最新的轉盤！' v-on="click:getList('hot')" data-i18n="nav.hot">熱門轉盤</a></li>
-                    <li><a href="#" data-toggle="modal" data-target="#list-modal" v-on="click:getList('ts')" data-i18n="nav.new">最新上架</a></li>
-                    <li><a href="#" data-toggle="modal" data-target="#set-modal" data-step="4" data-intro='點此可以自行設定轉盤內容、選項、機率！' v-show="goFlag == false" data-i18n="nav.edit">修改轉盤</a></li>
-                    <li><a href="#" data-toggle="modal" data-target="#save-modal" data-step="5" data-intro='轉盤設定完成後，點此即可儲存內容！' v-on="click:saveType = 'save'" data-i18n="nav.save">儲存轉盤</a></li>
+                    <li><a class="intro-step" href="#" data-toggle="modal" data-target="#list-modal" data-step="6" data-intro-key='intro.s6' v-on="click:getList('hot')" data-i18n="nav.hot">熱門轉盤</a></li>
+                    <li><a class="intro-step" href="#" data-toggle="modal" data-target="#list-modal" v-on="click:getList('ts')" data-i18n="nav.new">最新上架</a></li>
+                    <li><a class="intro-step" href="#" data-toggle="modal" data-target="#set-modal" data-step="4" data-intro-key='intro.s4' v-show="goFlag == false" data-i18n="nav.edit">修改轉盤</a></li>
+                    <li><a class="intro-step" href="#" data-toggle="modal" data-target="#save-modal" data-step="5" data-intro-key='intro.s5' v-on="click:saveType = 'save'" data-i18n="nav.save">儲存轉盤</a></li>
                     <li><a href="#" data-toggle="modal" data-target="#save-modal" v-show="user.uid && set.uid == user.uid" v-on="click:saveType = 'new'" data-i18n="nav.saveAs">另存轉盤</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
@@ -70,7 +70,7 @@
                     <li v-show="lang != 'tw'"><a href="javascript:void(0)" v-on="click:changeLang('tw', 'nav')">中文</a>
                     </li>
                     <li><a href="#" data-toggle="modal" data-target="#disqus-modal" v-on="click:showDsq" data-i18n="nav.comment">留言</a></li>
-                    <li class="dropdown" v-show="user.uid == ''" data-step="7" data-intro='登入使用更方便，支援修改轉盤，我的轉盤！'>
+                    <li class="dropdown intro-step" v-show="user.uid == ''" data-step="7" data-intro-key='intro.s7'>
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"><span data-i18n="nav.login">登入</span> <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="#" data-toggle="modal" v-on="click:login('facebook')">Facebook</a></li>
@@ -85,7 +85,7 @@
                             <li><a href="#" data-toggle="modal" v-on="click:login('logout')" data-i18n="nav.logout">登出</a></li>
                         </ul>
                     </li>
-                    <li><a class="first-intro" href="#" data-toggle="tooltip" data-placement="bottom" title="介紹，點我點我!" data-step="8" data-intro='感謝耐心看完介紹，點此可以再看一次喔!' v-on="click:showIntro"><i class="fa fa-question-circle"></i></a>
+                    <li><a class="first-intro i18n-title intro-step" href="#" data-toggle="tooltip" data-placement="bottom" title="intro.i2" data-step="8" data-intro-key='intro.s8' v-on="click:showIntro"><i class="fa fa-question-circle"></i></a>
                     </li>
                     <li class="share-li hidden-sm hidden-md">
                         <div id="share" class="jssocials">
@@ -116,8 +116,8 @@
         </div>
         <div class="ly-plate">
             <p class="chart-title" v-text="set.title" v-show="c.chatType == 'plot'"></p>
-            <div class="lottery-star first-intro" data-toggle="tooltip" data-placement="bottom" title="點選此箭頭即可開始旋轉！" data-step="3" data-intro='點選此箭頭即可開始旋轉！' v-on="click:go"><i id="lotteryBtn" class="fa fa-long-arrow-up"></i></div>
-            <div class="piechart" id="piechart" data-step="2" data-intro='這是目前的轉盤，每個選項佔的面積就是機率。' v-on="click:go"></div>
+            <div class="lottery-star first-intro i18n-title intro-step" data-toggle="tooltip" data-placement="bottom" title="intro.i1" data-step="3" data-intro-key='intro.s3' v-on="click:go"><i id="lotteryBtn" class="fa fa-long-arrow-up"></i></div>
+            <div class="piechart intro-step" id="piechart" data-step="2" data-intro-key='intro.s2' v-on="click:go"></div>
             <div class="fb-like z-10" data-href="http://z358z358.github.io/Roulette/#{{rid}}" data-layout="box_count" data-width="50" data-action="like" data-show-faces="true" data-share="false" data-colorscheme="dark"></div>
             <div class="volume z-10">
                 <i class="fa fa-volume-up fa-2x" title="有聲音" v-show="c.volume" v-on="click: setVolume(false)"></i>

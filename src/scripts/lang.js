@@ -116,6 +116,27 @@ var webLangCustom = {
                 years: "%d years",
                 wordSeparator: " ",
                 numbers: []
+            },
+
+            intro: {
+                i1: 'click here to start',
+                i2: 'full introduce',
+
+                s1: 'Custom Roulette, Option, Weight',
+                s2: 'This is the current turntable, and the area occupied by each option is the probability.',
+                s3: 'Click here to start',
+                s4: 'Change Roulette, Option, Weight',
+                s5: 'Save Roulette online',
+                s6: 'See the hot or new Roulette',
+                s7: 'Login for edit your online Roulette and list your Roulettes',
+                s8: 'click here to watch it again',
+            },
+
+            introOption: {
+                prevLabel: '&larr; prev',
+                nextLabel: 'next &rarr;',
+                skipLabel: 'skip',
+                doneLabel: 'done'
             }
         }
     },
@@ -237,6 +258,27 @@ var webLangCustom = {
                 years: "%d年",
                 wordSeparator: "",
                 numbers: []
+            },
+
+            intro: {
+                i1: '點選此箭頭即可開始旋轉！',
+                i2: '介紹，點我點我!',
+
+                s1: '自訂轉盤、機率、選項！',
+                s2: '這是目前的轉盤，每個選項佔的面積就是機率。',
+                s3: '點選此箭頭即可開始旋轉！',
+                s4: '點此可以自行設定轉盤內容、選項、機率！',
+                s5: '轉盤設定完成後，點此即可儲存內容！',
+                s6: '點此可察看那些轉盤很熱門，旁邊則是可以看最新的轉盤！',
+                s7: '登入使用更方便，支援修改轉盤，我的轉盤！',
+                s8: '感謝耐心看完介紹，點此可以再看一次喔!',
+            },
+
+            introOption: {
+                prevLabel: '&larr; 上一步',
+                nextLabel: '下一步 &rarr;',
+                skipLabel: '跳過',
+                doneLabel: '結束'
             }
         }
     }
@@ -260,6 +302,5 @@ i18next.init({
 
     // start localizing, details:
     // https://github.com/i18next/jquery-i18next#usage-of-selector-function
-    $('[data-i18n]').localize();
-    document.title = i18next.t('nav.home');
+    afterChangeLang(i18next.language);
 });

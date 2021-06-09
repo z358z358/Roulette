@@ -98,17 +98,16 @@ var vue = new Vue({
             return;
         }
 
+        var lang = $.cookie(this.cookieKeyLang);
+        if (lang) {
+            this.changeLang(lang, 'cookie');
+        }
 
         var c = $.cookie(this.cookieKey);
         if (c && Object.keys(this.c).length == Object.keys(c).length) {
             this.c = c;
         } else {
             $('.first-intro').tooltip('show');
-        }
-
-        var lang = $.cookie(this.cookieKeyLang);
-        if (lang) {
-            this.changeLang(lang, 'cookie');
         }
         this.setOptionOn();
         this.sendGa('網址', window.location.href);
@@ -527,7 +526,8 @@ var vue = new Vue({
 
         showIntro: function() {
             this.sendGa('介紹');
-            introJs().setOptions({ prevLabel: '&larr; 上一步', nextLabel: '下一步 &rarr;', skipLabel: '跳過', doneLabel: '結束' }).start();
+            var options = webLangCustom[this.lang].translation.introOption;
+            introJs().setOptions(options).start();
         },
 
         // firebase斷線  官方說1連接大概是1000瀏覽次數/月，所以50連接限制大概要每個月50K瀏覽才會到
@@ -699,17 +699,10 @@ var vue = new Vue({
             if (langs.indexOf(lang) === -1) {
                 return;
             }
-            i18next.changeLanguage(lang);
-            $('[data-i18n]').localize();
-            document.title = i18next.t('nav.home');
-            $.cookie(this.cookieKeyLang, lang, { path: '/', expires: 365 });
             this.lang = lang;
-
-            $.timeago.settings.strings = webLangCustom[lang].translation.timeago;
-
-            if (lang == 'en') {
-                $('html').attr('lang', 'en');
-            }
+            $.cookie(this.cookieKeyLang, lang, { path: '/', expires: 365 });
+            i18next.changeLanguage(lang);
+            afterChangeLang(lang);
         },
 
         sendGa: function(type, act, tag) {
@@ -760,4 +753,21 @@ $(window).resize(vue.draw);
 
 function labelFormatter(label, series) {
     return "<div style='text-anchor: start;font-family: Arial;font-size: 15px;text-align:center; padding:2px; color:white;'>" + label + "<br/>" + Math.round(series.percent) + "%</div>";
+}
+
+function afterChangeLang(lang) {
+    $('[data-i18n]').localize();
+    $('.i18n-title').each(function() {
+        $(this).attr('title', i18next.t($(this).attr('title')));
+    });
+    $('.intro-step').each(function() {
+        $(this).attr('data-intro', i18next.t($(this).data('intro-key')));
+    });
+    document.title = i18next.t('nav.home');
+
+    $.timeago.settings.strings = webLangCustom[lang].translation.timeago;
+
+    if (lang == 'en') {
+        $('html').attr('lang', 'en');
+    }
 }
