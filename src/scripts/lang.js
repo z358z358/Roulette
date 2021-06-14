@@ -21,7 +21,8 @@ var webLangCustom = {
                 loop3: 'times',
                 bigLoop1: 'Chosen mode',
                 bigLoop2: 'Stop until get',
-                bigLoop3: ''
+                bigLoop3: '',
+                stop: 'stop'
             },
 
             tab: {
@@ -163,7 +164,8 @@ var webLangCustom = {
                 loop3: '次',
                 bigLoop1: '血統模式中',
                 bigLoop2: '不轉到',
-                bigLoop3: '不罷休'
+                bigLoop3: '不罷休',
+                stop: '停止'
             },
 
             tab: {

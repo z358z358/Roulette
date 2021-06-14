@@ -130,12 +130,14 @@
             <div class="pull-right timeago" title="{{logs[0].ts}}"></div>
         </div>
         <div class="alert alert-success alert-dismissible z-10" role="alert" v-show="turnFlag > 0">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close" v-on="click:turnFlag=-1"><span aria-hidden="true">&times;</span></button>
+            <button type="button" class="close" v-on="click:turnFlag=-1"><span aria-hidden="true">&times;</span></button>
             <strong data-i18n="alert.loop1">連續旋轉模式中</strong> <span data-i18n="alert.loop2">還有</span> <strong v-text="turnFlag"></strong> <span data-i18n="alert.loop3">次</span>
+            <button class="btn btn-danger btn-sm" data-i18n="alert.stop" type="button" v-on="click:turnFlag=-1">停止</button>
         </div>
         <div class="alert alert-success alert-dismissible z-10" role="alert" v-show="targetUntil.action">
             <button type="button" class="close" v-on="click:targetUntil.action = ''"><span aria-hidden="true">&times;</span></button>
             <strong><span data-i18n="alert.bigLoop1">血統模式中</span> (<strong title="次數" v-text="targetUntil.count"></strong>) </strong> <span data-i18n="alert.bigLoop2">不轉到</span> <strong v-text="set.options[targetUntil.target].name"></strong> <span data-i18n="alert.bigLoop3">不罷休</span>
+            <button class="btn btn-danger btn-sm" data-i18n="alert.stop" type="button" v-on="click:targetUntil.action = ''">停止</button>
         </div>
         <div class="clearfix"></div>
         <div class="z-10">
@@ -424,7 +426,7 @@
     <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-analytics.js"></script>
-    <script type="text/javascript" src="dist/scripts/main.js?2"></script>
+    <script type="text/javascript" src="dist/scripts/main.js?3"></script>
     <!--<script type="text/javascript" src="export.js"></script>
     <script type="text/javascript" src="forDebug.js"></script>-->
     <script src="https://www.gstatic.com/charts/loader.js"></script>
