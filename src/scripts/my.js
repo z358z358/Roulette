@@ -13,6 +13,8 @@ var vue = new Vue({
             isPrivate: false,
         },
 
+        onlineSet: {},
+
         c: {
             setTurn: 1,
             duration: 3000,
@@ -108,6 +110,7 @@ var vue = new Vue({
             this.c = c;
         } else {
             $('.first-intro').tooltip('show');
+            setTimeout(function() { $('.first-intro').tooltip('hide'); }, 3000);
         }
         this.setOptionOn();
         this.sendGa('網址', window.location.href);
@@ -116,6 +119,9 @@ var vue = new Vue({
     methods: {
         draw: function() {
             this.getSum();
+            if (this.sum == 0) {
+                return;
+            }
             if (this.c.chatType == 'plot') {
                 this.drawByPlot();
             } else {
@@ -317,7 +323,6 @@ var vue = new Vue({
             var tmp = $.extend({}, this.set);
             var tmp2;
 
-            tmp.ts = new Date().getTime();
             for (var i = tmp.options.length - 1; i >= 0; i--) {
                 delete tmp.options[i].times;
                 delete tmp.options[i].on;
@@ -325,6 +330,7 @@ var vue = new Vue({
             delete tmp.hot;
 
             if (tmp.uid && tmp.uid === this.user.uid && this.rid && this.saveType == 'save') {
+                tmp.ts = new Date().getTime();
                 db.collection("list").doc(this.rid).set(tmp).then(function() {
                         that.$set('Msg', { type: 'success', msg: i18next.t('js.j9') });
                     })
@@ -334,10 +340,23 @@ var vue = new Vue({
                     });
             } else {
                 //console.log('新增');
+                if (this.onlineSet.title) {
+                    delete this.onlineSet.ts;
+                    delete this.onlineSet.hot;
+                    delete tmp.ts;
+                    // console.log(_.isEqual(tmp, this.onlineSet), tmp, this.onlineSet);
+                    if (_.isEqual(tmp, this.onlineSet)) {
+                        console.error("重複儲存" + tmp.title);
+                        this.sendGa('重複儲存', tmp.title);
+                        return false;
+                    }
+                }
+                tmp.ts = new Date().getTime();
                 tmp.hot = 0;
                 this.set.uid = tmp.uid = this.user.uid;
                 db.collection("list").add(tmp)
                     .then(function(docRef) {
+                        that.onlineSet = $.extend({}, tmp);
                         that.rid = window.location.hash = docRef.id;
                         that.$set('Msg', { type: 'success', msg: i18next.t('js.j11') });
                     })
@@ -417,6 +436,7 @@ var vue = new Vue({
             var tmp = doc.data();
             var title = tmp.title + i18next.t('js.j15');
             this.set = tmp;
+            this.onlineSet = $.extend({}, tmp);
             $("title").text(title);
             this.s.title = title;
 
