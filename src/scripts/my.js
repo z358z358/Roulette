@@ -339,6 +339,7 @@ var vue = new Vue({
                         that.$set('Msg', { type: 'error', msg: i18next.t('js.j8') });
                     });
             } else {
+                this.set.uid = tmp.uid = this.user.uid;
                 //console.log('新增');
                 if (this.onlineSet.title) {
                     delete this.onlineSet.ts;
@@ -353,7 +354,6 @@ var vue = new Vue({
                 }
                 tmp.ts = new Date().getTime();
                 tmp.hot = 0;
-                this.set.uid = tmp.uid = this.user.uid;
                 db.collection("list").add(tmp)
                     .then(function(docRef) {
                         that.onlineSet = $.extend({}, tmp);
