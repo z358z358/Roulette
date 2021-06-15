@@ -342,11 +342,22 @@ var vue = new Vue({
                 this.set.uid = tmp.uid = this.user.uid;
                 //console.log('新增');
                 if (this.onlineSet.title) {
+                    var optionsEq = true;
                     delete this.onlineSet.ts;
                     delete this.onlineSet.hot;
                     delete tmp.ts;
                     // console.log(_.isEqual(tmp, this.onlineSet), tmp, this.onlineSet);
-                    if (_.isEqual(tmp, this.onlineSet)) {
+
+                    for (var i = tmp.options.length - 1; i >= 0; i--) {
+                        //console.log(_.isEqual(tmp.options[i], this.onlineSet.options[i]), tmp.options[i], this.onlineSet.options[i]);
+                        if (_.isEqual(tmp.options[i], this.onlineSet.options[i]) == false) {
+                            optionsEq = false;
+                            break;
+                        }
+                    }
+
+                    //console.log(_.isEqual(tmp, this.onlineSet), optionsEq);
+                    if (_.isEqual(tmp, this.onlineSet) && optionsEq) {
                         console.error("重複儲存" + tmp.title);
                         this.sendGa('重複儲存', tmp.title);
                         return false;
@@ -356,7 +367,7 @@ var vue = new Vue({
                 tmp.hot = 0;
                 db.collection("list").add(tmp)
                     .then(function(docRef) {
-                        that.onlineSet = $.extend({}, tmp);
+                        that.onlineSet = _.cloneDeep(tmp);
                         that.rid = window.location.hash = docRef.id;
                         that.$set('Msg', { type: 'success', msg: i18next.t('js.j11') });
                     })
@@ -437,7 +448,7 @@ var vue = new Vue({
             var tmp = doc.data();
             var title = tmp.title + i18next.t('js.j15');
             this.set = tmp;
-            this.onlineSet = $.extend({}, tmp);
+            this.onlineSet = _.cloneDeep(tmp);
             $("title").text(title);
             this.s.title = title;
 
