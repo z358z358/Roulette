@@ -378,6 +378,7 @@ var vue = new Vue({
             var order = (type == 'my') ? 'ts' : type;
 
             title = (type == 'my') ? i18next.t('js.j13') : title;
+            this.$set('list', []);
             this.$set('listOrder', order);
             this.$set('listType', type);
             this.$set('listTitle', title);
