@@ -432,7 +432,6 @@ var vue = new Vue({
                 that.setOptions(doc);
                 $("#list-modal").modal('hide');
                 $(".navbar-toggle:not(.collapsed)").click();
-                that.sendGa('讀取option', id);
                 window.location.hash = id;
             }).catch(function(error) {
                 console.log("Error getting cached document:", error);
@@ -453,6 +452,7 @@ var vue = new Vue({
             this.set = tmp;
             this.onlineSet = _.cloneDeep(tmp);
             $("title").text(title);
+            this.sendGa('讀取option', tmp.title);
             this.s.title = title;
 
             this.setOptionOn();
@@ -489,7 +489,7 @@ var vue = new Vue({
                     transaction.update(sfDocRef, { hot: hot });
                 });
             }).then(function() {
-                that.sendGa('人氣inc', id);
+                that.sendGa('人氣inc', that.s.title);
             }).catch(function(error) {
                 console.log("Transaction failed: ", error);
             });
