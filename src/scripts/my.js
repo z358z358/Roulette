@@ -198,6 +198,12 @@ var vue = new Vue({
             this.set.options.$remove(option.$data);
         },
 
+        copyOption: function(option, key) {
+            this.sendGa('點擊按鈕', '複製選項');
+            var newOption = _.clone(option.$data);
+            this.set.options.splice(key, 0, newOption);
+        },
+
         getRandomArbitrary: function(min, max) {
             return Math.random() * (max - min) + min;
         },

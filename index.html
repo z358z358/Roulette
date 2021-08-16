@@ -299,7 +299,7 @@
     <!--<pre>{{ $data|json }}</pre>-->
     <!-- 設定轉盤 -->
     <div class="modal fade" id="set-modal" tabindex="-1" role="dialog" aria-labelledby="set-modalLabal" aria-hidden="true" v-on="click:draw">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close" v-on="click:draw"><span aria-hidden="true">&times;</span></button>
@@ -323,6 +323,7 @@
                             <tr>
                                 <th data-i18n="modal.m6">名稱</th>
                                 <th data-i18n="modal.m7">比重</th>
+                                <th class="hidden-xs" data-i18n="tabc.probability">機率</th>
                                 <th>
                                     <button type="button" class="btn btn-primary" v-on="click:addOption" data-i18n="modal.m8">新增</button>
                                 </th>
@@ -334,10 +335,20 @@
                                     <input type="text" class="form-control" v-model="name">
                                 </td>
                                 <td>
-                                    <input type="number" class="form-control " v-model="weight">
+                                    <input type="number" class="form-control " v-model="weight" v-on="keyup:getSum">
+                                </td>
+                                <td class="hidden-xs">
+                                    <p v-text="sum ? (weight / sum) : '' | persent"></p>
                                 </td>
                                 <td>
-                                    <button type="button" class="btn btn-danger" v-on="click:removeOption(this)"><i class="fa fa-trash" title="刪除" aria-hidden="true"></i></button>
+                                    <div class="hidden-xs">
+                                        <button type="button" class="btn btn-default" v-on="click:copyOption(this, $index)"><i class="fa fa-copy" title="複製" aria-hidden="true"></i></button>
+                                        <button type="button" class="btn btn-danger" v-on="click:removeOption(this)"><i class="fa fa-trash" title="刪除" aria-hidden="true"></i></button>
+                                    </div>
+                                    <div class="visible-xs">
+                                        <button type="button" class="btn btn-default btn-xs" v-on="click:copyOption(this, $index)"><i class="fa fa-copy" title="複製" aria-hidden="true"></i></button>
+                                        <button type="button" class="btn btn-danger btn-xs" v-on="click:removeOption(this)"><i class="fa fa-trash" title="刪除" aria-hidden="true"></i></button>
+                                    </div>
                                 </td>
                             </tr>
                         </tbody>
