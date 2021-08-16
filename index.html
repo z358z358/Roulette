@@ -17,10 +17,10 @@
     <meta property="og:site_name" content="自訂轉盤" />
     <meta property="og:description" content="自訂轉盤、機率、選項！" />
     <meta property="og:image" content="http://z358z358.github.io/Roulette/asset/200x200.jpg" />
-    <link href="dist/styles/main.css?19112602" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials.css" />
     <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials-theme-flat.css" />
+    <link href="dist/styles/main.css?1" rel="stylesheet">
     <script src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" async></script>
     <link rel="alternate" hreflang="en" href="https://z358z358.github.io/Roulette/?lang=en" />
     <link rel="alternate" hreflang="zh-tw" href="https://z358z358.github.io/Roulette/?lang=tw" />
@@ -103,17 +103,21 @@
                     <li class="share-li hidden-sm hidden-md">
                         <div id="share" class="jssocials">
                             <div class="jssocials-shares">
-                                <div class="jssocials-share jssocials-share-twitter"><a target="_blank" href="https://twitter.com/share?url={{ encodeURIComponent(s.url) }}&amp;text={{ encodeURIComponent(s.title) }}" class="jssocials-share-link"><i class="fa fa-twitter jssocials-share-logo"></i><span class="jssocials-share-label">Tweet</span></a>
-                                    <div class="jssocials-share-count-box jssocials-share-no-count"><span class="jssocials-share-count"></span></div>
+                                <div class="visible-xs col-xs-1"></div>
+                                <div class="jssocials-share jssocials-share-twitter">
+                                    <a href="javascript:void(0)" class="jssocials-share-link" v-on="click:copyLink">
+                                        <i class="fa fa-link jssocials-share-logo" v-show="!copiedMsg"></i>
+                                        <p v-show="copiedMsg" v-text="copiedMsg" style="display: none"></p>
+                                    </a>
                                 </div>
-                                <div class="jssocials-share jssocials-share-facebook"><a target="_blank" href="https://facebook.com/sharer/sharer.php?u={{ encodeURIComponent(s.url) }}" class="jssocials-share-link"><i class="fa fa-facebook jssocials-share-logo"></i><span class="jssocials-share-label">Like</span></a>
-                                    <div class="jssocials-share-count-box jssocials-share-no-count"><span class="jssocials-share-count"></span></div>
+                                <div class="jssocials-share jssocials-share-facebook"><a target="_blank" href="https://facebook.com/sharer/sharer.php?u={{ encodeURIComponent(s.url) }}" class="jssocials-share-link"><i class="fa fa-facebook jssocials-share-logo"></i></a>
                                 </div>
-                                <div class="jssocials-share jssocials-share-messenger"><a target="_self" href="fb-messenger://share?link={{ encodeURIComponent(s.url) }}" class="jssocials-share-link"><i class="fa fa-commenting jssocials-share-logo"></i><span class="jssocials-share-label">Share</span></a>
-                                    <div class="jssocials-share-count-box jssocials-share-no-count"><span class="jssocials-share-count"></span></div>
+                                <div class="jssocials-share jssocials-share-messenger"><a target="_self" href="fb-messenger://share?link={{ encodeURIComponent(s.url) }}" class="jssocials-share-link"><i class="fa fa-commenting jssocials-share-logo"></i></a>
                                 </div>
-                                <div class="jssocials-share jssocials-share-line"><a target="_blank" href="http://line.me/R/msg/text/?{{ encodeURIComponent(s.title) }}{{ encodeURIComponent(s.url) }}" class="jssocials-share-link"><i class="fa fa-comment jssocials-share-logo"></i><span class="jssocials-share-label">LINE</span></a>
-                                    <div class="jssocials-share-count-box jssocials-share-no-count"><span class="jssocials-share-count"></span></div>
+                                <div class="jssocials-share jssocials-share-line">
+                                    <a target="_blank" href="http://line.me/R/msg/text/?{{ encodeURIComponent(s.title) }}{{ encodeURIComponent(s.url) }}" class="jssocials-share-link">
+                                        <img class="jssocials-share-logo" src="asset/linebutton_20x20_zh-hant.png"></i>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -453,7 +457,7 @@
     <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-analytics.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js" integrity="sha256-qXBd/EfAdjOA2FGrGAG+b3YBn2tn5A6bhz+LSgYD96k=" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="dist/scripts/main.js?10"></script>
+    <script type="text/javascript" src="dist/scripts/main.js?11"></script>
     <!--<script type="text/javascript" src="export.js"></script>
     <script type="text/javascript" src="forDebug.js"></script>-->
     <script src="https://www.gstatic.com/charts/loader.js"></script>

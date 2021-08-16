@@ -74,6 +74,10 @@
     right: 5px;
 }
 
+.jssocials-share-line .jssocials-share-link {
+    background: #00c001;
+}
+
 @media (max-width: 767px) {
     .lottery-star {
         font-size: 3em;

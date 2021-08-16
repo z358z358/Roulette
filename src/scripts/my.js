@@ -56,7 +56,8 @@ var vue = new Vue({
         max: 50,
         uploadReady: true,
         lang: i18nextDefaultLang,
-        getOptions: {}
+        getOptions: {},
+        copiedMsg: ''
     },
 
     // 為了讓v-repeat v-model v-on一起用
@@ -761,6 +762,13 @@ var vue = new Vue({
                 { name: i18next.t('js.j4'), weight: 1, on: true },
             ];
             this.set.title = i18next.t('js.j5');
+        },
+
+        copyLink: function() {
+            var that = this;
+            copyStringToClipboard(this.s.url);
+            this.copiedMsg = 'Copied';
+            setTimeout(function() { that.copiedMsg = '' }, 3000);
         }
     }
 });
@@ -811,4 +819,21 @@ function afterChangeLang(lang) {
     if (lang == 'en') {
         $('html').attr('lang', 'en');
     }
+}
+
+function copyStringToClipboard(str) {
+    // Create new element
+    var el = document.createElement('textarea');
+    // Set value (string to be copied)
+    el.value = str;
+    // Set non-editable to avoid focus and move outside of view
+    el.setAttribute('readonly', '');
+    el.style = { position: 'absolute', left: '-9999px' };
+    document.body.appendChild(el);
+    // Select text inside element
+    el.select();
+    // Copy text to clipboard
+    document.execCommand('copy');
+    // Remove temporary element
+    document.body.removeChild(el);
 }
