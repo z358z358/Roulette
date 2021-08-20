@@ -769,6 +769,7 @@ var vue = new Vue({
             copyStringToClipboard(this.s.url);
             this.copiedMsg = 'Copied';
             setTimeout(function() { that.copiedMsg = '' }, 3000);
+            this.sendGa('點擊按鈕', '複製連結');
         },
 
         mobileShare: function() {
@@ -783,7 +784,7 @@ var vue = new Vue({
             } else {
                 alert('Web Share not supported');
             }
-
+            this.sendGa('點擊按鈕', '手機分享');
         }
     }
 });
