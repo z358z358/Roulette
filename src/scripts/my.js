@@ -57,7 +57,8 @@ var vue = new Vue({
         uploadReady: true,
         lang: i18nextDefaultLang,
         getOptions: {},
-        copiedMsg: ''
+        copiedMsg: '',
+        navigatorShare: false
     },
 
     // 為了讓v-repeat v-model v-on一起用
@@ -115,6 +116,10 @@ var vue = new Vue({
         }
         this.setOptionOn();
         this.sendGa('網址', window.location.href);
+
+        if (navigator.share) {
+            this.navigatorShare = true;
+        }
     },
 
     methods: {
@@ -773,17 +778,13 @@ var vue = new Vue({
         },
 
         mobileShare: function() {
-            if (navigator.share) {
-                const shareData = {
-                    title: this.s.title,
-                    text: this.s.title,
-                    url: this.s.url
-                };
-                navigator.share(shareData);
-                console.log('Share Successfull');
-            } else {
-                alert('Web Share not supported');
-            }
+            const shareData = {
+                title: this.s.title,
+                text: this.s.title,
+                url: this.s.url
+            };
+            navigator.share(shareData);
+
             this.sendGa('點擊按鈕', '手機分享');
         }
     }
