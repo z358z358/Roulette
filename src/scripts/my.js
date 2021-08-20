@@ -769,6 +769,21 @@ var vue = new Vue({
             copyStringToClipboard(this.s.url);
             this.copiedMsg = 'Copied';
             setTimeout(function() { that.copiedMsg = '' }, 3000);
+        },
+
+        mobileShare: function() {
+            if (navigator.share) {
+                const shareData = {
+                    title: this.s.title,
+                    text: this.s.title,
+                    url: this.s.url
+                };
+                navigator.share(shareData);
+                console.log('Share Successfull');
+            } else {
+                alert('Web Share not supported');
+            }
+
         }
     }
 });

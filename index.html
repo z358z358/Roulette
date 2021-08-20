@@ -100,10 +100,9 @@
                     </li>
                     <li><a class="first-intro i18n-title intro-step" href="#" data-toggle="tooltip" data-placement="bottom" title="intro.i2" data-step="8" data-intro-key='intro.s8' v-on="click:showIntro"><i class="fa fa-question-circle"></i></a>
                     </li>
-                    <li class="share-li hidden-sm hidden-md">
+                    <li class="share-li hidden-sm hidden-md hidden-xs">
                         <div id="share" class="jssocials">
                             <div class="jssocials-shares">
-                                <div class="visible-xs col-xs-1"></div>
                                 <div class="jssocials-share jssocials-share-twitter">
                                     <a href="javascript:void(0)" class="jssocials-share-link" v-on="click:copyLink">
                                         <i class="fa fa-link jssocials-share-logo" v-show="!copiedMsg"></i>
@@ -269,6 +268,24 @@
                 </div>
             </div>
             <button class="btn btn-danger" v-on="click: deleteLog('all')" data-i18n="tabc.delete">刪除所有紀錄</button>
+        </div>
+        <div class="jssocials hidden-lg">
+            <hr />
+            <div class="jssocials-shares">
+                <div class="jssocials-share jssocials-share-twitter">
+                    <a href="javascript:void(0)" class="jssocials-share-link" v-on="click:copyLink">
+                        <i class="fa fa-link jssocials-share-logo" v-show="!copiedMsg"></i>
+                        Copy
+                        <p v-show="copiedMsg" v-text="copiedMsg" style="display: none"></p>
+                    </a>
+                </div>
+                <div class="jssocials-share jssocials-share-facebook">
+                    <a href="javascript:void(0)" class="jssocials-share-link" v-on="click:mobileShare">
+                        <i class="fa fa-share jssocials-share-logo"></i>
+                        Share
+                    </a>
+                </div>
+            </div>
         </div>
         <hr />
         <!-- fb留言上面 -->
@@ -457,7 +474,7 @@
     <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-analytics.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js" integrity="sha256-qXBd/EfAdjOA2FGrGAG+b3YBn2tn5A6bhz+LSgYD96k=" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="dist/scripts/main.js?11"></script>
+    <script type="text/javascript" src="dist/scripts/main.js?12"></script>
     <!--<script type="text/javascript" src="export.js"></script>
     <script type="text/javascript" src="forDebug.js"></script>-->
     <script src="https://www.gstatic.com/charts/loader.js"></script>
