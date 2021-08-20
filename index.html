@@ -267,23 +267,24 @@
                     <hr />
                 </div>
             </div>
-            <button class="btn btn-danger" v-on="click: deleteLog('all')" data-i18n="tabc.delete">刪除所有紀錄</button>
-        </div>
-        <div class="jssocials hidden-lg">
-            <hr />
-            <div class="jssocials-shares">
-                <div class="jssocials-share jssocials-share-twitter">
-                    <a href="javascript:void(0)" class="jssocials-share-link" v-on="click:copyLink">
-                        <i class="fa fa-link jssocials-share-logo" v-show="!copiedMsg"></i>
-                        Copy
-                        <p v-show="copiedMsg" v-text="copiedMsg" style="display: none"></p>
-                    </a>
-                </div>
-                <div class="jssocials-share jssocials-share-facebook">
-                    <a href="javascript:void(0)" class="jssocials-share-link" v-on="click:mobileShare">
-                        <i class="fa fa-share jssocials-share-logo"></i>
-                        Share
-                    </a>
+            <div class="jssocials">
+                <div class="jssocials-shares">
+                    <div class="jssocials-share">
+                        <button class="btn btn-danger" v-on="click: deleteLog('all')" data-i18n="tabc.delete">刪除所有紀錄</button>
+                    </div>
+                    <div class="jssocials-share jssocials-share-twitter hidden-lg">
+                        <a href="javascript:void(0)" class="jssocials-share-link" v-on="click:copyLink">
+                            <i class="fa fa-link jssocials-share-logo" v-show="!copiedMsg"></i>
+                            Copy
+                            <p v-show="copiedMsg" v-text="copiedMsg" style="display: none"></p>
+                        </a>
+                    </div>
+                    <div class="jssocials-share jssocials-share-facebook hidden-lg">
+                        <a href="javascript:void(0)" class="jssocials-share-link" v-on="click:mobileShare">
+                            <i class="fa fa-share jssocials-share-logo"></i>
+                            Share
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
