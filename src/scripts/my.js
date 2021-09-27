@@ -788,17 +788,33 @@ var vue = new Vue({
             this.sendGa('點擊按鈕', '手機分享');
         },
 
-        deleteMyAccount: function() {
-            if (confirm(i18next.t('nav.deleteConfirm'))) {
-                db.collection("list").where('uid', '==', this.user.uid).delete();
-                // const user = firebase.auth().currentUser;
+        deleteMyAccount: function(confirmed) {
+            var that = this;
+            if (confirmed || confirm(i18next.t('nav.deleteConfirm'))) {
+                var tmp = db.collection("list").where('uid', '==', this.user.uid).orderBy('ts', 'desc');
+                tmp.limit(that.max).get().then(function(querySnapshot) {
+                    var count = 0;
+                    querySnapshot.forEach(function(doc) {
+                        db.collection("list").doc(doc.id).delete();
+                        count++;
+                    });
 
-                // user.delete().then(() => {
-                //     // User deleted.
-                // }).catch((error) => {
-                //     // An error ocurred
-                //     // ...
-                // });
+                    if (count == 0) {
+                        const user = firebase.auth().currentUser;
+                        user.delete();
+                        that.sendGa('刪除帳號');
+                        firebase.auth().signOut().then(function() {
+                            that.$set('user', { uid: '', provider: '', displayName: '' });
+                        }, function(error) {
+                            // An error happened.
+                        });
+                    } else {
+                        that.deleteMyAccount(true);
+                    }
+                }).catch(function(error) {
+                    console.log("Error getting document:", error);
+                });;
+
             }
 
         }

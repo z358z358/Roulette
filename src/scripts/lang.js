@@ -11,7 +11,7 @@ var webLangCustom = {
                 comment: 'Comment',
                 login: 'Login',
                 my: 'My Roulette',
-                logout: 'Logout'
+                logout: 'Logout',
                 delete: 'Delete My Account',
                 deleteConfirm: 'Confirm Delete Account'
             },
