@@ -12,6 +12,8 @@ var webLangCustom = {
                 login: 'Login',
                 my: 'My Roulette',
                 logout: 'Logout'
+                delete: 'Delete My Account',
+                deleteConfirm: 'Confirm Delete Account'
             },
 
             alert: {
@@ -154,7 +156,9 @@ var webLangCustom = {
                 comment: '留言',
                 login: '登入',
                 my: '我的轉盤',
-                logout: '登出'
+                logout: '登出',
+                delete: '刪除我的帳號',
+                deleteConfirm: '確定要刪除帳號？'
             },
 
             alert: {

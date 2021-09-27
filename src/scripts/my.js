@@ -786,6 +786,21 @@ var vue = new Vue({
             navigator.share(shareData);
 
             this.sendGa('點擊按鈕', '手機分享');
+        },
+
+        deleteMyAccount: function() {
+            if (confirm(i18next.t('nav.deleteConfirm'))) {
+                db.collection("list").where('uid', '==', this.user.uid).delete();
+                // const user = firebase.auth().currentUser;
+
+                // user.delete().then(() => {
+                //     // User deleted.
+                // }).catch((error) => {
+                //     // An error ocurred
+                //     // ...
+                // });
+            }
+
         }
     }
 });
