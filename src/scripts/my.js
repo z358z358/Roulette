@@ -93,6 +93,30 @@ var vue = new Vue({
         }
     },
 
+    computed: {
+        showHideBtn: function() {
+            var r = true;
+            if (this.logs.length) {
+                var count = 0;
+                var target = this.logs[0].target;
+                var onTarget = null;
+                this.set.options.map(function(option, t) {
+                    if (option.on === false) return;
+                    count++;
+                    onTarget = t;
+                });
+
+                if (count <= 0) {
+                    r = false;
+                } else if (count == 1 && onTarget == target) {
+                    r = false;
+                }
+            }
+
+            return r;
+        }
+    },
+
     ready: function() {
         var url = new URL(window.location.href);
         var getLang = url.searchParams.get('lang');
@@ -786,6 +810,10 @@ var vue = new Vue({
             navigator.share(shareData);
 
             this.sendGa('點擊按鈕', '手機分享');
+        },
+
+        toggleTarget: function(target) {
+            this.set.options[target].on = !this.set.options[target].on;
         },
 
         deleteMyAccount: function(confirmed) {

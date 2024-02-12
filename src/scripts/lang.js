@@ -24,7 +24,9 @@ var webLangCustom = {
                 bigLoop1: 'Chosen mode',
                 bigLoop2: 'Stop until get',
                 bigLoop3: '',
-                stop: 'stop'
+                stop: 'stop',
+                hide: 'hide',
+                show: 'show'
             },
 
             tab: {
@@ -169,7 +171,9 @@ var webLangCustom = {
                 bigLoop1: '血統模式中',
                 bigLoop2: '不轉到',
                 bigLoop3: '不罷休',
-                stop: '停止'
+                stop: '停止',
+                hide: '隱藏',
+                show: '顯示'
             },
 
             tab: {

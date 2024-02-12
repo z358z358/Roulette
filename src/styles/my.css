@@ -101,6 +101,10 @@
     white-space: nowrap;
 }
 
+.btn-hide{
+    margin-left: 1.22em;
+}
+
 body {
     padding-top: 55px;
     overflow-x: hidden;

@@ -144,6 +144,11 @@
         <div class="alert alert-success alert-dismissible z-10" role="alert" v-show="logs.length > 0">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <span data-i18n="alert.result">結果:</span><strong v-text="logs[0].content"></strong>
+            <button type="button" class="btn btn-primary btn-sm btn-hide" v-on="click: toggleTarget(logs[0].target)" v-show="goFlag == false && showHideBtn">
+                <span data-i18n="alert.hide" v-show="set.options[logs[0].target].on">隱藏</span> 
+                <span data-i18n="alert.show" v-show="!set.options[logs[0].target].on">顯示</span> 
+                <span v-text="logs[0].content"></span>
+            </button>
             <div class="pull-right timeago" title="{{logs[0].ts}}"></div>
         </div>
         <div class="alert alert-success alert-dismissible z-10" role="alert" v-show="turnFlag > 0">
