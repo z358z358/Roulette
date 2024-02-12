@@ -813,7 +813,12 @@ var vue = new Vue({
         },
 
         toggleTarget: function(target) {
+            var txt = '隱藏選項';
+            if (this.set.options[target].on === false) {
+                txt = '顯示選項';
+            }
             this.set.options[target].on = !this.set.options[target].on;
+            this.sendGa('點擊按鈕', txt);
         },
 
         deleteMyAccount: function(confirmed) {
