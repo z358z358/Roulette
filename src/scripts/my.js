@@ -613,20 +613,35 @@ var vue = new Vue({
             Firebase.goOnline();
         },
 
-        getDisqusPage: function() {
-            var id = this.rid || 'home';
+        getDisqusPage: function(mode) {
+            // modal: 站台意見（原本那串留言）
+            if (mode === 'modal') {
+                return {
+                    url: this.s._url,
+                    identifier: this.s._url,
+                    title: '自訂轉盤'
+                };
+            }
+            // 頁面底部：有選轉盤用 rid；首頁未選則用獨立網址，避免跟上方留言重複
+            if (this.rid) {
+                return {
+                    url: this.s._url + '#!' + this.rid,
+                    identifier: this.rid,
+                    title: this.s.title || document.title
+                };
+            }
             return {
-                url: this.s._url + (this.rid ? '#!' + this.rid : ''),
-                identifier: id,
+                url: this.s._url + '#!default-wheel',
+                identifier: 'default-wheel',
                 title: this.s.title || document.title
             };
         },
 
-        resetDisqus: function() {
+        resetDisqus: function(mode) {
             if (typeof DISQUS === 'undefined') {
                 return;
             }
-            var page = this.getDisqusPage();
+            var page = this.getDisqusPage(mode);
             DISQUS.reset({
                 reload: true,
                 config: function() {
@@ -638,21 +653,20 @@ var vue = new Vue({
             });
         },
 
-        showDsq: function() {
+        ensureDisqus: function(mode, done) {
+            var that = this;
+            var page = this.getDisqusPage(mode);
             if (this.dsq) {
-                this.resetDisqus();
-                this.sendGa('留言');
+                this.resetDisqus(mode);
+                if (done) done();
                 return;
             }
-
             window.disqus_config = function() {
                 this.language = 'zh_TW';
-                var page = vue.getDisqusPage();
                 this.page.url = page.url;
                 this.page.identifier = page.identifier;
                 this.page.title = page.title;
             };
-
             (function() {
                 var dsq = document.createElement('script');
                 dsq.type = 'text/javascript';
@@ -660,13 +674,44 @@ var vue = new Vue({
                 dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
                 (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
             })();
-
             this.$set('dsq', true);
+            if (done) done();
+        },
+
+        moveDisqusTo: function(hostSelector) {
+            var thread = document.getElementById('disqus_thread');
+            var host = document.querySelector(hostSelector);
+            if (thread && host && thread.parentNode !== host) {
+                host.appendChild(thread);
+            }
+        },
+
+        showDsqModal: function() {
+            this.moveDisqusTo('#disqus-modal-host');
+            this.ensureDisqus('modal');
             this.sendGa('留言');
+        },
+
+        showDsq: function() {
+            this.moveDisqusTo('#disqus-bottom');
+            this.ensureDisqus('page');
+        },
+
+        bindDisqusModal: function() {
+            var that = this;
+            $('#disqus-modal').on('shown.bs.modal', function() {
+                that.moveDisqusTo('#disqus-modal-host');
+                that.ensureDisqus('modal');
+            });
+            $('#disqus-modal').on('hidden.bs.modal', function() {
+                that.moveDisqusTo('#disqus-bottom');
+                that.ensureDisqus('page');
+            });
         },
 
         fireOn: function() {
             var that = this;
+            this.bindDisqusModal();
             if (window.location.hash) {
                 this.rid = window.location.hash.substring(1); //Puts hash in variable, and removes the # character
                 this.loadOption(this.rid);
