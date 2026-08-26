@@ -25,8 +25,8 @@ var vue = new Vue({
         },
 
         s: {
-            _url: 'http://z358z358.github.io/Roulette/',
-            url: 'http://z358z358.github.io/Roulette/',
+            _url: 'https://z358z358.github.io/Roulette/',
+            url: 'https://z358z358.github.io/Roulette/',
             text: $("meta[name='description']").attr('content'),
             title: $("title").text()
         },
@@ -480,6 +480,7 @@ var vue = new Vue({
                 this.rid = '';
                 this.loadDefaultOption();
                 this.draw();
+                this.showDsq();
                 return;
             }
 
@@ -506,6 +507,7 @@ var vue = new Vue({
                 if (typeof FB !== 'undefined') {
                     FB.XFBML.parse();
                 }
+                this.showDsq();
             });
         },
 
@@ -611,11 +613,46 @@ var vue = new Vue({
             Firebase.goOnline();
         },
 
-        showDsq: function() {
-            if (this.dsq) {
+        getDisqusPage: function() {
+            var id = this.rid || 'home';
+            return {
+                url: this.s._url + (this.rid ? '#!' + this.rid : ''),
+                identifier: id,
+                title: this.s.title || document.title
+            };
+        },
+
+        resetDisqus: function() {
+            if (typeof DISQUS === 'undefined') {
                 return;
             }
-            /* * * DON'T EDIT BELOW THIS LINE * * */
+            var page = this.getDisqusPage();
+            DISQUS.reset({
+                reload: true,
+                config: function() {
+                    this.language = 'zh_TW';
+                    this.page.url = page.url;
+                    this.page.identifier = page.identifier;
+                    this.page.title = page.title;
+                }
+            });
+        },
+
+        showDsq: function() {
+            if (this.dsq) {
+                this.resetDisqus();
+                this.sendGa('留言');
+                return;
+            }
+
+            window.disqus_config = function() {
+                this.language = 'zh_TW';
+                var page = vue.getDisqusPage();
+                this.page.url = page.url;
+                this.page.identifier = page.identifier;
+                this.page.title = page.title;
+            };
+
             (function() {
                 var dsq = document.createElement('script');
                 dsq.type = 'text/javascript';
@@ -625,7 +662,6 @@ var vue = new Vue({
             })();
 
             this.$set('dsq', true);
-
             this.sendGa('留言');
         },
 
@@ -638,6 +674,7 @@ var vue = new Vue({
                 this.loadDefaultOption();
                 this.draw();
             }
+            this.showDsq();
 
             firebase.auth().onAuthStateChanged(function(user) {
                 if (user) {

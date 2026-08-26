@@ -82,7 +82,7 @@
                     </li>
                     <li v-show="lang != 'tw'"><a href="javascript:void(0)" v-on="click:changeLang('tw', 'nav')">中文</a>
                     </li>
-                    <li><a href="#" data-toggle="modal" data-target="#disqus-modal" v-on="click:showDsq" data-i18n="nav.comment">留言</a></li>
+                    <li><a href="#disqus_thread" v-on="click:showDsq" data-i18n="nav.comment">留言</a></li>
                     <li class="dropdown intro-step" v-show="user.uid == ''" data-step="7" data-intro-key='intro.s7'>
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"><span data-i18n="nav.login">登入</span> <span class="caret"></span></a>
                         <ul class="dropdown-menu">
@@ -295,16 +295,15 @@
             </div>
         </div>
         <hr />
-        <!-- fb留言上面 -->
+        <!-- disqus留言上面 -->
         <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5518310153941700" data-ad-slot="2728124907" data-ad-format="auto" data-full-width-responsive="true"></ins>
         <script>
             (adsbygoogle = window.adsbygoogle || []).push({});
         </script>
         <div>
-            <div>
-                <hr />
-                <div class="fb-comments" data-href="http://z358z358.github.io/Roulette/#{{rid}}" data-numposts="10" data-width="100%" data-order-by="reverse_time"></div>
-            </div>
+            <hr />
+            <div id="disqus_thread"></div>
+            <noscript>請開啟 javascript 來檢視 <a href="https://disqus.com/?ref_noscript">Disqus 提供的留言</a></noscript>
         </div>
         <hr />
         <!-- github2 -->
@@ -459,21 +458,6 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="disqus-modal" tabindex="-1" role="dialog" aria-labelledby="disqus-modalLabal" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="disqus-modalLabel" data-i18n="modal.m22">留言</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="alert alert-info" role="alert" data-i18n="modal.m23">歡迎提供意見!</div>
-                    <div id="disqus_thread"></div>
-                    <noscript>請開啟 javascript 來檢視 <a href="https://disqus.com/?ref_noscript">Disqus 提供的留言</a></noscript>
-                </div>
-            </div>
-        </div>
-    </div>
     <div id="fb-root"></div>
     <!--<script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.5.0.min.js"></script>-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/i18next/8.1.0/i18next.min.js"></script>
@@ -481,7 +465,7 @@
     <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-analytics.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js" integrity="sha256-qXBd/EfAdjOA2FGrGAG+b3YBn2tn5A6bhz+LSgYD96k=" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="dist/scripts/main.js?17"></script>
+    <script type="text/javascript" src="dist/scripts/main.js?18"></script>
     <!--<script type="text/javascript" src="export.js"></script>
     <script type="text/javascript" src="forDebug.js"></script>-->
     <script src="https://www.gstatic.com/charts/loader.js"></script>
@@ -500,10 +484,12 @@
     }(document, 'script', 'facebook-jssdk'));
     </script>
     <script type="text/javascript">
-    /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = 'roulette-tw';
     var disqus_config = function() {
-        this.language = "zh_TW";
+        this.language = 'zh_TW';
+        this.page = this.page || {};
+        this.page.url = 'https://z358z358.github.io/Roulette/';
+        this.page.identifier = 'home';
     };
     </script>
 </body>
