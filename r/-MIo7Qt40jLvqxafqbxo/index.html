@@ -391,6 +391,7 @@
                 <li><a href="../../r/-MbAvnlT9XFWakwk6nvW/">侯友宜防疫記者會發言</a></li>
                 <li><a href="../../r/-MafYSafyBoDpoybRL-v/">六合彩/樂透號碼 (created by CarlHo)</a></li>
             </ul>
+            <p><a href="../../r/">看全部熱門轉盤 →</a></p>
             <h2>常用轉盤</h2>
             <ul class="theme-links">
                 <li><a href="../../food/">今天吃什麼轉盤</a></li>
@@ -399,6 +400,7 @@
                 <li><a href="../../yes-no/">是非轉盤</a></li>
                 <li><a href="../../numbers/">數字轉盤</a></li>
                 <li><a href="../../punishment/">懲罰轉盤</a></li>
+                <li><a href="../../r/">熱門轉盤排行</a></li>
                 <li><a href="../../">自訂轉盤首頁</a></li>
             </ul>
         </section>
@@ -501,7 +503,7 @@
                     <div class="alert alert-info" role="alert" v-show="list.length > 49" data-i18n="modal.m11">僅顯示前50筆</div>
                     <div class="list-group">
                         <div class="list-wrap" v-repeat="list | orderBy listOrder true">
-                            <a href="#{{ id }}" class="list-group-item" data-dismiss="modal" v-on="click:loadOption(id)">
+                            <a href="{{ page || ('#' + id) }}" class="list-group-item" data-dismiss="modal" v-on="click:openItem(id, page)">
                                 <i v-show="isPrivate" class="fa fa-unlock-alt" aria-hidden="true"></i>
                                 <span class="item-title" v-text="title || '沒名字'"></span>
                                 <div class="row">
@@ -582,7 +584,7 @@
     <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-analytics.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js" integrity="sha256-qXBd/EfAdjOA2FGrGAG+b3YBn2tn5A6bhz+LSgYD96k=" crossorigin="anonymous"></script>
     <script>window.ROULETTE_PRESET = {"id":"r--MIo7Qt40jLvqxafqbxo","rid":"-MIo7Qt40jLvqxafqbxo","url":"https://z358z358.github.io/Roulette/r/-MIo7Qt40jLvqxafqbxo/","title":"抽王卡驗血統","options":[{"name":"愛麗絲女僕","weight":2.21},{"name":"迷幻之王","weight":2.21},{"name":"草精","weight":2.21},{"name":"天使波利","weight":0.61},{"name":"黃金蟲","weight":0.61},{"name":"惡魔波利","weight":0.61},{"name":"海盜之王","weight":0.61},{"name":"哥布林首領","weight":0.61},{"name":"蜂后","weight":0.61},{"name":"阿特羅斯","weight":0.61},{"name":"皮里恩","weight":0.61},{"name":"虎王","weight":0.61},{"name":"俄塞里斯","weight":0.61},{"name":"月夜貓","weight":0.61},{"name":"獸人英雄","weight":0.61},{"name":"死靈","weight":0.61},{"name":"獸人酋長","weight":0.61},{"name":"迪塔勒泰晤勒","weight":0.61},{"name":"凱美拉","weight":0.61},{"name":"巴風特","weight":0.61},{"name":"聖天使波利","weight":0.61},{"name":"犬妖首領","weight":0.61},{"name":"黑暗之王","weight":0.61},{"name":"德古拉男爵","weight":0.61},{"name":"蘭特克力斯","weight":0.61},{"name":"時間管理人","weight":0.61},{"name":"斯佩夏爾","weight":0.61},{"name":"卡侖","weight":0.61},{"name":"冰暴騎士","weight":0.61},{"name":"炎之領主卡浩","weight":0.61},{"name":"死靈騎士","weight":0.61},{"name":"嗜血怪人","weight":0.61},{"name":"狼外婆","weight":0.61},{"name":"艾勒梅斯","weight":0.61},{"name":"凱特莉娜","weight":0.61},{"name":"迪文","weight":0.61},{"name":"塔妮小姐","weight":0.61},{"name":"寒冰龍","weight":0.61},{"name":"希爾隊長","weight":0.61},{"name":"幽暗夢魘","weight":0.61},{"name":"狸貓","weight":2.21},{"name":"藍瘋兔","weight":2.21},{"name":"搖滾蝗蟲","weight":2.21},{"name":"幽靈波利","weight":2.21},{"name":"蛙王","weight":2.21},{"name":"直升機哥布靈","weight":2.21},{"name":"龍蠅","weight":2.21},{"name":"流浪之狼","weight":2.21},{"name":"枯樹精","weight":2.21},{"name":"獅鷲獸","weight":2.21},{"name":"獸人嬰兒","weight":2.21},{"name":"南瓜先生","weight":2.21},{"name":"半龍人","weight":2.21},{"name":"鶚梟男爵","weight":0.61},{"name":"噬神者","weight":2.21},{"name":"艾斯恩魔女","weight":2.21},{"name":"妖君","weight":2.21},{"name":"大本鐘","weight":2.21},{"name":"鐘塔守護者","weight":2.21},{"name":"魔靈娃娃","weight":2.21},{"name":"炎之小魔女","weight":2.21},{"name":"銀月魔女","weight":2.21},{"name":"吹笛人","weight":2.21},{"name":"賽尼亞","weight":2.21},{"name":"娣潔","weight":2.21},{"name":"巴西里斯克","weight":2.21},{"name":"寒冰雕像","weight":2.21},{"name":"瘋狂鬢狗","weight":2.21},{"name":"墮落神官希巴姆","weight":2.21},{"name":"海神","weight":0.61},{"name":"鶚梟首領","weight":2.21},{"name":"血腥騎士","weight":0.61},{"name":"波利之王","weight":2.21},{"name":"安畢斯","weight":2.21}]};</script>
-    <script type="text/javascript" src="../../dist/scripts/main.js?20"></script>
+    <script type="text/javascript" src="../../dist/scripts/main.js?21"></script>
     <script>
     // 桌機側欄廣告：螢幕夠寬時在轉盤左側空白放一個 160x600（窄螢幕不載入，避免空廣告位）
     (function() {

@@ -362,6 +362,7 @@
                 <li><a href="../../r/-MbAvnlT9XFWakwk6nvW/">侯友宜防疫記者會發言</a></li>
                 <li><a href="../../r/-MafYSafyBoDpoybRL-v/">六合彩/樂透號碼 (created by CarlHo)</a></li>
             </ul>
+            <p><a href="../../r/">看全部熱門轉盤 →</a></p>
             <h2>常用轉盤</h2>
             <ul class="theme-links">
                 <li><a href="../../food/">今天吃什麼轉盤</a></li>
@@ -370,6 +371,7 @@
                 <li><a href="../../yes-no/">是非轉盤</a></li>
                 <li><a href="../../numbers/">數字轉盤</a></li>
                 <li><a href="../../punishment/">懲罰轉盤</a></li>
+                <li><a href="../../r/">熱門轉盤排行</a></li>
                 <li><a href="../../">自訂轉盤首頁</a></li>
             </ul>
         </section>
@@ -472,7 +474,7 @@
                     <div class="alert alert-info" role="alert" v-show="list.length > 49" data-i18n="modal.m11">僅顯示前50筆</div>
                     <div class="list-group">
                         <div class="list-wrap" v-repeat="list | orderBy listOrder true">
-                            <a href="#{{ id }}" class="list-group-item" data-dismiss="modal" v-on="click:loadOption(id)">
+                            <a href="{{ page || ('#' + id) }}" class="list-group-item" data-dismiss="modal" v-on="click:openItem(id, page)">
                                 <i v-show="isPrivate" class="fa fa-unlock-alt" aria-hidden="true"></i>
                                 <span class="item-title" v-text="title || '沒名字'"></span>
                                 <div class="row">
@@ -553,7 +555,7 @@
     <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-analytics.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js" integrity="sha256-qXBd/EfAdjOA2FGrGAG+b3YBn2tn5A6bhz+LSgYD96k=" crossorigin="anonymous"></script>
     <script>window.ROULETTE_PRESET = {"id":"r--LOkiHP_e5Rm2-vPkENB","rid":"-LOkiHP_e5Rm2-vPkENB","url":"https://z358z358.github.io/Roulette/r/-LOkiHP_e5Rm2-vPkENB/","title":"彰中生晚餐","options":[{"name":"陶板屋","weight":1},{"name":"南投意麵","weight":1},{"name":"土魠魚羹","weight":1},{"name":"蔥油餅","weight":1},{"name":"湖南館牛肉麵","weight":1},{"name":"醬大爺","weight":1},{"name":"古早味鍋燒","weight":1},{"name":"秉峯","weight":1},{"name":"九色香雞排","weight":1},{"name":"雙響丼","weight":1},{"name":"北平豬肉餡餅","weight":1},{"name":"發仔麵","weight":1},{"name":"龍山寺麵線糊","weight":1},{"name":"彰化涼圓","weight":1},{"name":"大思鄉","weight":1},{"name":"匙道","weight":1},{"name":"富邦","weight":1},{"name":"蜜汁燒烤","weight":1},{"name":"洪家","weight":1},{"name":"川辣子","weight":1},{"name":"七味屋","weight":1},{"name":"廚王","weight":1},{"name":"澤川","weight":1},{"name":"星星自助餐","weight":1},{"name":"義式義大利麵","weight":1},{"name":"一品粥","weight":1},{"name":"海苔飯捲","weight":1},{"name":"杏花村","weight":1},{"name":"老店牛肉麵","weight":1},{"name":"八方","weight":1},{"name":"老夫子","weight":1},{"name":"福州包","weight":1},{"name":"39義大利麵","weight":1},{"name":"東方","weight":1},{"name":"蓁味","weight":1},{"name":"大媽の店","weight":1},{"name":"全家","weight":1},{"name":"神田鍋燒","weight":1},{"name":"胖老爹","weight":1},{"name":"阿梅師義大利麵","weight":1},{"name":"匠咖哩","weight":1},{"name":"麵屋三金","weight":1},{"name":"侯記燒肉","weight":1},{"name":"庫斯龍","weight":1},{"name":"茂林","weight":1}]};</script>
-    <script type="text/javascript" src="../../dist/scripts/main.js?20"></script>
+    <script type="text/javascript" src="../../dist/scripts/main.js?21"></script>
     <script>
     // 桌機側欄廣告：螢幕夠寬時在轉盤左側空白放一個 160x600（窄螢幕不載入，避免空廣告位）
     (function() {

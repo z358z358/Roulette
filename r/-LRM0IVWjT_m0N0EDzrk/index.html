@@ -346,6 +346,7 @@
                 <li><a href="../../r/-MbAvnlT9XFWakwk6nvW/">侯友宜防疫記者會發言</a></li>
                 <li><a href="../../r/-MafYSafyBoDpoybRL-v/">六合彩/樂透號碼 (created by CarlHo)</a></li>
             </ul>
+            <p><a href="../../r/">看全部熱門轉盤 →</a></p>
             <h2>常用轉盤</h2>
             <ul class="theme-links">
                 <li><a href="../../food/">今天吃什麼轉盤</a></li>
@@ -354,6 +355,7 @@
                 <li><a href="../../yes-no/">是非轉盤</a></li>
                 <li><a href="../../numbers/">數字轉盤</a></li>
                 <li><a href="../../punishment/">懲罰轉盤</a></li>
+                <li><a href="../../r/">熱門轉盤排行</a></li>
                 <li><a href="../../">自訂轉盤首頁</a></li>
             </ul>
         </section>
@@ -456,7 +458,7 @@
                     <div class="alert alert-info" role="alert" v-show="list.length > 49" data-i18n="modal.m11">僅顯示前50筆</div>
                     <div class="list-group">
                         <div class="list-wrap" v-repeat="list | orderBy listOrder true">
-                            <a href="#{{ id }}" class="list-group-item" data-dismiss="modal" v-on="click:loadOption(id)">
+                            <a href="{{ page || ('#' + id) }}" class="list-group-item" data-dismiss="modal" v-on="click:openItem(id, page)">
                                 <i v-show="isPrivate" class="fa fa-unlock-alt" aria-hidden="true"></i>
                                 <span class="item-title" v-text="title || '沒名字'"></span>
                                 <div class="row">
@@ -537,7 +539,7 @@
     <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-analytics.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js" integrity="sha256-qXBd/EfAdjOA2FGrGAG+b3YBn2tn5A6bhz+LSgYD96k=" crossorigin="anonymous"></script>
     <script>window.ROULETTE_PRESET = {"id":"r--LRM0IVWjT_m0N0EDzrk","rid":"-LRM0IVWjT_m0N0EDzrk","url":"https://z358z358.github.io/Roulette/r/-LRM0IVWjT_m0N0EDzrk/","title":"來抽你追妹子的下場","options":[{"name":"發現她原來是自己失散多年的妹妹","weight":0.1},{"name":"討厭","weight":0.1},{"name":"手牽手站在愛河邊划船","weight":0.01},{"name":"雖然被甩但成功看到福利","weight":0.01},{"name":"建立起自己的後宮","weight":0.002},{"name":"老實講，男生其實也不錯","weight":0.09},{"name":"買了一堆御守卻還是一樣魯","weight":0.1},{"name":"想妹子想到變成中二病卻還是一樣魯","weight":0.1},{"name":"你真是個好人","weight":0.24},{"name":"恭喜成為護花使者","weight":0.02},{"name":"騎士團加一","weight":0.1},{"name":"一日炮友","weight":0.005},{"name":"發現自己其實喜歡二次元","weight":0.1},{"name":"恭喜脫單","weight":0.01},{"name":"我其實也喜歡你","weight":0.005},{"name":"追求不屑，被告到警局","weight":0.1},{"name":"被甩過決定當個甲甲","weight":0.1},{"name":"被甩過而加入fff團","weight":0.3},{"name":"你其實長得滿帥的","weight":0.04},{"name":"恭喜你，你找到女朋友了","weight":0.01},{"name":"沒辦法聊天","weight":0.15},{"name":"看到你的臉就跑","weight":0.1},{"name":"去洗澡","weight":0.1},{"name":"安安","weight":0.1},{"name":"哈哈","weight":0.1},{"name":"沒人理你","weight":0.44},{"name":"宅宅認識不到女生","weight":0.25},{"name":"被已讀","weight":0.12},{"name":"好友邀請被拒絕","weight":0.08}]};</script>
-    <script type="text/javascript" src="../../dist/scripts/main.js?20"></script>
+    <script type="text/javascript" src="../../dist/scripts/main.js?21"></script>
     <script>
     // 桌機側欄廣告：螢幕夠寬時在轉盤左側空白放一個 160x600（窄螢幕不載入，避免空廣告位）
     (function() {

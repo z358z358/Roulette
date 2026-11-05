@@ -329,6 +329,7 @@
                 <li><a href="../../r/-MbAvnlT9XFWakwk6nvW/">侯友宜防疫記者會發言</a></li>
                 <li><a href="../../r/-MafYSafyBoDpoybRL-v/">六合彩/樂透號碼 (created by CarlHo)</a></li>
             </ul>
+            <p><a href="../../r/">看全部熱門轉盤 →</a></p>
             <h2>常用轉盤</h2>
             <ul class="theme-links">
                 <li><a href="../../food/">今天吃什麼轉盤</a></li>
@@ -337,6 +338,7 @@
                 <li><a href="../../yes-no/">是非轉盤</a></li>
                 <li><a href="../../numbers/">數字轉盤</a></li>
                 <li><a href="../../punishment/">懲罰轉盤</a></li>
+                <li><a href="../../r/">熱門轉盤排行</a></li>
                 <li><a href="../../">自訂轉盤首頁</a></li>
             </ul>
         </section>
@@ -439,7 +441,7 @@
                     <div class="alert alert-info" role="alert" v-show="list.length > 49" data-i18n="modal.m11">僅顯示前50筆</div>
                     <div class="list-group">
                         <div class="list-wrap" v-repeat="list | orderBy listOrder true">
-                            <a href="#{{ id }}" class="list-group-item" data-dismiss="modal" v-on="click:loadOption(id)">
+                            <a href="{{ page || ('#' + id) }}" class="list-group-item" data-dismiss="modal" v-on="click:openItem(id, page)">
                                 <i v-show="isPrivate" class="fa fa-unlock-alt" aria-hidden="true"></i>
                                 <span class="item-title" v-text="title || '沒名字'"></span>
                                 <div class="row">
@@ -520,7 +522,7 @@
     <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-analytics.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js" integrity="sha256-qXBd/EfAdjOA2FGrGAG+b3YBn2tn5A6bhz+LSgYD96k=" crossorigin="anonymous"></script>
     <script>window.ROULETTE_PRESET = {"id":"r--MY8WOU94DRK-qf-uj1t","rid":"-MY8WOU94DRK-qf-uj1t","url":"https://z358z358.github.io/Roulette/r/-MY8WOU94DRK-qf-uj1t/","title":"假如你隨機派到一項職業分類","options":[{"name":"其他行業","weight":23.2},{"name":"公共行政、社會及個人服務","weight":775.8},{"name":"地產及專業及商用服務","weight":559.1},{"name":"金融及保險","weight":286.4},{"name":"金融、保險、地產、專業及商用服務","weight":845.5},{"name":"運輸、倉庫、郵政及速遞服務、資訊及通訊","weight":432.8},{"name":"住宿及膳食服務","weight":242},{"name":"零售","weight":275.4},{"name":"製造","weight":103.2},{"name":"建造","weight":310},{"name":"進出口貿易及批發","weight":480.2},{"name":"零售住宿及膳食服務","weight":517.4}]};</script>
-    <script type="text/javascript" src="../../dist/scripts/main.js?20"></script>
+    <script type="text/javascript" src="../../dist/scripts/main.js?21"></script>
     <script>
     // 桌機側欄廣告：螢幕夠寬時在轉盤左側空白放一個 160x600（窄螢幕不載入，避免空廣告位）
     (function() {

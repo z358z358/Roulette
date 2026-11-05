@@ -377,6 +377,7 @@
                 <li><a href="../../r/-MbAvnlT9XFWakwk6nvW/">侯友宜防疫記者會發言</a></li>
                 <li><a href="../../r/-MafYSafyBoDpoybRL-v/">六合彩/樂透號碼 (created by CarlHo)</a></li>
             </ul>
+            <p><a href="../../r/">看全部熱門轉盤 →</a></p>
             <h2>常用轉盤</h2>
             <ul class="theme-links">
                 <li><a href="../../food/">今天吃什麼轉盤</a></li>
@@ -385,6 +386,7 @@
                 <li><a href="../../yes-no/">是非轉盤</a></li>
                 <li><a href="../../numbers/">數字轉盤</a></li>
                 <li><a href="../../punishment/">懲罰轉盤</a></li>
+                <li><a href="../../r/">熱門轉盤排行</a></li>
                 <li><a href="../../">自訂轉盤首頁</a></li>
             </ul>
         </section>
@@ -487,7 +489,7 @@
                     <div class="alert alert-info" role="alert" v-show="list.length > 49" data-i18n="modal.m11">僅顯示前50筆</div>
                     <div class="list-group">
                         <div class="list-wrap" v-repeat="list | orderBy listOrder true">
-                            <a href="#{{ id }}" class="list-group-item" data-dismiss="modal" v-on="click:loadOption(id)">
+                            <a href="{{ page || ('#' + id) }}" class="list-group-item" data-dismiss="modal" v-on="click:openItem(id, page)">
                                 <i v-show="isPrivate" class="fa fa-unlock-alt" aria-hidden="true"></i>
                                 <span class="item-title" v-text="title || '沒名字'"></span>
                                 <div class="row">
@@ -568,7 +570,7 @@
     <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-analytics.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js" integrity="sha256-qXBd/EfAdjOA2FGrGAG+b3YBn2tn5A6bhz+LSgYD96k=" crossorigin="anonymous"></script>
     <script>window.ROULETTE_PRESET = {"id":"r--Maf_nZH0bescIH2kaps","rid":"-Maf_nZH0bescIH2kaps","url":"https://z358z358.github.io/Roulette/r/-Maf_nZH0bescIH2kaps/","title":"網絡名字 (created by CarlHo)","options":[{"name":"半","weight":1},{"name":"涼","weight":1},{"name":"冰","weight":1},{"name":"霜","weight":1},{"name":"雪","weight":1},{"name":"雨","weight":1},{"name":"寒","weight":1},{"name":"夏","weight":1},{"name":"風","weight":1},{"name":"炎","weight":1},{"name":"暴","weight":1},{"name":"熾","weight":1},{"name":"凜","weight":1},{"name":"颯","weight":1},{"name":"嵐","weight":1},{"name":"漾","weight":1},{"name":"戀","weight":1},{"name":"愛","weight":1},{"name":"殤","weight":1},{"name":"幻","weight":1},{"name":"異","weight":1},{"name":"情","weight":1},{"name":"星","weight":1},{"name":"月","weight":1},{"name":"日","weight":1},{"name":"空","weight":1},{"name":"雷","weight":1},{"name":"楓","weight":1},{"name":"華","weight":1},{"name":"花","weight":1},{"name":"暗","weight":1},{"name":"夜","weight":1},{"name":"之","weight":1},{"name":"兒","weight":1},{"name":"魔","weight":1},{"name":"神","weight":1},{"name":"玥","weight":1},{"name":"語","weight":1},{"name":"姬","weight":1},{"name":"極","weight":1},{"name":"樂","weight":1},{"name":"刃","weight":1},{"name":"琴","weight":1},{"name":"影","weight":1},{"name":"羽","weight":1},{"name":"劍","weight":1},{"name":"魂","weight":1},{"name":"夢","weight":1},{"name":"鳳","weight":1},{"name":"凰","weight":1},{"name":"龍","weight":1},{"name":"虎","weight":1},{"name":"豹","weight":1},{"name":"獅","weight":1},{"name":"狼","weight":1},{"name":"貓","weight":1},{"name":"青","weight":1},{"name":"黑","weight":1},{"name":"白","weight":1},{"name":"赤","weight":1}]};</script>
-    <script type="text/javascript" src="../../dist/scripts/main.js?20"></script>
+    <script type="text/javascript" src="../../dist/scripts/main.js?21"></script>
     <script>
     // 桌機側欄廣告：螢幕夠寬時在轉盤左側空白放一個 160x600（窄螢幕不載入，避免空廣告位）
     (function() {

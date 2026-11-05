@@ -357,6 +357,7 @@
                 <li><a href="../../r/-MbAvnlT9XFWakwk6nvW/">侯友宜防疫記者會發言</a></li>
                 <li><a href="../../r/-MafYSafyBoDpoybRL-v/">六合彩/樂透號碼 (created by CarlHo)</a></li>
             </ul>
+            <p><a href="../../r/">看全部熱門轉盤 →</a></p>
             <h2>常用轉盤</h2>
             <ul class="theme-links">
                 <li><a href="../../food/">今天吃什麼轉盤</a></li>
@@ -365,6 +366,7 @@
                 <li><a href="../../yes-no/">是非轉盤</a></li>
                 <li><a href="../../numbers/">數字轉盤</a></li>
                 <li><a href="../../punishment/">懲罰轉盤</a></li>
+                <li><a href="../../r/">熱門轉盤排行</a></li>
                 <li><a href="../../">自訂轉盤首頁</a></li>
             </ul>
         </section>
@@ -467,7 +469,7 @@
                     <div class="alert alert-info" role="alert" v-show="list.length > 49" data-i18n="modal.m11">僅顯示前50筆</div>
                     <div class="list-group">
                         <div class="list-wrap" v-repeat="list | orderBy listOrder true">
-                            <a href="#{{ id }}" class="list-group-item" data-dismiss="modal" v-on="click:loadOption(id)">
+                            <a href="{{ page || ('#' + id) }}" class="list-group-item" data-dismiss="modal" v-on="click:openItem(id, page)">
                                 <i v-show="isPrivate" class="fa fa-unlock-alt" aria-hidden="true"></i>
                                 <span class="item-title" v-text="title || '沒名字'"></span>
                                 <div class="row">
@@ -548,7 +550,7 @@
     <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-analytics.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js" integrity="sha256-qXBd/EfAdjOA2FGrGAG+b3YBn2tn5A6bhz+LSgYD96k=" crossorigin="anonymous"></script>
     <script>window.ROULETTE_PRESET = {"id":"r--LW-YMZFQ5rah_DvYkq-","rid":"-LW-YMZFQ5rah_DvYkq-","url":"https://z358z358.github.io/Roulette/r/-LW-YMZFQ5rah_DvYkq-/","title":"霹靂無雙高級招募","options":[{"name":"佛劍分說碎片★★★","weight":0.4},{"name":"疏樓龍宿碎片★★★","weight":0.4},{"name":"談無欲碎片★★★","weight":0.4},{"name":"吞佛童子碎片★★★","weight":0.4},{"name":"夜重生碎片★★★","weight":0.4},{"name":"佛劍分說★★★","weight":0.4},{"name":"疏樓龍宿★★★","weight":0.4},{"name":"談無欲★★★","weight":0.4},{"name":"吞佛童子★★★","weight":0.4},{"name":"夜重生★★★","weight":0.4},{"name":"幕少艾碎片★★","weight":1.1875},{"name":"公孫月碎片★★","weight":1.1875},{"name":"骨蕭碎片★★","weight":1.1875},{"name":"地理司碎片★★","weight":1.1875},{"name":"劍雪無名碎片★★","weight":1.1875},{"name":"劍邪碎片★★","weight":1.1875},{"name":"聖蹤碎片★★","weight":1.1875},{"name":"東方鼎立碎片★★","weight":1.1875},{"name":"幕少艾★★","weight":1.1875},{"name":"公孫月★★","weight":1.1875},{"name":"骨蕭★★","weight":1.1875},{"name":"地理司★★","weight":1.1875},{"name":"劍雪無名★★","weight":1.1875},{"name":"劍邪★★","weight":1.1875},{"name":"聖蹤★★","weight":1.1875},{"name":"東方鼎立★★","weight":1.1875},{"name":"劍子仙跡碎片★","weight":5.5},{"name":"北辰元凰碎片★","weight":5.5},{"name":"皮鼓師碎片★","weight":5.5},{"name":"章袤君碎片★","weight":5.5},{"name":"北辰胤碎片★","weight":5.5},{"name":"月無波碎片★","weight":5.5},{"name":"秦假仙碎片★","weight":5.5},{"name":"劍子仙跡★","weight":5.5},{"name":"北辰元凰★","weight":5.5},{"name":"皮鼓師★","weight":5.5},{"name":"章袤君★","weight":5.5},{"name":"北辰胤★","weight":5.5},{"name":"秦假仙★","weight":5.5},{"name":"月無波★","weight":5.5}]};</script>
-    <script type="text/javascript" src="../../dist/scripts/main.js?20"></script>
+    <script type="text/javascript" src="../../dist/scripts/main.js?21"></script>
     <script>
     // 桌機側欄廣告：螢幕夠寬時在轉盤左側空白放一個 160x600（窄螢幕不載入，避免空廣告位）
     (function() {

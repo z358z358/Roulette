@@ -389,6 +389,7 @@
                 <li><a href="../../r/-MafYSafyBoDpoybRL-v/">六合彩/樂透號碼 (created by CarlHo)</a></li>
                 <li><a href="../../r/-MbUu9OaJoEn0yvz3F99/">人生重开器（按照人口出生比例）</a></li>
             </ul>
+            <p><a href="../../r/">看全部熱門轉盤 →</a></p>
             <h2>常用轉盤</h2>
             <ul class="theme-links">
                 <li><a href="../../food/">今天吃什麼轉盤</a></li>
@@ -397,6 +398,7 @@
                 <li><a href="../../yes-no/">是非轉盤</a></li>
                 <li><a href="../../numbers/">數字轉盤</a></li>
                 <li><a href="../../punishment/">懲罰轉盤</a></li>
+                <li><a href="../../r/">熱門轉盤排行</a></li>
                 <li><a href="../../">自訂轉盤首頁</a></li>
             </ul>
         </section>
@@ -499,7 +501,7 @@
                     <div class="alert alert-info" role="alert" v-show="list.length > 49" data-i18n="modal.m11">僅顯示前50筆</div>
                     <div class="list-group">
                         <div class="list-wrap" v-repeat="list | orderBy listOrder true">
-                            <a href="#{{ id }}" class="list-group-item" data-dismiss="modal" v-on="click:loadOption(id)">
+                            <a href="{{ page || ('#' + id) }}" class="list-group-item" data-dismiss="modal" v-on="click:openItem(id, page)">
                                 <i v-show="isPrivate" class="fa fa-unlock-alt" aria-hidden="true"></i>
                                 <span class="item-title" v-text="title || '沒名字'"></span>
                                 <div class="row">
@@ -580,7 +582,7 @@
     <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-analytics.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js" integrity="sha256-qXBd/EfAdjOA2FGrGAG+b3YBn2tn5A6bhz+LSgYD96k=" crossorigin="anonymous"></script>
     <script>window.ROULETTE_PRESET = {"id":"r-G7oLFoQ84HfKEwmJXQzs","rid":"G7oLFoQ84HfKEwmJXQzs","url":"https://z358z358.github.io/Roulette/r/G7oLFoQ84HfKEwmJXQzs/","title":"ACO含恨而終大抽獎","options":[{"name":"Leisure and Cultural Services Department 康樂及文化事務署","weight":1238},{"name":"Working Family and Student Financial Assistance Agency 在職家庭及學生資助事務處","weight":925},{"name":"Hong Kong Police Force 香港警務處","weight":835},{"name":"Housing Department 房屋署","weight":691},{"name":"Immigration Department 入境事務處","weight":667},{"name":"Department of Health 衞生署","weight":633},{"name":"Judiciary 司法機構","weight":582},{"name":"Labour Department 勞工處","weight":555},{"name":"Food and Environmental Hygiene Department 食物環境衞生署","weight":547},{"name":"Social Welfare Department 社會福利署","weight":507},{"name":"Education Bureau 教育局","weight":490},{"name":"Home Affairs Department 民政事務總署","weight":444},{"name":"Lands Department 地政總署","weight":402},{"name":"Transport Department 運輸署","weight":389},{"name":"Water Supplies Department 水務署","weight":353},{"name":"Buildings Department 屋宇署","weight":322},{"name":"Census and Statistics Department 政府統計處","weight":297},{"name":"Fire Services Department 消防處","weight":290},{"name":"Civil Service Bureau 公務員事務局","weight":259},{"name":"Department of Justice 律政司","weight":249},{"name":"Treasury 庫務署","weight":220},{"name":"Correctional Services Department 懲教署","weight":218},{"name":"Inland Revenue Department 稅務局","weight":210},{"name":"Land Registry 土地註冊處","weight":209},{"name":"Electrical and Mechanical Services Department 機電工程署","weight":198},{"name":"Highways Department 路政署","weight":187},{"name":"Customs and Excise Department 香港海關","weight":172},{"name":"Rating and Valuation Department 差餉物業估價署","weight":171},{"name":"Trade and Industry Department 工業貿易署","weight":155},{"name":"Environmental Protection Department 環境保護署","weight":151},{"name":"Civil Engineering and Development Department 土木工程拓展署","weight":147},{"name":"Registration and Electoral Office 選舉事務處","weight":128},{"name":"Architectural Services Department 建築署","weight":122},{"name":"Offices of the Chief Secretary for Administration and the Financial Secretary","weight":116},{"name":"Marine Department 海事處","weight":114},{"name":"Companies Registry 公司註冊處","weight":111},{"name":"Official Receiver's Office 破產管理署","weight":109},{"name":"Drainage Services Department 渠務署","weight":106},{"name":"Legal Aid Department 法律援助署","weight":100},{"name":"Development Bureau 發展局","weight":94},{"name":"Commerce and Economic Development Bureau 商務及經濟發展局","weight":74},{"name":"Planning Department 規劃署","weight":69},{"name":"Financial Services and the Treasury Bureau 財經事務及庫務局","weight":68},{"name":"Home Affairs Bureau 民政事務局","weight":61},{"name":"Civil Aviation Department 民航處","weight":59},{"name":"Government Logistics Department 政府物流服務署","weight":59},{"name":"Innovation and Technology Commission 創新科技署","weight":57},{"name":"Security Bureau 保安局","weight":56},{"name":"Information Services Department 政府新聞處","weight":55},{"name":"Radio Television Hong Kong 香港電台","weight":52},{"name":"Food and Health Bureau 食物及衞生局","weight":51},{"name":"Transport and Housing Bureau 運輸及房屋局","weight":46},{"name":"Office of the Government Chief Information Officer 政府資訊科技總監辦公室","weight":45},{"name":"Government Property Agency 政府產業署","weight":38},{"name":"Office of the Communications Authority 通訊事務管理局辦公室","weight":38},{"name":"Intellectual Property Department 知識產權署","weight":35},{"name":"Post Office 郵政署","weight":29},{"name":"Labour and Welfare Bureau 勞工及福利局","weight":28},{"name":"Constitutional and Mainland Affairs Bureau 政制及內地事務局","weight":25},{"name":"Innovation and Technology Bureau 創新及科技局","weight":22},{"name":"University Grants Committee","weight":21},{"name":"Government Flying Service 政府飛行服務隊","weight":18},{"name":"Civil Aid Service 民眾安全服務處","weight":17},{"name":"Auxiliary Medical Service 醫療輔助隊","weight":14},{"name":"Chief Executive's Office 行政長官辦公室","weight":14},{"name":"Public Service Commission","weight":14},{"name":"Audit Commission 審計署","weight":11},{"name":"Hong Kong Observatory 香港天文台","weight":11},{"name":"Government Laboratory 政府化驗所","weight":10},{"name":"Joint Secretariat for the Advisory Bodies on Civil Service and Judicial Salaries and Conditions of Service","weight":7},{"name":"Invest Hong Kong 投資推廣署","weight":6},{"name":"Environment Bureau 環境局","weight":3}]};</script>
-    <script type="text/javascript" src="../../dist/scripts/main.js?20"></script>
+    <script type="text/javascript" src="../../dist/scripts/main.js?21"></script>
     <script>
     // 桌機側欄廣告：螢幕夠寬時在轉盤左側空白放一個 160x600（窄螢幕不載入，避免空廣告位）
     (function() {

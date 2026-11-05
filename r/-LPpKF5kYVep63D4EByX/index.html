@@ -337,6 +337,7 @@
                 <li><a href="../../r/-MafYSafyBoDpoybRL-v/">六合彩/樂透號碼 (created by CarlHo)</a></li>
                 <li><a href="../../r/-MbUu9OaJoEn0yvz3F99/">人生重开器（按照人口出生比例）</a></li>
             </ul>
+            <p><a href="../../r/">看全部熱門轉盤 →</a></p>
             <h2>常用轉盤</h2>
             <ul class="theme-links">
                 <li><a href="../../food/">今天吃什麼轉盤</a></li>
@@ -345,6 +346,7 @@
                 <li><a href="../../yes-no/">是非轉盤</a></li>
                 <li><a href="../../numbers/">數字轉盤</a></li>
                 <li><a href="../../punishment/">懲罰轉盤</a></li>
+                <li><a href="../../r/">熱門轉盤排行</a></li>
                 <li><a href="../../">自訂轉盤首頁</a></li>
             </ul>
         </section>
@@ -447,7 +449,7 @@
                     <div class="alert alert-info" role="alert" v-show="list.length > 49" data-i18n="modal.m11">僅顯示前50筆</div>
                     <div class="list-group">
                         <div class="list-wrap" v-repeat="list | orderBy listOrder true">
-                            <a href="#{{ id }}" class="list-group-item" data-dismiss="modal" v-on="click:loadOption(id)">
+                            <a href="{{ page || ('#' + id) }}" class="list-group-item" data-dismiss="modal" v-on="click:openItem(id, page)">
                                 <i v-show="isPrivate" class="fa fa-unlock-alt" aria-hidden="true"></i>
                                 <span class="item-title" v-text="title || '沒名字'"></span>
                                 <div class="row">
@@ -528,7 +530,7 @@
     <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-analytics.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js" integrity="sha256-qXBd/EfAdjOA2FGrGAG+b3YBn2tn5A6bhz+LSgYD96k=" crossorigin="anonymous"></script>
     <script>window.ROULETTE_PRESET = {"id":"r--LPpKF5kYVep63D4EByX","rid":"-LPpKF5kYVep63D4EByX","url":"https://z358z358.github.io/Roulette/r/-LPpKF5kYVep63D4EByX/","title":"朝鮮人生模擬器 (飢餓超過7天=死亡喔)","options":[{"name":"看到軍人在吃草 拘禁飢餓1天","weight":0.007},{"name":"別人被抓走 自己被審問飢餓1天","weight":0.016},{"name":"撿到錢沒通報上級 拘禁飢餓1天","weight":0.4},{"name":"順利入黨 每天都會有飯吃了","weight":0.003},{"name":"逃脫失敗 勞改","weight":0.096},{"name":"工作遲到 懲罰飢餓1天","weight":0.6},{"name":"順利逃到別的國家","weight":0.004},{"name":"沒唱黨歌 拘禁飢餓1天","weight":0.4},{"name":"今天工廠放假 爽啦","weight":0.3},{"name":"工廠加速生產 飢餓1天","weight":2},{"name":"唱黨歌沒站好 拘禁1天有飯吃","weight":0.04},{"name":"忘記交報告 飢餓1天","weight":2.1},{"name":"牽扯到叛變 送去勞改 死亡","weight":0.07},{"name":"忘記和主席肖鞠躬 拘禁飢餓1天","weight":0.04},{"name":"補給票沒了 飢餓1天","weight":25},{"name":"不小心踩惹到黨員 拘禁飢餓1天","weight":0.6},{"name":"今天沒事一切安好 有吃到飯喔","weight":13},{"name":"我的補給票弄丟了 飢餓1天","weight":0.7},{"name":"鄰居搶我家食物 飢餓1天","weight":0.8},{"name":"睡過頭沒拿補給票 飢餓1天","weight":1.1}]};</script>
-    <script type="text/javascript" src="../../dist/scripts/main.js?20"></script>
+    <script type="text/javascript" src="../../dist/scripts/main.js?21"></script>
     <script>
     // 桌機側欄廣告：螢幕夠寬時在轉盤左側空白放一個 160x600（窄螢幕不載入，避免空廣告位）
     (function() {

@@ -417,6 +417,7 @@
                 <li><a href="../../r/-MbAvnlT9XFWakwk6nvW/">侯友宜防疫記者會發言</a></li>
                 <li><a href="../../r/-MafYSafyBoDpoybRL-v/">六合彩/樂透號碼 (created by CarlHo)</a></li>
             </ul>
+            <p><a href="../../r/">看全部熱門轉盤 →</a></p>
             <h2>常用轉盤</h2>
             <ul class="theme-links">
                 <li><a href="../../food/">今天吃什麼轉盤</a></li>
@@ -425,6 +426,7 @@
                 <li><a href="../../yes-no/">是非轉盤</a></li>
                 <li><a href="../../numbers/">數字轉盤</a></li>
                 <li><a href="../../punishment/">懲罰轉盤</a></li>
+                <li><a href="../../r/">熱門轉盤排行</a></li>
                 <li><a href="../../">自訂轉盤首頁</a></li>
             </ul>
         </section>
@@ -527,7 +529,7 @@
                     <div class="alert alert-info" role="alert" v-show="list.length > 49" data-i18n="modal.m11">僅顯示前50筆</div>
                     <div class="list-group">
                         <div class="list-wrap" v-repeat="list | orderBy listOrder true">
-                            <a href="#{{ id }}" class="list-group-item" data-dismiss="modal" v-on="click:loadOption(id)">
+                            <a href="{{ page || ('#' + id) }}" class="list-group-item" data-dismiss="modal" v-on="click:openItem(id, page)">
                                 <i v-show="isPrivate" class="fa fa-unlock-alt" aria-hidden="true"></i>
                                 <span class="item-title" v-text="title || '沒名字'"></span>
                                 <div class="row">
@@ -608,7 +610,7 @@
     <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-analytics.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js" integrity="sha256-qXBd/EfAdjOA2FGrGAG+b3YBn2tn5A6bhz+LSgYD96k=" crossorigin="anonymous"></script>
     <script>window.ROULETTE_PRESET = {"id":"r--MG1_Pv68mT6nBB4aRpo","rid":"-MG1_Pv68mT6nBB4aRpo","url":"https://z358z358.github.io/Roulette/r/-MG1_Pv68mT6nBB4aRpo/","title":"1-100抽號碼","options":[{"name":"100","weight":1},{"name":"99","weight":1},{"name":"98","weight":1},{"name":"97","weight":1},{"name":"96","weight":1},{"name":"95","weight":1},{"name":"94","weight":1},{"name":"93","weight":1},{"name":"92","weight":1},{"name":"91","weight":1},{"name":"90","weight":1},{"name":"89","weight":1},{"name":"88","weight":1},{"name":"87","weight":1},{"name":"86","weight":1},{"name":"85","weight":1},{"name":"84","weight":1},{"name":"83","weight":1},{"name":"82","weight":1},{"name":"81","weight":1},{"name":"80","weight":1},{"name":"79","weight":1},{"name":"78","weight":1},{"name":"77","weight":1},{"name":"76","weight":1},{"name":"75","weight":1},{"name":"74","weight":1},{"name":"73","weight":1},{"name":"72","weight":1},{"name":"71","weight":1},{"name":"70","weight":1},{"name":"69","weight":1},{"name":"68","weight":1},{"name":"67","weight":1},{"name":"66","weight":1},{"name":"65","weight":1},{"name":"64","weight":1},{"name":"63","weight":1},{"name":"62","weight":1},{"name":"61","weight":1},{"name":"60","weight":1},{"name":"59","weight":1},{"name":"58","weight":1},{"name":"57","weight":1},{"name":"56","weight":1},{"name":"55","weight":1},{"name":"54","weight":1},{"name":"53","weight":1},{"name":"52","weight":1},{"name":"51","weight":1},{"name":"50","weight":1},{"name":"49","weight":1},{"name":"48","weight":1},{"name":"47","weight":1},{"name":"46","weight":1},{"name":"45","weight":1},{"name":"44","weight":1},{"name":"43","weight":1},{"name":"42","weight":1},{"name":"41","weight":1},{"name":"40","weight":1},{"name":"39","weight":1},{"name":"38","weight":1},{"name":"37","weight":1},{"name":"36","weight":1},{"name":"35","weight":1},{"name":"34","weight":1},{"name":"33","weight":1},{"name":"32","weight":1},{"name":"31","weight":1},{"name":"30","weight":1},{"name":"1","weight":1},{"name":"2","weight":1},{"name":"3","weight":1},{"name":"4","weight":1},{"name":"5","weight":1},{"name":"6","weight":1},{"name":"7","weight":1},{"name":"8","weight":1},{"name":"9","weight":1},{"name":"10","weight":1},{"name":"11","weight":1},{"name":"12","weight":1},{"name":"13","weight":1},{"name":"14","weight":1},{"name":"15","weight":1},{"name":"16","weight":1},{"name":"17","weight":1},{"name":"18","weight":1},{"name":"19","weight":1},{"name":"20","weight":1},{"name":"21","weight":1},{"name":"22","weight":1},{"name":"23","weight":1},{"name":"24","weight":1},{"name":"25","weight":1},{"name":"26","weight":1},{"name":"27","weight":1},{"name":"28","weight":1},{"name":"29","weight":1}]};</script>
-    <script type="text/javascript" src="../../dist/scripts/main.js?20"></script>
+    <script type="text/javascript" src="../../dist/scripts/main.js?21"></script>
     <script>
     // 桌機側欄廣告：螢幕夠寬時在轉盤左側空白放一個 160x600（窄螢幕不載入，避免空廣告位）
     (function() {

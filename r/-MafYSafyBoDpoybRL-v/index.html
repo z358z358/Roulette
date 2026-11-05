@@ -366,6 +366,7 @@
                 <li><a href="../../r/-MbAvnlT9XFWakwk6nvW/">侯友宜防疫記者會發言</a></li>
                 <li><a href="../../r/-MbUu9OaJoEn0yvz3F99/">人生重开器（按照人口出生比例）</a></li>
             </ul>
+            <p><a href="../../r/">看全部熱門轉盤 →</a></p>
             <h2>常用轉盤</h2>
             <ul class="theme-links">
                 <li><a href="../../food/">今天吃什麼轉盤</a></li>
@@ -374,6 +375,7 @@
                 <li><a href="../../yes-no/">是非轉盤</a></li>
                 <li><a href="../../numbers/">數字轉盤</a></li>
                 <li><a href="../../punishment/">懲罰轉盤</a></li>
+                <li><a href="../../r/">熱門轉盤排行</a></li>
                 <li><a href="../../">自訂轉盤首頁</a></li>
             </ul>
         </section>
@@ -476,7 +478,7 @@
                     <div class="alert alert-info" role="alert" v-show="list.length > 49" data-i18n="modal.m11">僅顯示前50筆</div>
                     <div class="list-group">
                         <div class="list-wrap" v-repeat="list | orderBy listOrder true">
-                            <a href="#{{ id }}" class="list-group-item" data-dismiss="modal" v-on="click:loadOption(id)">
+                            <a href="{{ page || ('#' + id) }}" class="list-group-item" data-dismiss="modal" v-on="click:openItem(id, page)">
                                 <i v-show="isPrivate" class="fa fa-unlock-alt" aria-hidden="true"></i>
                                 <span class="item-title" v-text="title || '沒名字'"></span>
                                 <div class="row">
@@ -557,7 +559,7 @@
     <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-analytics.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js" integrity="sha256-qXBd/EfAdjOA2FGrGAG+b3YBn2tn5A6bhz+LSgYD96k=" crossorigin="anonymous"></script>
     <script>window.ROULETTE_PRESET = {"id":"r--MafYSafyBoDpoybRL-v","rid":"-MafYSafyBoDpoybRL-v","url":"https://z358z358.github.io/Roulette/r/-MafYSafyBoDpoybRL-v/","title":"六合彩/樂透號碼 (created by CarlHo)","options":[{"name":"①","weight":1},{"name":"②","weight":1},{"name":"③","weight":1},{"name":"④","weight":1},{"name":"⑤","weight":1},{"name":"⑥","weight":1},{"name":"⑦","weight":1},{"name":"⑧","weight":1},{"name":"⑨","weight":1},{"name":"⑩","weight":1},{"name":"⑪","weight":1},{"name":"⑫","weight":1},{"name":"⑬","weight":1},{"name":"⑭","weight":1},{"name":"⑮","weight":1},{"name":"⑯","weight":1},{"name":"⑰","weight":1},{"name":"⑱","weight":1},{"name":"⑲","weight":1},{"name":"⑳","weight":1},{"name":"㉑","weight":1},{"name":"㉒","weight":1},{"name":"㉓","weight":1},{"name":"㉔","weight":1},{"name":"㉕","weight":1},{"name":"㉖","weight":1},{"name":"㉗","weight":1},{"name":"㉘","weight":1},{"name":"㉙","weight":1},{"name":"㉚","weight":1},{"name":"㉛","weight":1},{"name":"㉜","weight":1},{"name":"㉝","weight":1},{"name":"㉞","weight":1},{"name":"㉟","weight":1},{"name":"㊱","weight":1},{"name":"㊲","weight":1},{"name":"㊳","weight":1},{"name":"㊴","weight":1},{"name":"㊵","weight":1},{"name":"㊶","weight":1},{"name":"㊷","weight":1},{"name":"㊸","weight":1},{"name":"㊹","weight":1},{"name":"㊺","weight":1},{"name":"㊻","weight":1},{"name":"㊼","weight":1},{"name":"㊽","weight":1},{"name":"㊾","weight":1}]};</script>
-    <script type="text/javascript" src="../../dist/scripts/main.js?20"></script>
+    <script type="text/javascript" src="../../dist/scripts/main.js?21"></script>
     <script>
     // 桌機側欄廣告：螢幕夠寬時在轉盤左側空白放一個 160x600（窄螢幕不載入，避免空廣告位）
     (function() {
