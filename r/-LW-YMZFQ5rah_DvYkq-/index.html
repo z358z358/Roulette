@@ -21,7 +21,7 @@
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials.css" />
     <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials-theme-flat.css" />
-    <link href="../../dist/styles/main.css?3" rel="stylesheet">
+    <link href="../../dist/styles/main.css?4" rel="stylesheet">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5518310153941700" crossorigin="anonymous"></script>
     <!-- GA4 (G-4HJT8VYHTF) 由 Firebase Analytics 載入，這裡只先建立 gtag 佇列 -->
     <script>
@@ -64,6 +64,21 @@
                 <ul class="nav navbar-nav">
                     <li><a class="intro-step" href="#" data-toggle="modal" data-target="#list-modal" data-step="6" data-intro-key='intro.s6' v-on="click:getList('hot')" data-i18n="nav.hot">熱門轉盤</a></li>
                     <li><a class="intro-step" href="#" data-toggle="modal" data-target="#list-modal" v-on="click:getList('ts')" data-i18n="nav.new">最新上架</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span data-i18n="nav.themes">常用轉盤</span> <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <!-- page:navthemes -->
+                            <li><a href="../../food/" data-i18n="seo.themeFood">今天吃什麼轉盤</a></li>
+                            <li><a href="../../lottery/" data-i18n="seo.themeLottery">抽獎轉盤</a></li>
+                            <li><a href="../../gacha/" data-i18n="seo.themeGacha">抽卡模擬轉盤</a></li>
+                            <li><a href="../../yes-no/" data-i18n="seo.themeYesNo">是非轉盤</a></li>
+                            <li><a href="../../numbers/" data-i18n="seo.themeNumbers">數字轉盤</a></li>
+                            <li><a href="../../punishment/" data-i18n="seo.themePunishment">懲罰轉盤</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="../../r/" data-i18n="nav.ranking">熱門轉盤排行</a></li>
+                            <!-- /page:navthemes -->
+                        </ul>
+                    </li>
                     <li><a class="intro-step" href="#" data-toggle="modal" data-target="#set-modal" data-step="4" data-intro-key='intro.s4' v-show="goFlag == false" data-i18n="nav.edit">修改轉盤</a></li>
                     <li><a class="intro-step" href="#" data-toggle="modal" data-target="#save-modal" data-step="5" data-intro-key='intro.s5' v-on="click:saveType = 'save'" data-i18n="nav.save">儲存轉盤</a></li>
                     <li><a href="#" data-toggle="modal" data-target="#save-modal" v-show="user.uid && set.uid == user.uid" v-on="click:saveType = 'new'" data-i18n="nav.saveAs">另存轉盤</a></li>
@@ -550,7 +565,7 @@
     <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-analytics.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js" integrity="sha256-qXBd/EfAdjOA2FGrGAG+b3YBn2tn5A6bhz+LSgYD96k=" crossorigin="anonymous"></script>
     <script>window.ROULETTE_PRESET = {"id":"r--LW-YMZFQ5rah_DvYkq-","rid":"-LW-YMZFQ5rah_DvYkq-","url":"https://z358z358.github.io/Roulette/r/-LW-YMZFQ5rah_DvYkq-/","title":"霹靂無雙高級招募","options":[{"name":"佛劍分說碎片★★★","weight":0.4},{"name":"疏樓龍宿碎片★★★","weight":0.4},{"name":"談無欲碎片★★★","weight":0.4},{"name":"吞佛童子碎片★★★","weight":0.4},{"name":"夜重生碎片★★★","weight":0.4},{"name":"佛劍分說★★★","weight":0.4},{"name":"疏樓龍宿★★★","weight":0.4},{"name":"談無欲★★★","weight":0.4},{"name":"吞佛童子★★★","weight":0.4},{"name":"夜重生★★★","weight":0.4},{"name":"幕少艾碎片★★","weight":1.1875},{"name":"公孫月碎片★★","weight":1.1875},{"name":"骨蕭碎片★★","weight":1.1875},{"name":"地理司碎片★★","weight":1.1875},{"name":"劍雪無名碎片★★","weight":1.1875},{"name":"劍邪碎片★★","weight":1.1875},{"name":"聖蹤碎片★★","weight":1.1875},{"name":"東方鼎立碎片★★","weight":1.1875},{"name":"幕少艾★★","weight":1.1875},{"name":"公孫月★★","weight":1.1875},{"name":"骨蕭★★","weight":1.1875},{"name":"地理司★★","weight":1.1875},{"name":"劍雪無名★★","weight":1.1875},{"name":"劍邪★★","weight":1.1875},{"name":"聖蹤★★","weight":1.1875},{"name":"東方鼎立★★","weight":1.1875},{"name":"劍子仙跡碎片★","weight":5.5},{"name":"北辰元凰碎片★","weight":5.5},{"name":"皮鼓師碎片★","weight":5.5},{"name":"章袤君碎片★","weight":5.5},{"name":"北辰胤碎片★","weight":5.5},{"name":"月無波碎片★","weight":5.5},{"name":"秦假仙碎片★","weight":5.5},{"name":"劍子仙跡★","weight":5.5},{"name":"北辰元凰★","weight":5.5},{"name":"皮鼓師★","weight":5.5},{"name":"章袤君★","weight":5.5},{"name":"北辰胤★","weight":5.5},{"name":"秦假仙★","weight":5.5},{"name":"月無波★","weight":5.5}]};</script>
-    <script type="text/javascript" src="../../dist/scripts/main.js?21"></script>
+    <script type="text/javascript" src="../../dist/scripts/main.js?22"></script>
     <script>
     // 桌機側欄廣告：螢幕夠寬時在轉盤左側空白放一個 160x600（窄螢幕不載入，避免空廣告位）
     (function() {

@@ -21,7 +21,7 @@
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials.css" />
     <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials-theme-flat.css" />
-    <link href="../../dist/styles/main.css?3" rel="stylesheet">
+    <link href="../../dist/styles/main.css?4" rel="stylesheet">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5518310153941700" crossorigin="anonymous"></script>
     <!-- GA4 (G-4HJT8VYHTF) 由 Firebase Analytics 載入，這裡只先建立 gtag 佇列 -->
     <script>
@@ -64,6 +64,21 @@
                 <ul class="nav navbar-nav">
                     <li><a class="intro-step" href="#" data-toggle="modal" data-target="#list-modal" data-step="6" data-intro-key='intro.s6' v-on="click:getList('hot')" data-i18n="nav.hot">熱門轉盤</a></li>
                     <li><a class="intro-step" href="#" data-toggle="modal" data-target="#list-modal" v-on="click:getList('ts')" data-i18n="nav.new">最新上架</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span data-i18n="nav.themes">常用轉盤</span> <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <!-- page:navthemes -->
+                            <li><a href="../../food/" data-i18n="seo.themeFood">今天吃什麼轉盤</a></li>
+                            <li><a href="../../lottery/" data-i18n="seo.themeLottery">抽獎轉盤</a></li>
+                            <li><a href="../../gacha/" data-i18n="seo.themeGacha">抽卡模擬轉盤</a></li>
+                            <li><a href="../../yes-no/" data-i18n="seo.themeYesNo">是非轉盤</a></li>
+                            <li><a href="../../numbers/" data-i18n="seo.themeNumbers">數字轉盤</a></li>
+                            <li><a href="../../punishment/" data-i18n="seo.themePunishment">懲罰轉盤</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="../../r/" data-i18n="nav.ranking">熱門轉盤排行</a></li>
+                            <!-- /page:navthemes -->
+                        </ul>
+                    </li>
                     <li><a class="intro-step" href="#" data-toggle="modal" data-target="#set-modal" data-step="4" data-intro-key='intro.s4' v-show="goFlag == false" data-i18n="nav.edit">修改轉盤</a></li>
                     <li><a class="intro-step" href="#" data-toggle="modal" data-target="#save-modal" data-step="5" data-intro-key='intro.s5' v-on="click:saveType = 'save'" data-i18n="nav.save">儲存轉盤</a></li>
                     <li><a href="#" data-toggle="modal" data-target="#save-modal" v-show="user.uid && set.uid == user.uid" v-on="click:saveType = 'new'" data-i18n="nav.saveAs">另存轉盤</a></li>
@@ -530,7 +545,7 @@
     <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-analytics.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js" integrity="sha256-qXBd/EfAdjOA2FGrGAG+b3YBn2tn5A6bhz+LSgYD96k=" crossorigin="anonymous"></script>
     <script>window.ROULETTE_PRESET = {"id":"r--LRLwyhZKKSiCYK7B1Lx","rid":"-LRLwyhZKKSiCYK7B1Lx","url":"https://z358z358.github.io/Roulette/r/-LRLwyhZKKSiCYK7B1Lx/","title":"來抽你追妹子的下場","options":[{"name":"恭喜成為護花使者","weight":0.02},{"name":"騎士團加一","weight":0.1},{"name":"一日炮友","weight":0.005},{"name":"發現自己其實喜歡二次元","weight":0.1},{"name":"恭喜脫單","weight":0.01},{"name":"我其實也喜歡你","weight":0.005},{"name":"追求不屑，被告到警局","weight":0.1},{"name":"被甩過決定當個甲甲","weight":0.1},{"name":"被甩過而加入fff團","weight":0.3},{"name":"你其實長得滿帥的","weight":0.04},{"name":"恭喜你，你找到女朋友了","weight":0.01},{"name":"沒辦法聊天","weight":0.15},{"name":"看到你的臉就跑","weight":0.1},{"name":"去洗澡","weight":0.1},{"name":"安安","weight":0.1},{"name":"哈哈","weight":0.1},{"name":"沒人理你","weight":0.44},{"name":"宅宅認識不到女生","weight":0.25},{"name":"被已讀","weight":0.12},{"name":"好友邀請被拒絕","weight":0.08}]};</script>
-    <script type="text/javascript" src="../../dist/scripts/main.js?21"></script>
+    <script type="text/javascript" src="../../dist/scripts/main.js?22"></script>
     <script>
     // 桌機側欄廣告：螢幕夠寬時在轉盤左側空白放一個 160x600（窄螢幕不載入，避免空廣告位）
     (function() {

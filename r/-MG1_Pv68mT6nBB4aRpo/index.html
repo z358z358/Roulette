@@ -21,7 +21,7 @@
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials.css" />
     <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials-theme-flat.css" />
-    <link href="../../dist/styles/main.css?3" rel="stylesheet">
+    <link href="../../dist/styles/main.css?4" rel="stylesheet">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5518310153941700" crossorigin="anonymous"></script>
     <!-- GA4 (G-4HJT8VYHTF) 由 Firebase Analytics 載入，這裡只先建立 gtag 佇列 -->
     <script>
@@ -64,6 +64,21 @@
                 <ul class="nav navbar-nav">
                     <li><a class="intro-step" href="#" data-toggle="modal" data-target="#list-modal" data-step="6" data-intro-key='intro.s6' v-on="click:getList('hot')" data-i18n="nav.hot">熱門轉盤</a></li>
                     <li><a class="intro-step" href="#" data-toggle="modal" data-target="#list-modal" v-on="click:getList('ts')" data-i18n="nav.new">最新上架</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span data-i18n="nav.themes">常用轉盤</span> <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <!-- page:navthemes -->
+                            <li><a href="../../food/" data-i18n="seo.themeFood">今天吃什麼轉盤</a></li>
+                            <li><a href="../../lottery/" data-i18n="seo.themeLottery">抽獎轉盤</a></li>
+                            <li><a href="../../gacha/" data-i18n="seo.themeGacha">抽卡模擬轉盤</a></li>
+                            <li><a href="../../yes-no/" data-i18n="seo.themeYesNo">是非轉盤</a></li>
+                            <li><a href="../../numbers/" data-i18n="seo.themeNumbers">數字轉盤</a></li>
+                            <li><a href="../../punishment/" data-i18n="seo.themePunishment">懲罰轉盤</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="../../r/" data-i18n="nav.ranking">熱門轉盤排行</a></li>
+                            <!-- /page:navthemes -->
+                        </ul>
+                    </li>
                     <li><a class="intro-step" href="#" data-toggle="modal" data-target="#set-modal" data-step="4" data-intro-key='intro.s4' v-show="goFlag == false" data-i18n="nav.edit">修改轉盤</a></li>
                     <li><a class="intro-step" href="#" data-toggle="modal" data-target="#save-modal" data-step="5" data-intro-key='intro.s5' v-on="click:saveType = 'save'" data-i18n="nav.save">儲存轉盤</a></li>
                     <li><a href="#" data-toggle="modal" data-target="#save-modal" v-show="user.uid && set.uid == user.uid" v-on="click:saveType = 'new'" data-i18n="nav.saveAs">另存轉盤</a></li>
@@ -610,7 +625,7 @@
     <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-analytics.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js" integrity="sha256-qXBd/EfAdjOA2FGrGAG+b3YBn2tn5A6bhz+LSgYD96k=" crossorigin="anonymous"></script>
     <script>window.ROULETTE_PRESET = {"id":"r--MG1_Pv68mT6nBB4aRpo","rid":"-MG1_Pv68mT6nBB4aRpo","url":"https://z358z358.github.io/Roulette/r/-MG1_Pv68mT6nBB4aRpo/","title":"1-100抽號碼","options":[{"name":"100","weight":1},{"name":"99","weight":1},{"name":"98","weight":1},{"name":"97","weight":1},{"name":"96","weight":1},{"name":"95","weight":1},{"name":"94","weight":1},{"name":"93","weight":1},{"name":"92","weight":1},{"name":"91","weight":1},{"name":"90","weight":1},{"name":"89","weight":1},{"name":"88","weight":1},{"name":"87","weight":1},{"name":"86","weight":1},{"name":"85","weight":1},{"name":"84","weight":1},{"name":"83","weight":1},{"name":"82","weight":1},{"name":"81","weight":1},{"name":"80","weight":1},{"name":"79","weight":1},{"name":"78","weight":1},{"name":"77","weight":1},{"name":"76","weight":1},{"name":"75","weight":1},{"name":"74","weight":1},{"name":"73","weight":1},{"name":"72","weight":1},{"name":"71","weight":1},{"name":"70","weight":1},{"name":"69","weight":1},{"name":"68","weight":1},{"name":"67","weight":1},{"name":"66","weight":1},{"name":"65","weight":1},{"name":"64","weight":1},{"name":"63","weight":1},{"name":"62","weight":1},{"name":"61","weight":1},{"name":"60","weight":1},{"name":"59","weight":1},{"name":"58","weight":1},{"name":"57","weight":1},{"name":"56","weight":1},{"name":"55","weight":1},{"name":"54","weight":1},{"name":"53","weight":1},{"name":"52","weight":1},{"name":"51","weight":1},{"name":"50","weight":1},{"name":"49","weight":1},{"name":"48","weight":1},{"name":"47","weight":1},{"name":"46","weight":1},{"name":"45","weight":1},{"name":"44","weight":1},{"name":"43","weight":1},{"name":"42","weight":1},{"name":"41","weight":1},{"name":"40","weight":1},{"name":"39","weight":1},{"name":"38","weight":1},{"name":"37","weight":1},{"name":"36","weight":1},{"name":"35","weight":1},{"name":"34","weight":1},{"name":"33","weight":1},{"name":"32","weight":1},{"name":"31","weight":1},{"name":"30","weight":1},{"name":"1","weight":1},{"name":"2","weight":1},{"name":"3","weight":1},{"name":"4","weight":1},{"name":"5","weight":1},{"name":"6","weight":1},{"name":"7","weight":1},{"name":"8","weight":1},{"name":"9","weight":1},{"name":"10","weight":1},{"name":"11","weight":1},{"name":"12","weight":1},{"name":"13","weight":1},{"name":"14","weight":1},{"name":"15","weight":1},{"name":"16","weight":1},{"name":"17","weight":1},{"name":"18","weight":1},{"name":"19","weight":1},{"name":"20","weight":1},{"name":"21","weight":1},{"name":"22","weight":1},{"name":"23","weight":1},{"name":"24","weight":1},{"name":"25","weight":1},{"name":"26","weight":1},{"name":"27","weight":1},{"name":"28","weight":1},{"name":"29","weight":1}]};</script>
-    <script type="text/javascript" src="../../dist/scripts/main.js?21"></script>
+    <script type="text/javascript" src="../../dist/scripts/main.js?22"></script>
     <script>
     // 桌機側欄廣告：螢幕夠寬時在轉盤左側空白放一個 160x600（窄螢幕不載入，避免空廣告位）
     (function() {
