@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="google-site-verification" content="kYcmjzq-TI-hxjlWzRE1goDJJ8GUrBd03awieiYpjBw" />
+    <link rel="icon" href="../../asset/favicon.ico">
+    <title>今天打哪一台好呢? - 自訂轉盤</title>
+    <meta name="description" content="「今天打哪一台好呢?」線上轉盤，選項有錢形、魁男塾、雷電、扶桑花、小圓 2、小圓 1等共 27 個。點一下就能轉，也能改成自己的版本再分享。">
+    <link rel="canonical" href="https://z358z358.github.io/Roulette/r/-MVaZYENtX04erslpUtX/" />
+    <meta property="og:locale" content="zh_TW" />
+    <meta property="og:title" content="今天打哪一台好呢? - 自訂轉盤" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://z358z358.github.io/Roulette/r/-MVaZYENtX04erslpUtX/" />
+    <meta property="og:description" content="「今天打哪一台好呢?」線上轉盤，選項有錢形、魁男塾、雷電、扶桑花、小圓 2、小圓 1等共 27 個。點一下就能轉，也能改成自己的版本再分享。" />
+    <meta property="og:image" content="https://z358z358.github.io/Roulette/asset/200x200.jpg" />
+    <meta property="og:site_name" content="自訂轉盤" />
+    <meta property="fb:app_id" content="1606433366287698" />
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials.css" />
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials-theme-flat.css" />
+    <link href="../../dist/styles/main.css?3" rel="stylesheet">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5518310153941700" crossorigin="anonymous"></script>
+    <!-- GA4 (G-4HJT8VYHTF) 由 Firebase Analytics 載入，這裡只先建立 gtag 佇列 -->
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+    </script>
+    <!-- Global site tag (gtag.js) - Google Ads: 969874823 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-969874823"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'AW-969874823');
+</script>
+    <!-- Event snippet for Website traffic conversion page -->
+    <script>
+        gtag('event', 'conversion', {'send_to': 'AW-969874823/wiorCKuIyt4CEIe7vM4D'});
+</script>
+</head>
+
+<body id="main">
+    <nav class="navbar navbar-default  navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">切換導覽列</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand intro-step" href="../../" data-step="1" data-intro-key='intro.s1' data-intro="hi">
+                    <span class="hidden-xs" data-i18n="nav.home">自訂轉盤</span>
+                    <span class="visible-xs-inline" data-i18n="nav.home">自訂轉盤</span>
+                </a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="navbar">
+                <ul class="nav navbar-nav">
+                    <li><a class="intro-step" href="#" data-toggle="modal" data-target="#list-modal" data-step="6" data-intro-key='intro.s6' v-on="click:getList('hot')" data-i18n="nav.hot">熱門轉盤</a></li>
+                    <li><a class="intro-step" href="#" data-toggle="modal" data-target="#list-modal" v-on="click:getList('ts')" data-i18n="nav.new">最新上架</a></li>
+                    <li><a class="intro-step" href="#" data-toggle="modal" data-target="#set-modal" data-step="4" data-intro-key='intro.s4' v-show="goFlag == false" data-i18n="nav.edit">修改轉盤</a></li>
+                    <li><a class="intro-step" href="#" data-toggle="modal" data-target="#save-modal" data-step="5" data-intro-key='intro.s5' v-on="click:saveType = 'save'" data-i18n="nav.save">儲存轉盤</a></li>
+                    <li><a href="#" data-toggle="modal" data-target="#save-modal" v-show="user.uid && set.uid == user.uid" v-on="click:saveType = 'new'" data-i18n="nav.saveAs">另存轉盤</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li v-show="lang != 'en'"><a href="javascript:void(0)" v-on="click:changeLang('en', 'nav')">English</a>
+                    </li>
+                    <li v-show="lang != 'tw'"><a href="javascript:void(0)" v-on="click:changeLang('tw', 'nav')">中文</a>
+                    </li>
+                    <li><a href="#" data-toggle="modal" data-target="#disqus-modal" v-on="click:showDsqModal" data-i18n="nav.comment">留言</a></li>
+                    <li class="dropdown intro-step" v-show="user.uid == ''" data-step="7" data-intro-key='intro.s7'>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"><span data-i18n="nav.login">登入</span> <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" data-toggle="modal" v-on="click:login('facebook')">Facebook</a></li>
+                            <li><a href="#" data-toggle="modal" v-on="click:login('google')">Google+</a></li>
+                            <li><a href="#" data-toggle="modal" v-on="click:login('yahoo')">Yahoo</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" v-show="user.uid">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true" v-text="'Hi ' + user.displayName"><span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" data-toggle="modal" data-target="#list-modal" v-on="click:getList('my')" data-i18n="nav.my">我的轉盤</a></li>
+                            <li><a href="#" v-on="click:deleteMyAccount()" data-i18n="nav.delete">刪除我的帳號</a></li>
+                            <li><a href="#" data-toggle="modal" v-on="click:login('logout')" data-i18n="nav.logout">登出</a></li>
+                        </ul>
+                    </li>
+                    <li><a class="first-intro i18n-title intro-step" href="#" data-toggle="tooltip" data-placement="bottom" title="intro.i2" data-step="8" data-intro-key='intro.s8' v-on="click:showIntro"><i class="fa fa-question-circle"></i></a>
+                    </li>
+                    <li class="share-li hidden-sm hidden-md hidden-xs">
+                        <div id="share" class="jssocials">
+                            <div class="jssocials-shares">
+                                <div class="jssocials-share jssocials-share-twitter">
+                                    <a href="javascript:void(0)" class="jssocials-share-link" v-on="click:copyLink">
+                                        <i class="fa fa-link jssocials-share-logo" v-show="!copiedMsg"></i>
+                                        <p v-show="copiedMsg" v-text="copiedMsg" style="display: none"></p>
+                                    </a>
+                                </div>
+                                <div class="jssocials-share jssocials-share-facebook"><a target="_blank" href="https://facebook.com/sharer/sharer.php?u={{ encodeURIComponent(s.url) }}" class="jssocials-share-link"><i class="fa fa-facebook jssocials-share-logo"></i></a>
+                                </div>
+                                <div class="jssocials-share jssocials-share-messenger"><a target="_self" href="fb-messenger://share?link={{ encodeURIComponent(s.url) }}" class="jssocials-share-link"><i class="fa fa-commenting jssocials-share-logo"></i></a>
+                                </div>
+                                <div class="jssocials-share jssocials-share-line">
+                                    <a target="_blank" href="http://line.me/R/msg/text/?{{ encodeURIComponent(s.title) }}{{ encodeURIComponent(s.url) }}" class="jssocials-share-link">
+                                        <img class="jssocials-share-logo" src="../../asset/linebutton_20x20_zh-hant.png"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="alert alert-dismissible" role="alert" style="display: none" v-class="alert-danger:Msg.type=='error',alert-success:Msg.type=='success'" v-if="Msg.msg">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close" v-on="click:Msg.msg=''"><span aria-hidden="true">&times;</span></button>
+            <strong v-text="Msg.type=='error' ? '錯誤!' : '成功!' "></strong> <span v-text="Msg.msg"></span>
+        </div>
+        <div class="ly-plate">
+            <p class="chart-title" v-text="set.title" v-show="c.chatType == 'plot'"></p>
+            <div class="lottery-star first-intro i18n-title intro-step" data-toggle="tooltip" data-placement="bottom" title="intro.i1" data-step="3" data-intro-key='intro.s3' v-on="click:go"><i id="lotteryBtn" class="fa fa-long-arrow-up"></i></div>
+            <div class="piechart intro-step" id="piechart" data-step="2" data-intro-key='intro.s2' v-on="click:go"></div>
+            <div class="fb-like z-10" data-href="http://z358z358.github.io/Roulette/#{{rid}}" data-layout="box_count" data-width="50" data-action="like" data-show-faces="true" data-share="false" data-colorscheme="dark"></div>
+            <div class="volume z-10">
+                <i class="fa fa-volume-up fa-2x" title="有聲音" v-show="c.volume" v-on="click: setVolume(false)"></i>
+                <i class="fa fa-volume-off fa-2x" title="無聲音" v-show="!c.volume" v-on="click: setVolume(true)"></i>
+            </div>
+        </div>
+        <div class="alert alert-success alert-dismissible z-10" role="alert" v-show="logs.length > 0">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <span data-i18n="alert.result">結果:</span><strong v-text="logs[0].content"></strong>
+            <button type="button" class="btn btn-primary btn-sm btn-hide" v-on="click: toggleTarget(logs[0].target)" v-show="goFlag == false && showHideBtn">
+                <span data-i18n="alert.hide" v-show="set.options[logs[0].target].on">隱藏</span> 
+                <span data-i18n="alert.show" v-show="!set.options[logs[0].target].on">顯示</span> 
+                <span v-text="logs[0].content"></span>
+            </button>
+            <div class="pull-right timeago" title="{{logs[0].ts}}"></div>
+        </div>
+        <div class="alert alert-success alert-dismissible z-10" role="alert" v-show="turnFlag > 0">
+            <button type="button" class="close" v-on="click:turnFlag=-1"><span aria-hidden="true">&times;</span></button>
+            <strong data-i18n="alert.loop1">連續旋轉模式中</strong> <span data-i18n="alert.loop2">還有</span> <strong v-text="turnFlag"></strong> <span data-i18n="alert.loop3">次</span>
+            <button class="btn btn-danger btn-sm" data-i18n="alert.stop" type="button" v-on="click:turnFlag=-1">停止</button>
+        </div>
+        <div class="alert alert-success alert-dismissible z-10" role="alert" v-show="targetUntil.action">
+            <button type="button" class="close" v-on="click:targetUntil.action = ''"><span aria-hidden="true">&times;</span></button>
+            <strong><span data-i18n="alert.bigLoop1">血統模式中</span> (<strong title="次數" v-text="targetUntil.count"></strong>) </strong> <span data-i18n="alert.bigLoop2">不轉到</span> <strong v-text="set.options[targetUntil.target].name"></strong> <span data-i18n="alert.bigLoop3">不罷休</span>
+            <button class="btn btn-danger btn-sm" data-i18n="alert.stop" type="button" v-on="click:targetUntil.action = ''">停止</button>
+        </div>
+        <div class="clearfix"></div>
+        <!-- 轉盤正下方：手機第一屏就看得到；上方留白避免點轉盤時誤觸 -->
+        <div class="ad-slot ad-below-wheel">
+            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5518310153941700" data-ad-slot="2728124907" data-ad-format="auto" data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+        <div class="z-10">
+            <ul id="ptt_nav" class="nav nav-tabs" role="tablist">
+                <li class=""><a href="#logs" role="tab" data-toggle="tab" data-i18n="tab.records">紀錄</a></li>
+                <li class="active"><a href="#chart" role="tab" data-toggle="tab" data-i18n="tab.analytics">分析</a></li>
+                <li class=""><a href="#log-action" role="tab" data-toggle="tab" data-i18n="tab.settings">轉盤設定/功能</a></li>
+                <!--<li><a href="#chart_table" role="tab" data-toggle="tab">分析table</a></li>-->
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane" id="logs">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-striped" v-if="targetUntil.action != 'run' && turnFlag <= 0">
+                            <thead>
+                                <tr>
+                                    <th data-i18n="tabc.times">次數</th>
+                                    <th data-i18n="tabc.option">選項</th>
+                                    <th class="hidden-xs" data-i18n="tabc.time">時間</th>
+                                </tr>
+                            </thead>
+                            <tbody v-repeat="logs">
+                                <tr>
+                                    <td><span v-text="logs.length - $index"></span></td>
+                                    <td v-text="content"></td>
+                                    <td class="hidden-xs"><span class="timeago" title="{{ts}}"></span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="tab-pane active" id="chart">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th><span v-text="turn"></span> <span data-i18n="tabc.times2">次</span></th>
+                                    <th v-repeat="set.options" v-text="name" v-on="click:go('option', $index)"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td data-i18n="tabc.times">次數</td>
+                                    <td v-repeat="set.options" v-text="times || 0"></td>
+                                </tr>
+                                <tr>
+                                    <td data-i18n="tabc.probability">機率</td>
+                                    <td v-repeat="set.options" v-text="times/turn || 0 | persent"></td>
+                                </tr>
+                                <tr>
+                                    <td data-i18n="tabc.probability2">期望機率</td>
+                                    <td v-repeat="set.options" v-text="((on) ? (weight/sum) : 0 ) | persent"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="tab-pane" id="log-action">
+                    <div v-show="goFlag == false">
+                        <h5 data-i18n="tabc.open">啟用選項</h5>
+                        <div class="form-group">
+                            <options v-repeat="set.options" inline-template>
+                                <label class="checkbox-point checkbox-inline">
+                                    <input type="checkbox" v-model="on">
+                                    <span class="text-muted" v-text="name"></span>
+                                </label>
+                            </options>
+                        </div>
+                        <hr />
+                        <h5 data-i18n="tabc.settings">轉盤設定</h5>
+                        <div class="form-group">
+                            <label class="radio-inline">
+                                <input type="radio" name="bbb" value="plot" v-model="c.chatType"> <span data-i18n="tabc.use">使用</span> plot chart
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="bbb" value="google" v-model="c.chatType"> <span data-i18n="tabc.use">使用</span> google chart
+                            </label>
+                        </div>
+                        <div class="form-group" v-show="c.chatType == 'plot'">
+                            <label class="radio-inline">
+                                <input type="radio" name="aaa" value="lotteryBtn" v-model="c.targetTag"> <span data-i18n="tabc.arrow">箭頭旋轉</span>
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="aaa" value="piechart" v-model="c.targetTag"> <span data-i18n="tabc.outside">轉盤旋轉</span>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label class="radio-inline">
+                                <input type="radio" name="ccc" value="1" v-model="c.angleType"> <span data-i18n="tabc.clockwise">順時針旋轉</span>
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="ccc" value="-1" v-model="c.angleType"> <span data-i18n="tabc.counterclockwise">逆時針旋轉</span>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1" data-i18n="tabc.rseconds">旋轉秒數</label>
+                            <input class="bar" type="range" min="1" max="10000" v-model="c.duration" number />{{c.duration / 1000}} <span data-i18n="tabc.second">秒</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1" data-i18n="tabc.rtimes">旋轉次數</label>
+                            <input class="bar" type="range" min="1" max="1000" v-model="c.setTurn" number />{{c.setTurn}}
+                        </div>
+                        <button type="button" class="btn btn-success btn-block" v-class="{'disabled':c.setTurn <= 1}" v-on="click:go('c')" data-i18n="tabc.bigr">連續旋轉Go！</button>
+                        <hr />
+                        <h5 data-i18n="tabc.bigrtext">血統模式 (轉到該選項才停止)</h5>
+                        <div>
+                            <label v-repeat="set.options" class="checkbox-point checkbox-inline">
+                                <a href="javascript:void(0)" v-show="on" v-text="name" v-on="click:go('option', $index)"></a>
+                            </label>
+                        </div>
+                    </div>
+                    <hr />
+                </div>
+            </div>
+            <div class="jssocials">
+                <div class="jssocials-shares">
+                    <div class="jssocials-share">
+                        <button class="btn btn-danger" v-on="click: deleteLog('all')" data-i18n="tabc.delete">刪除所有紀錄</button>
+                    </div>
+                    <div class="jssocials-share jssocials-share-twitter hidden-lg">
+                        <a href="javascript:void(0)" class="jssocials-share-link" v-on="click:copyLink">
+                            <i class="fa fa-link jssocials-share-logo" v-show="!copiedMsg"></i>
+                            Copy
+                            <p v-show="copiedMsg" v-text="copiedMsg" style="display: none"></p>
+                        </a>
+                    </div>
+                    <div class="jssocials-share jssocials-share-facebook hidden-lg" v-show="navigatorShare">
+                        <a href="javascript:void(0)" class="jssocials-share-link" v-on="click:mobileShare">
+                            <i class="fa fa-share jssocials-share-logo"></i>
+                            Share
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <section class="page-intro">
+            <h1>今天打哪一台好呢?</h1>
+            <p class="lead">「今天打哪一台好呢?」是網友在自訂轉盤分享的轉盤，共 27 個選項。點上方轉盤就能直接轉，也可以按「修改轉盤」改成自己的版本再存檔。</p>
+            <h2>轉盤選項與機率</h2>
+            <table class="table table-condensed table-striped option-table">
+                <thead><tr><th>選項</th><th>機率</th></tr></thead>
+                <tbody>
+                    <tr><td>錢形</td><td>2.38%</td></tr>
+                    <tr><td>魁男塾</td><td>2.38%</td></tr>
+                    <tr><td>雷電</td><td>2.38%</td></tr>
+                    <tr><td>扶桑花</td><td>2.38%</td></tr>
+                    <tr><td>小圓 2</td><td>2.38%</td></tr>
+                    <tr><td>小圓 1</td><td>2.38%</td></tr>
+                    <tr><td>甲賀忍法帖</td><td>4.76%</td></tr>
+                    <tr><td>交響詩篇</td><td>2.38%</td></tr>
+                    <tr><td>鬼武者</td><td>2.38%</td></tr>
+                    <tr><td>押忍 番長 3</td><td>2.38%</td></tr>
+                    <tr><td>新飛馬</td><td>2.38%</td></tr>
+                    <tr><td>超時空要塞 F2</td><td>2.38%</td></tr>
+                    <tr><td>凱旋</td><td>2.38%</td></tr>
+                    <tr><td>百萬神</td><td>4.76%</td></tr>
+                    <tr><td>冥王</td><td>4.76%</td></tr>
+                    <tr><td>吉宗極</td><td>4.76%</td></tr>
+                    <tr><td>吉宗</td><td>4.76%</td></tr>
+                    <tr><td>小丑</td><td>7.14%</td></tr>
+                    <tr><td>島唄</td><td>4.76%</td></tr>
+                    <tr><td>北斗</td><td>4.76%</td></tr>
+                    <tr><td>月下</td><td>7.14%</td></tr>
+                    <tr><td>南國</td><td>7.14%</td></tr>
+                    <tr><td>押忍 番長</td><td>4.76%</td></tr>
+                    <tr><td>押忍 上班族</td><td>4.76%</td></tr>
+                    <tr><td>魯路修 2</td><td>2.38%</td></tr>
+                    <tr><td>魯路修 1</td><td>2.38%</td></tr>
+                    <tr><td>北斗 轉生</td><td>2.38%</td></tr>
+                </tbody>
+            </table>
+            <h2>其他熱門轉盤</h2>
+            <ul class="theme-links">
+                <li><a href="../../r/-LG95vAaAyGDHChSSAbI/">刷首抽</a></li>
+                <li><a href="../../r/-MXwgsQUXdhXO3WnhH1m/">人生重開器</a></li>
+                <li><a href="../../r/-Mb5FeoNaz4JWWA6QtYd/">人生重开器(2020千人出生率)</a></li>
+                <li><a href="../../r/-MXwj9ekxevlA-eC6bxZ/">人生重開器</a></li>
+                <li><a href="../../r/G7oLFoQ84HfKEwmJXQzs/">ACO含恨而終大抽獎</a></li>
+                <li><a href="../../r/-LPpKF5kYVep63D4EByX/">朝鮮人生模擬器 (飢餓超過7天=死亡喔)</a></li>
+                <li><a href="../../r/-MafYtFvyYcPmM6GjERX/">剪刀石頭布 (created by CarlHo)</a></li>
+                <li><a href="../../r/-M3y-kNkUngQK2VulBEq/">閃華滅神包</a></li>
+                <li><a href="../../r/-LRMGn1OSdsu4D2JneSm/">來抽你追妹子的下場</a></li>
+                <li><a href="../../r/yFTICz3WL5GL5eKKRjgV/">重刷首抽模擬器</a></li>
+                <li><a href="../../r/-MbAvnlT9XFWakwk6nvW/">侯友宜防疫記者會發言</a></li>
+                <li><a href="../../r/-MafYSafyBoDpoybRL-v/">六合彩/樂透號碼 (created by CarlHo)</a></li>
+            </ul>
+            <h2>常用轉盤</h2>
+            <ul class="theme-links">
+                <li><a href="../../food/">今天吃什麼轉盤</a></li>
+                <li><a href="../../lottery/">抽獎轉盤</a></li>
+                <li><a href="../../gacha/">抽卡模擬轉盤</a></li>
+                <li><a href="../../yes-no/">是非轉盤</a></li>
+                <li><a href="../../numbers/">數字轉盤</a></li>
+                <li><a href="../../punishment/">懲罰轉盤</a></li>
+                <li><a href="../../">自訂轉盤首頁</a></li>
+            </ul>
+        </section>
+        <div id="disqus-bottom">
+            <hr />
+            <div id="disqus_thread"></div>
+            <noscript>請開啟 javascript 來檢視 <a href="https://disqus.com/?ref_noscript">Disqus 提供的留言</a></noscript>
+        </div>
+        <hr />
+        <!-- github2 -->
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5518310153941700" data-ad-slot="5554403276" data-ad-format="auto"></ins>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+        <audio id="sound" class="hidden" controls>
+            <source src="../../asset/coin04.mp3" type="audio/mpeg" /> Your browser does not support the audio element.
+        </audio>
+        <audio id="sound2" class="hidden" controls>
+            <source src="../../asset/coin05.mp3" type="audio/mpeg" /> Your browser does not support the audio element.
+        </audio>
+        <audio id="end" class="hidden" controls>
+            <source src="../../asset/crrect_answer3.mp3" type="audio/mpeg" /> Your browser does not support the audio element.
+        </audio>
+        <script id="_waualf">var _wau = _wau || []; _wau.push(["classic", "kejoz02pvi", "alf"]);</script>
+        <script async src="//waust.at/c.js"></script>
+    </div>
+    <!--<pre>{{ $data|json }}</pre>-->
+    <!-- 設定轉盤 -->
+    <div class="modal fade" id="set-modal" tabindex="-1" role="dialog" aria-labelledby="set-modalLabal" aria-hidden="true" v-on="click:draw">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" v-on="click:draw"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="set-modalLabel" data-i18n="modal.m1">設定轉盤內容</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1" data-i18n="modal.m2">轉盤標題</label>
+                        <input class="form-control" v-model="set.title" />
+                    </div>
+                    <div class="text-right">
+                        <label>
+                            <span class="btn-primary btn" data-i18n="modal.m3">上傳內容csv</span>
+                            <input v-if="uploadReady" class="hidden" id="uploadCsv" type="file" accept=".csv" v-on="change:csvUpload">
+                        </label>
+                        <button class="btn-primary btn" type="button" v-on="click:csvDownload" data-i18n="modal.m4">下載內容csv</button>
+                    </div>
+                    <h4 class="modal-title" id="set-modalLabel" data-i18n="modal.m5">轉盤選項</h4>
+                    <table id="option-table" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th data-i18n="modal.m6">名稱</th>
+                                <th data-i18n="modal.m7">比重</th>
+                                <th class="hidden-xs" data-i18n="tabc.probability">機率</th>
+                                <th>
+                                    <button type="button" class="btn btn-primary" v-on="click:addOption" data-i18n="modal.m8">新增</button>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody v-repeat="set.options" v-transition>
+                            <tr>
+                                <td>
+                                    <input type="text" class="form-control" v-model="name">
+                                </td>
+                                <td>
+                                    <input type="number" class="form-control " v-model="weight" v-on="keyup:getSum">
+                                </td>
+                                <td class="hidden-xs">
+                                    <p v-text="sum ? (weight / sum) : '' | persent"></p>
+                                </td>
+                                <td>
+                                    <div class="hidden-xs">
+                                        <button type="button" class="btn btn-default" v-on="click:copyOption(this, $index)"><i class="fa fa-copy" title="複製" aria-hidden="true"></i></button>
+                                        <button type="button" class="btn btn-danger" v-on="click:removeOption(this)"><i class="fa fa-trash" title="刪除" aria-hidden="true"></i></button>
+                                    </div>
+                                    <div class="visible-xs">
+                                        <button type="button" class="btn btn-default btn-xs" v-on="click:copyOption(this, $index)"><i class="fa fa-copy" title="複製" aria-hidden="true"></i></button>
+                                        <button type="button" class="btn btn-danger btn-xs" v-on="click:removeOption(this)"><i class="fa fa-trash" title="刪除" aria-hidden="true"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" v-on="click:draw" data-i18n="modal.m10">確定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 列表 -->
+    <div class="modal fade" id="list-modal" tabindex="-1" role="dialog" aria-labelledby="list-modalLabal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="list-modalLabel" v-text="listTitle"></h4>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-info" role="alert" v-show="list.length > 49" data-i18n="modal.m11">僅顯示前50筆</div>
+                    <div class="list-group">
+                        <div class="list-wrap" v-repeat="list | orderBy listOrder true">
+                            <a href="#{{ id }}" class="list-group-item" data-dismiss="modal" v-on="click:loadOption(id)">
+                                <i v-show="isPrivate" class="fa fa-unlock-alt" aria-hidden="true"></i>
+                                <span class="item-title" v-text="title || '沒名字'"></span>
+                                <div class="row">
+                                    <div class="col-xs-6">
+                                        <small title="人氣" v-show="hot > 0">
+                                            <i class="fa fa-eye"></i>
+                                            <span v-text="hot"></span>
+                                        </small>
+                                    </div>
+                                    <div class="col-xs-6 text-right">
+                                        <small class="timeago" title="{{ts}}"></small>
+                                    </div>
+                                </div>
+                            </a>
+                            <i v-if="listType == 'my'" v-on="click:deleteData(id)" class="fa fa-trash list-trash fa-2x" title="刪除" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 儲存 -->
+    <div class="modal fade" id="save-modal" tabindex="-1" role="dialog" aria-labelledby="save-modalLabal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="save-modalLabel">
+                        <span v-show="saveType != 'new'" data-i18n="modal.m13">儲存轉盤</span>
+                        <span v-show="saveType == 'new'" data-i18n="modal.m14">另存轉盤</span>
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label data-i18n="modal.m15">給他個標題吧！</label>
+                            <input class="form-control" placeholder="標題" v-model="set.title">
+                        </div>
+                        <div class="form-check" title="不會出現在公開列表裡">
+                            <input class="form-check-input" type="checkbox" v-model="set.isPrivate" value="1" id="defaultCheck1">
+                            <label class="form-check-label" for="defaultCheck1" data-i18n="modal.m16">
+                                不公開的轉盤
+                            </label>
+                            <p>
+                                <span data-i18n="modal.m17">不會出現在公開列表裡</span>
+                                <span v-show="user.uid == ''" data-i18n="modal.m18">，可以先登入帳號，就會出現在[我的轉盤]中</span>
+                                <span v-show="user.uid" data-i18n="modal.m19">，會出現在[我的轉盤]中</span>
+                            </p>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn" data-dismiss="modal" data-i18n="modal.m20">取消</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" v-on="click:saveOnFireBase" data-i18n="modal.m21">確定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="disqus-modal" tabindex="-1" role="dialog" aria-labelledby="disqus-modalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="disqus-modalLabel" data-i18n="modal.m22">留言</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-info" role="alert" data-i18n="modal.m23">歡迎提供意見!</div>
+                    <div id="disqus-modal-host"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="fb-root"></div>
+    <!--<script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.5.0.min.js"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/i18next/8.1.0/i18next.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-analytics.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js" integrity="sha256-qXBd/EfAdjOA2FGrGAG+b3YBn2tn5A6bhz+LSgYD96k=" crossorigin="anonymous"></script>
+    <script>window.ROULETTE_PRESET = {"id":"r--MVaZYENtX04erslpUtX","rid":"-MVaZYENtX04erslpUtX","url":"https://z358z358.github.io/Roulette/r/-MVaZYENtX04erslpUtX/","title":"今天打哪一台好呢?","options":[{"name":"錢形","weight":1},{"name":"魁男塾","weight":1},{"name":"雷電","weight":1},{"name":"扶桑花","weight":1},{"name":"小圓 2","weight":1},{"name":"小圓 1","weight":1},{"name":"甲賀忍法帖","weight":2},{"name":"交響詩篇","weight":1},{"name":"鬼武者","weight":1},{"name":"押忍 番長 3","weight":1},{"name":"新飛馬","weight":1},{"name":"超時空要塞 F2","weight":1},{"name":"凱旋","weight":1},{"name":"百萬神","weight":2},{"name":"冥王","weight":2},{"name":"吉宗極","weight":2},{"name":"吉宗","weight":2},{"name":"小丑","weight":3},{"name":"島唄","weight":2},{"name":"北斗","weight":2},{"name":"月下","weight":3},{"name":"南國","weight":3},{"name":"押忍 番長","weight":2},{"name":"押忍 上班族","weight":2},{"name":"魯路修 2","weight":1},{"name":"魯路修 1","weight":1},{"name":"北斗 轉生","weight":1}]};</script>
+    <script type="text/javascript" src="../../dist/scripts/main.js?20"></script>
+    <script>
+    // 桌機側欄廣告：螢幕夠寬時在轉盤左側空白放一個 160x600（窄螢幕不載入，避免空廣告位）
+    (function() {
+        // 建議到 AdSense 另建一個「側欄」展示型廣告單元，把編號換成新的，報表才分得開
+        var RAIL_SLOT = '5554403276';
+        if (!window.matchMedia || !window.matchMedia('(min-width: 1200px)').matches) return;
+        var plate = document.querySelector('.ly-plate');
+        if (!plate) return;
+        var wrap = document.createElement('div');
+        wrap.className = 'ad-rail ad-rail-left';
+        wrap.innerHTML = '<ins class="adsbygoogle" style="display:inline-block;width:160px;height:600px" data-ad-client="ca-pub-5518310153941700" data-ad-slot="' + RAIL_SLOT + '"></ins>';
+        plate.appendChild(wrap);
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
+    })();
+    </script>
+    <!--<script type="text/javascript" src="export.js"></script>
+    <script type="text/javascript" src="forDebug.js"></script>-->
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <script>
+    google.charts.load('current', { packages: ['corechart'] });
+    google.charts.setOnLoadCallback(vue.draw);
+    </script>
+    <script>
+    (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "//connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v4.0&appId=482845198525908";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+    </script>
+    <script type="text/javascript">
+    var disqus_shortname = 'roulette-tw';
+    var disqus_config = function() {
+        this.language = 'zh_TW';
+        this.page = this.page || {};
+        this.page.url = 'https://z358z358.github.io/Roulette/#!default-wheel';
+        this.page.identifier = 'default-wheel';
+    };
+    </script>
+</body>
+
+</html>

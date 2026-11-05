@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="google-site-verification" content="kYcmjzq-TI-hxjlWzRE1goDJJ8GUrBd03awieiYpjBw" />
+    <link rel="icon" href="../../asset/favicon.ico">
+    <title>刷首抽 - 自訂轉盤</title>
+    <meta name="description" content="「刷首抽」線上轉盤，選項有科科斯（基林）群島、梵蒂岡、托克勞、紐埃、福克蘭群島、聖赫勒拿等共 225 個。點一下就能轉，也能改成自己的版本再分享。">
+    <link rel="canonical" href="https://z358z358.github.io/Roulette/r/-LG95vAaAyGDHChSSAbI/" />
+    <meta property="og:locale" content="zh_TW" />
+    <meta property="og:title" content="刷首抽 - 自訂轉盤" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://z358z358.github.io/Roulette/r/-LG95vAaAyGDHChSSAbI/" />
+    <meta property="og:description" content="「刷首抽」線上轉盤，選項有科科斯（基林）群島、梵蒂岡、托克勞、紐埃、福克蘭群島、聖赫勒拿等共 225 個。點一下就能轉，也能改成自己的版本再分享。" />
+    <meta property="og:image" content="https://z358z358.github.io/Roulette/asset/200x200.jpg" />
+    <meta property="og:site_name" content="自訂轉盤" />
+    <meta property="fb:app_id" content="1606433366287698" />
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials.css" />
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials-theme-flat.css" />
+    <link href="../../dist/styles/main.css?3" rel="stylesheet">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5518310153941700" crossorigin="anonymous"></script>
+    <!-- GA4 (G-4HJT8VYHTF) 由 Firebase Analytics 載入，這裡只先建立 gtag 佇列 -->
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+    </script>
+    <!-- Global site tag (gtag.js) - Google Ads: 969874823 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-969874823"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'AW-969874823');
+</script>
+    <!-- Event snippet for Website traffic conversion page -->
+    <script>
+        gtag('event', 'conversion', {'send_to': 'AW-969874823/wiorCKuIyt4CEIe7vM4D'});
+</script>
+</head>
+
+<body id="main">
+    <nav class="navbar navbar-default  navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">切換導覽列</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand intro-step" href="../../" data-step="1" data-intro-key='intro.s1' data-intro="hi">
+                    <span class="hidden-xs" data-i18n="nav.home">自訂轉盤</span>
+                    <span class="visible-xs-inline" data-i18n="nav.home">自訂轉盤</span>
+                </a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="navbar">
+                <ul class="nav navbar-nav">
+                    <li><a class="intro-step" href="#" data-toggle="modal" data-target="#list-modal" data-step="6" data-intro-key='intro.s6' v-on="click:getList('hot')" data-i18n="nav.hot">熱門轉盤</a></li>
+                    <li><a class="intro-step" href="#" data-toggle="modal" data-target="#list-modal" v-on="click:getList('ts')" data-i18n="nav.new">最新上架</a></li>
+                    <li><a class="intro-step" href="#" data-toggle="modal" data-target="#set-modal" data-step="4" data-intro-key='intro.s4' v-show="goFlag == false" data-i18n="nav.edit">修改轉盤</a></li>
+                    <li><a class="intro-step" href="#" data-toggle="modal" data-target="#save-modal" data-step="5" data-intro-key='intro.s5' v-on="click:saveType = 'save'" data-i18n="nav.save">儲存轉盤</a></li>
+                    <li><a href="#" data-toggle="modal" data-target="#save-modal" v-show="user.uid && set.uid == user.uid" v-on="click:saveType = 'new'" data-i18n="nav.saveAs">另存轉盤</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li v-show="lang != 'en'"><a href="javascript:void(0)" v-on="click:changeLang('en', 'nav')">English</a>
+                    </li>
+                    <li v-show="lang != 'tw'"><a href="javascript:void(0)" v-on="click:changeLang('tw', 'nav')">中文</a>
+                    </li>
+                    <li><a href="#" data-toggle="modal" data-target="#disqus-modal" v-on="click:showDsqModal" data-i18n="nav.comment">留言</a></li>
+                    <li class="dropdown intro-step" v-show="user.uid == ''" data-step="7" data-intro-key='intro.s7'>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"><span data-i18n="nav.login">登入</span> <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" data-toggle="modal" v-on="click:login('facebook')">Facebook</a></li>
+                            <li><a href="#" data-toggle="modal" v-on="click:login('google')">Google+</a></li>
+                            <li><a href="#" data-toggle="modal" v-on="click:login('yahoo')">Yahoo</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" v-show="user.uid">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true" v-text="'Hi ' + user.displayName"><span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" data-toggle="modal" data-target="#list-modal" v-on="click:getList('my')" data-i18n="nav.my">我的轉盤</a></li>
+                            <li><a href="#" v-on="click:deleteMyAccount()" data-i18n="nav.delete">刪除我的帳號</a></li>
+                            <li><a href="#" data-toggle="modal" v-on="click:login('logout')" data-i18n="nav.logout">登出</a></li>
+                        </ul>
+                    </li>
+                    <li><a class="first-intro i18n-title intro-step" href="#" data-toggle="tooltip" data-placement="bottom" title="intro.i2" data-step="8" data-intro-key='intro.s8' v-on="click:showIntro"><i class="fa fa-question-circle"></i></a>
+                    </li>
+                    <li class="share-li hidden-sm hidden-md hidden-xs">
+                        <div id="share" class="jssocials">
+                            <div class="jssocials-shares">
+                                <div class="jssocials-share jssocials-share-twitter">
+                                    <a href="javascript:void(0)" class="jssocials-share-link" v-on="click:copyLink">
+                                        <i class="fa fa-link jssocials-share-logo" v-show="!copiedMsg"></i>
+                                        <p v-show="copiedMsg" v-text="copiedMsg" style="display: none"></p>
+                                    </a>
+                                </div>
+                                <div class="jssocials-share jssocials-share-facebook"><a target="_blank" href="https://facebook.com/sharer/sharer.php?u={{ encodeURIComponent(s.url) }}" class="jssocials-share-link"><i class="fa fa-facebook jssocials-share-logo"></i></a>
+                                </div>
+                                <div class="jssocials-share jssocials-share-messenger"><a target="_self" href="fb-messenger://share?link={{ encodeURIComponent(s.url) }}" class="jssocials-share-link"><i class="fa fa-commenting jssocials-share-logo"></i></a>
+                                </div>
+                                <div class="jssocials-share jssocials-share-line">
+                                    <a target="_blank" href="http://line.me/R/msg/text/?{{ encodeURIComponent(s.title) }}{{ encodeURIComponent(s.url) }}" class="jssocials-share-link">
+                                        <img class="jssocials-share-logo" src="../../asset/linebutton_20x20_zh-hant.png"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="alert alert-dismissible" role="alert" style="display: none" v-class="alert-danger:Msg.type=='error',alert-success:Msg.type=='success'" v-if="Msg.msg">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close" v-on="click:Msg.msg=''"><span aria-hidden="true">&times;</span></button>
+            <strong v-text="Msg.type=='error' ? '錯誤!' : '成功!' "></strong> <span v-text="Msg.msg"></span>
+        </div>
+        <div class="ly-plate">
+            <p class="chart-title" v-text="set.title" v-show="c.chatType == 'plot'"></p>
+            <div class="lottery-star first-intro i18n-title intro-step" data-toggle="tooltip" data-placement="bottom" title="intro.i1" data-step="3" data-intro-key='intro.s3' v-on="click:go"><i id="lotteryBtn" class="fa fa-long-arrow-up"></i></div>
+            <div class="piechart intro-step" id="piechart" data-step="2" data-intro-key='intro.s2' v-on="click:go"></div>
+            <div class="fb-like z-10" data-href="http://z358z358.github.io/Roulette/#{{rid}}" data-layout="box_count" data-width="50" data-action="like" data-show-faces="true" data-share="false" data-colorscheme="dark"></div>
+            <div class="volume z-10">
+                <i class="fa fa-volume-up fa-2x" title="有聲音" v-show="c.volume" v-on="click: setVolume(false)"></i>
+                <i class="fa fa-volume-off fa-2x" title="無聲音" v-show="!c.volume" v-on="click: setVolume(true)"></i>
+            </div>
+        </div>
+        <div class="alert alert-success alert-dismissible z-10" role="alert" v-show="logs.length > 0">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <span data-i18n="alert.result">結果:</span><strong v-text="logs[0].content"></strong>
+            <button type="button" class="btn btn-primary btn-sm btn-hide" v-on="click: toggleTarget(logs[0].target)" v-show="goFlag == false && showHideBtn">
+                <span data-i18n="alert.hide" v-show="set.options[logs[0].target].on">隱藏</span> 
+                <span data-i18n="alert.show" v-show="!set.options[logs[0].target].on">顯示</span> 
+                <span v-text="logs[0].content"></span>
+            </button>
+            <div class="pull-right timeago" title="{{logs[0].ts}}"></div>
+        </div>
+        <div class="alert alert-success alert-dismissible z-10" role="alert" v-show="turnFlag > 0">
+            <button type="button" class="close" v-on="click:turnFlag=-1"><span aria-hidden="true">&times;</span></button>
+            <strong data-i18n="alert.loop1">連續旋轉模式中</strong> <span data-i18n="alert.loop2">還有</span> <strong v-text="turnFlag"></strong> <span data-i18n="alert.loop3">次</span>
+            <button class="btn btn-danger btn-sm" data-i18n="alert.stop" type="button" v-on="click:turnFlag=-1">停止</button>
+        </div>
+        <div class="alert alert-success alert-dismissible z-10" role="alert" v-show="targetUntil.action">
+            <button type="button" class="close" v-on="click:targetUntil.action = ''"><span aria-hidden="true">&times;</span></button>
+            <strong><span data-i18n="alert.bigLoop1">血統模式中</span> (<strong title="次數" v-text="targetUntil.count"></strong>) </strong> <span data-i18n="alert.bigLoop2">不轉到</span> <strong v-text="set.options[targetUntil.target].name"></strong> <span data-i18n="alert.bigLoop3">不罷休</span>
+            <button class="btn btn-danger btn-sm" data-i18n="alert.stop" type="button" v-on="click:targetUntil.action = ''">停止</button>
+        </div>
+        <div class="clearfix"></div>
+        <!-- 轉盤正下方：手機第一屏就看得到；上方留白避免點轉盤時誤觸 -->
+        <div class="ad-slot ad-below-wheel">
+            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5518310153941700" data-ad-slot="2728124907" data-ad-format="auto" data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+        <div class="z-10">
+            <ul id="ptt_nav" class="nav nav-tabs" role="tablist">
+                <li class=""><a href="#logs" role="tab" data-toggle="tab" data-i18n="tab.records">紀錄</a></li>
+                <li class="active"><a href="#chart" role="tab" data-toggle="tab" data-i18n="tab.analytics">分析</a></li>
+                <li class=""><a href="#log-action" role="tab" data-toggle="tab" data-i18n="tab.settings">轉盤設定/功能</a></li>
+                <!--<li><a href="#chart_table" role="tab" data-toggle="tab">分析table</a></li>-->
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane" id="logs">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-striped" v-if="targetUntil.action != 'run' && turnFlag <= 0">
+                            <thead>
+                                <tr>
+                                    <th data-i18n="tabc.times">次數</th>
+                                    <th data-i18n="tabc.option">選項</th>
+                                    <th class="hidden-xs" data-i18n="tabc.time">時間</th>
+                                </tr>
+                            </thead>
+                            <tbody v-repeat="logs">
+                                <tr>
+                                    <td><span v-text="logs.length - $index"></span></td>
+                                    <td v-text="content"></td>
+                                    <td class="hidden-xs"><span class="timeago" title="{{ts}}"></span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="tab-pane active" id="chart">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th><span v-text="turn"></span> <span data-i18n="tabc.times2">次</span></th>
+                                    <th v-repeat="set.options" v-text="name" v-on="click:go('option', $index)"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td data-i18n="tabc.times">次數</td>
+                                    <td v-repeat="set.options" v-text="times || 0"></td>
+                                </tr>
+                                <tr>
+                                    <td data-i18n="tabc.probability">機率</td>
+                                    <td v-repeat="set.options" v-text="times/turn || 0 | persent"></td>
+                                </tr>
+                                <tr>
+                                    <td data-i18n="tabc.probability2">期望機率</td>
+                                    <td v-repeat="set.options" v-text="((on) ? (weight/sum) : 0 ) | persent"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="tab-pane" id="log-action">
+                    <div v-show="goFlag == false">
+                        <h5 data-i18n="tabc.open">啟用選項</h5>
+                        <div class="form-group">
+                            <options v-repeat="set.options" inline-template>
+                                <label class="checkbox-point checkbox-inline">
+                                    <input type="checkbox" v-model="on">
+                                    <span class="text-muted" v-text="name"></span>
+                                </label>
+                            </options>
+                        </div>
+                        <hr />
+                        <h5 data-i18n="tabc.settings">轉盤設定</h5>
+                        <div class="form-group">
+                            <label class="radio-inline">
+                                <input type="radio" name="bbb" value="plot" v-model="c.chatType"> <span data-i18n="tabc.use">使用</span> plot chart
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="bbb" value="google" v-model="c.chatType"> <span data-i18n="tabc.use">使用</span> google chart
+                            </label>
+                        </div>
+                        <div class="form-group" v-show="c.chatType == 'plot'">
+                            <label class="radio-inline">
+                                <input type="radio" name="aaa" value="lotteryBtn" v-model="c.targetTag"> <span data-i18n="tabc.arrow">箭頭旋轉</span>
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="aaa" value="piechart" v-model="c.targetTag"> <span data-i18n="tabc.outside">轉盤旋轉</span>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label class="radio-inline">
+                                <input type="radio" name="ccc" value="1" v-model="c.angleType"> <span data-i18n="tabc.clockwise">順時針旋轉</span>
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="ccc" value="-1" v-model="c.angleType"> <span data-i18n="tabc.counterclockwise">逆時針旋轉</span>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1" data-i18n="tabc.rseconds">旋轉秒數</label>
+                            <input class="bar" type="range" min="1" max="10000" v-model="c.duration" number />{{c.duration / 1000}} <span data-i18n="tabc.second">秒</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1" data-i18n="tabc.rtimes">旋轉次數</label>
+                            <input class="bar" type="range" min="1" max="1000" v-model="c.setTurn" number />{{c.setTurn}}
+                        </div>
+                        <button type="button" class="btn btn-success btn-block" v-class="{'disabled':c.setTurn <= 1}" v-on="click:go('c')" data-i18n="tabc.bigr">連續旋轉Go！</button>
+                        <hr />
+                        <h5 data-i18n="tabc.bigrtext">血統模式 (轉到該選項才停止)</h5>
+                        <div>
+                            <label v-repeat="set.options" class="checkbox-point checkbox-inline">
+                                <a href="javascript:void(0)" v-show="on" v-text="name" v-on="click:go('option', $index)"></a>
+                            </label>
+                        </div>
+                    </div>
+                    <hr />
+                </div>
+            </div>
+            <div class="jssocials">
+                <div class="jssocials-shares">
+                    <div class="jssocials-share">
+                        <button class="btn btn-danger" v-on="click: deleteLog('all')" data-i18n="tabc.delete">刪除所有紀錄</button>
+                    </div>
+                    <div class="jssocials-share jssocials-share-twitter hidden-lg">
+                        <a href="javascript:void(0)" class="jssocials-share-link" v-on="click:copyLink">
+                            <i class="fa fa-link jssocials-share-logo" v-show="!copiedMsg"></i>
+                            Copy
+                            <p v-show="copiedMsg" v-text="copiedMsg" style="display: none"></p>
+                        </a>
+                    </div>
+                    <div class="jssocials-share jssocials-share-facebook hidden-lg" v-show="navigatorShare">
+                        <a href="javascript:void(0)" class="jssocials-share-link" v-on="click:mobileShare">
+                            <i class="fa fa-share jssocials-share-logo"></i>
+                            Share
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <section class="page-intro">
+            <h1>刷首抽</h1>
+            <p class="lead">「刷首抽」是網友在自訂轉盤分享的轉盤，共 225 個選項。點上方轉盤就能直接轉，也可以按「修改轉盤」改成自己的版本再存檔。</p>
+            <h2>轉盤選項與機率</h2>
+            <table class="table table-condensed table-striped option-table">
+                <thead><tr><th>選項</th><th>機率</th></tr></thead>
+                <tbody>
+                    <tr><td>科科斯（基林）群島</td><td>&lt;0.01%</td></tr>
+                    <tr><td>梵蒂岡</td><td>&lt;0.01%</td></tr>
+                    <tr><td>托克勞</td><td>&lt;0.01%</td></tr>
+                    <tr><td>紐埃</td><td>&lt;0.01%</td></tr>
+                    <tr><td>福克蘭群島</td><td>&lt;0.01%</td></tr>
+                    <tr><td>聖赫勒拿</td><td>&lt;0.01%</td></tr>
+                    <tr><td>蒙哲臘</td><td>&lt;0.01%</td></tr>
+                    <tr><td>吐瓦魯</td><td>&lt;0.01%</td></tr>
+                    <tr><td>諾魯</td><td>&lt;0.01%</td></tr>
+                    <tr><td>庫克群島</td><td>&lt;0.01%</td></tr>
+                    <tr><td>安圭拉</td><td>&lt;0.01%</td></tr>
+                    <tr><td>帛琉</td><td>&lt;0.01%</td></tr>
+                    <tr><td>英屬維京群島</td><td>&lt;0.01%</td></tr>
+                    <tr><td>直布羅陀</td><td>&lt;0.01%</td></tr>
+                    <tr><td>聖馬利諾</td><td>&lt;0.01%</td></tr>
+                    <tr><td>摩納哥</td><td>&lt;0.01%</td></tr>
+                    <tr><td>特克斯與凱科斯群島</td><td>&lt;0.01%</td></tr>
+                    <tr><td>列支敦斯登</td><td>&lt;0.01%</td></tr>
+                    <tr><td>荷屬聖馬丁</td><td>&lt;0.01%</td></tr>
+                    <tr><td>北馬利亞納群島</td><td>&lt;0.01%</td></tr>
+                    <tr><td>法羅群島</td><td>&lt;0.01%</td></tr>
+                    <tr><td>格陵蘭</td><td>&lt;0.01%</td></tr>
+                    <tr><td>馬紹爾群島</td><td>&lt;0.01%</td></tr>
+                    <tr><td>聖克里斯多福與尼維斯</td><td>&lt;0.01%</td></tr>
+                    <tr><td>美屬薩摩亞</td><td>&lt;0.01%</td></tr>
+                    <tr><td>開曼群島</td><td>&lt;0.01%</td></tr>
+                    <tr><td>百慕達</td><td>&lt;0.01%</td></tr>
+                    <tr><td>安道爾</td><td>&lt;0.01%</td></tr>
+                    <tr><td>多米尼克</td><td>&lt;0.01%</td></tr>
+                    <tr><td>曼島</td><td>&lt;0.01%</td></tr>
+                    <tr><td>安地卡及巴布達</td><td>&lt;0.01%</td></tr>
+                    <tr><td>塞席爾</td><td>&lt;0.01%</td></tr>
+                    <tr><td>密克羅尼西亞聯邦</td><td>&lt;0.01%</td></tr>
+                    <tr><td>阿魯巴</td><td>&lt;0.01%</td></tr>
+                    <tr><td>美屬維京群島</td><td>&lt;0.01%</td></tr>
+                    <tr><td>東加</td><td>&lt;0.01%</td></tr>
+                    <tr><td>格瑞那達</td><td>&lt;0.01%</td></tr>
+                    <tr><td>聖文森及格瑞那丁</td><td>&lt;0.01%</td></tr>
+                    <tr><td>吉里巴斯</td><td>&lt;0.01%</td></tr>
+                    <tr><td>古拉索</td><td>0.01%</td></tr>
+                    <tr><td>澤西/耿西</td><td>0.01%</td></tr>
+                    <tr><td>關島</td><td>0.01%</td></tr>
+                    <tr><td>聖露西亞</td><td>0.02%</td></tr>
+                    <tr><td>薩摩亞</td><td>0.02%</td></tr>
+                    <tr><td>聖多美普林西比</td><td>0.02%</td></tr>
+                    <tr><td>萬那杜</td><td>0.02%</td></tr>
+                    <tr><td>巴貝多</td><td>0.02%</td></tr>
+                    <tr><td>冰島</td><td>0.03%</td></tr>
+                    <tr><td>貝里斯</td><td>0.03%</td></tr>
+                    <tr><td>馬爾地夫</td><td>0.03%</td></tr>
+                    <tr><td>巴哈馬</td><td>0.03%</td></tr>
+                    <tr><td>馬爾他</td><td>0.03%</td></tr>
+                    <tr><td>汶萊</td><td>0.04%</td></tr>
+                    <tr><td>維德角</td><td>0.04%</td></tr>
+                    <tr><td>蘇利南</td><td>0.04%</td></tr>
+                    <tr><td>盧森堡</td><td>0.05%</td></tr>
+                    <tr><td>撒拉威阿拉伯民主共和國</td><td>0.05%</td></tr>
+                    <tr><td>索羅門群島</td><td>0.05%</td></tr>
+                    <tr><td>澳門</td><td>0.05%</td></tr>
+                    <tr><td>蒙特內哥羅</td><td>0.05%</td></tr>
+                    <tr><td>蓋亞那</td><td>0.06%</td></tr>
+                    <tr><td>不丹</td><td>0.06%</td></tr>
+                    <tr><td>葛摩</td><td>0.07%</td></tr>
+                    <tr><td>斐濟</td><td>0.07%</td></tr>
+                    <tr><td>赤道幾內亞</td><td>0.07%</td></tr>
+                    <tr><td>吉布地</td><td>0.07%</td></tr>
+                    <tr><td>賽普勒斯</td><td>0.1%</td></tr>
+                    <tr><td>東帝汶</td><td>0.1%</td></tr>
+                    <tr><td>模里西斯</td><td>0.1%</td></tr>
+                    <tr><td>愛沙尼亞</td><td>0.1%</td></tr>
+                    <tr><td>史瓦濟蘭</td><td>0.11%</td></tr>
+                    <tr><td>千里達及托巴哥</td><td>0.11%</td></tr>
+                    <tr><td>巴林</td><td>0.12%</td></tr>
+                    <tr><td>科索沃</td><td>0.15%</td></tr>
+                    <tr><td>加彭</td><td>0.15%</td></tr>
+                    <tr><td>拉脫維亞</td><td>0.15%</td></tr>
+                    <tr><td>幾內亞比索</td><td>0.16%</td></tr>
+                    <tr><td>斯洛維尼亞</td><td>0.16%</td></tr>
+                    <tr><td>馬其頓</td><td>0.16%</td></tr>
+                    <tr><td>甘比亞</td><td>0.18%</td></tr>
+                    <tr><td>賴索托</td><td>0.18%</td></tr>
+                    <tr><td>波札那</td><td>0.19%</td></tr>
+                    <tr><td>卡達</td><td>0.21%</td></tr>
+                    <tr><td>納米比亞</td><td>0.21%</td></tr>
+                    <tr><td>立陶宛</td><td>0.22%</td></tr>
+                    <tr><td>牙買加</td><td>0.22%</td></tr>
+                    <tr><td>阿爾巴尼亞</td><td>0.23%</td></tr>
+                    <tr><td>亞美尼亞</td><td>0.24%</td></tr>
+                    <tr><td>蒙古</td><td>0.26%</td></tr>
+                    <tr><td>烏拉圭</td><td>0.28%</td></tr>
+                    <tr><td>波多黎各</td><td>0.29%</td></tr>
+                    <tr><td>波赫</td><td>0.3%</td></tr>
+                    <tr><td>喬治亞</td><td>0.31%</td></tr>
+                    <tr><td>摩爾多瓦</td><td>0.32%</td></tr>
+                    <tr><td>巴拿馬</td><td>0.33%</td></tr>
+                    <tr><td>克羅埃西亞</td><td>0.33%</td></tr>
+                    <tr><td>茅利塔尼亞</td><td>0.35%</td></tr>
+                    <tr><td>科威特</td><td>0.36%</td></tr>
+                    <tr><td>賴比瑞亞</td><td>0.39%</td></tr>
+                    <tr><td>紐西蘭</td><td>0.39%</td></tr>
+                </tbody>
+            </table>
+            <p>…共 225 個選項，完整內容請直接轉上方的轉盤。</p>
+            <h2>其他熱門轉盤</h2>
+            <ul class="theme-links">
+                <li><a href="../../r/-MXwgsQUXdhXO3WnhH1m/">人生重開器</a></li>
+                <li><a href="../../r/-Mb5FeoNaz4JWWA6QtYd/">人生重开器(2020千人出生率)</a></li>
+                <li><a href="../../r/-MXwj9ekxevlA-eC6bxZ/">人生重開器</a></li>
+                <li><a href="../../r/G7oLFoQ84HfKEwmJXQzs/">ACO含恨而終大抽獎</a></li>
+                <li><a href="../../r/-LPpKF5kYVep63D4EByX/">朝鮮人生模擬器 (飢餓超過7天=死亡喔)</a></li>
+                <li><a href="../../r/-MafYtFvyYcPmM6GjERX/">剪刀石頭布 (created by CarlHo)</a></li>
+                <li><a href="../../r/-M3y-kNkUngQK2VulBEq/">閃華滅神包</a></li>
+                <li><a href="../../r/-LRMGn1OSdsu4D2JneSm/">來抽你追妹子的下場</a></li>
+                <li><a href="../../r/yFTICz3WL5GL5eKKRjgV/">重刷首抽模擬器</a></li>
+                <li><a href="../../r/-MbAvnlT9XFWakwk6nvW/">侯友宜防疫記者會發言</a></li>
+                <li><a href="../../r/-MafYSafyBoDpoybRL-v/">六合彩/樂透號碼 (created by CarlHo)</a></li>
+                <li><a href="../../r/-MbUu9OaJoEn0yvz3F99/">人生重开器（按照人口出生比例）</a></li>
+            </ul>
+            <h2>常用轉盤</h2>
+            <ul class="theme-links">
+                <li><a href="../../food/">今天吃什麼轉盤</a></li>
+                <li><a href="../../lottery/">抽獎轉盤</a></li>
+                <li><a href="../../gacha/">抽卡模擬轉盤</a></li>
+                <li><a href="../../yes-no/">是非轉盤</a></li>
+                <li><a href="../../numbers/">數字轉盤</a></li>
+                <li><a href="../../punishment/">懲罰轉盤</a></li>
+                <li><a href="../../">自訂轉盤首頁</a></li>
+            </ul>
+        </section>
+        <div id="disqus-bottom">
+            <hr />
+            <div id="disqus_thread"></div>
+            <noscript>請開啟 javascript 來檢視 <a href="https://disqus.com/?ref_noscript">Disqus 提供的留言</a></noscript>
+        </div>
+        <hr />
+        <!-- github2 -->
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5518310153941700" data-ad-slot="5554403276" data-ad-format="auto"></ins>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+        <audio id="sound" class="hidden" controls>
+            <source src="../../asset/coin04.mp3" type="audio/mpeg" /> Your browser does not support the audio element.
+        </audio>
+        <audio id="sound2" class="hidden" controls>
+            <source src="../../asset/coin05.mp3" type="audio/mpeg" /> Your browser does not support the audio element.
+        </audio>
+        <audio id="end" class="hidden" controls>
+            <source src="../../asset/crrect_answer3.mp3" type="audio/mpeg" /> Your browser does not support the audio element.
+        </audio>
+        <script id="_waualf">var _wau = _wau || []; _wau.push(["classic", "kejoz02pvi", "alf"]);</script>
+        <script async src="//waust.at/c.js"></script>
+    </div>
+    <!--<pre>{{ $data|json }}</pre>-->
+    <!-- 設定轉盤 -->
+    <div class="modal fade" id="set-modal" tabindex="-1" role="dialog" aria-labelledby="set-modalLabal" aria-hidden="true" v-on="click:draw">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" v-on="click:draw"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="set-modalLabel" data-i18n="modal.m1">設定轉盤內容</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1" data-i18n="modal.m2">轉盤標題</label>
+                        <input class="form-control" v-model="set.title" />
+                    </div>
+                    <div class="text-right">
+                        <label>
+                            <span class="btn-primary btn" data-i18n="modal.m3">上傳內容csv</span>
+                            <input v-if="uploadReady" class="hidden" id="uploadCsv" type="file" accept=".csv" v-on="change:csvUpload">
+                        </label>
+                        <button class="btn-primary btn" type="button" v-on="click:csvDownload" data-i18n="modal.m4">下載內容csv</button>
+                    </div>
+                    <h4 class="modal-title" id="set-modalLabel" data-i18n="modal.m5">轉盤選項</h4>
+                    <table id="option-table" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th data-i18n="modal.m6">名稱</th>
+                                <th data-i18n="modal.m7">比重</th>
+                                <th class="hidden-xs" data-i18n="tabc.probability">機率</th>
+                                <th>
+                                    <button type="button" class="btn btn-primary" v-on="click:addOption" data-i18n="modal.m8">新增</button>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody v-repeat="set.options" v-transition>
+                            <tr>
+                                <td>
+                                    <input type="text" class="form-control" v-model="name">
+                                </td>
+                                <td>
+                                    <input type="number" class="form-control " v-model="weight" v-on="keyup:getSum">
+                                </td>
+                                <td class="hidden-xs">
+                                    <p v-text="sum ? (weight / sum) : '' | persent"></p>
+                                </td>
+                                <td>
+                                    <div class="hidden-xs">
+                                        <button type="button" class="btn btn-default" v-on="click:copyOption(this, $index)"><i class="fa fa-copy" title="複製" aria-hidden="true"></i></button>
+                                        <button type="button" class="btn btn-danger" v-on="click:removeOption(this)"><i class="fa fa-trash" title="刪除" aria-hidden="true"></i></button>
+                                    </div>
+                                    <div class="visible-xs">
+                                        <button type="button" class="btn btn-default btn-xs" v-on="click:copyOption(this, $index)"><i class="fa fa-copy" title="複製" aria-hidden="true"></i></button>
+                                        <button type="button" class="btn btn-danger btn-xs" v-on="click:removeOption(this)"><i class="fa fa-trash" title="刪除" aria-hidden="true"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" v-on="click:draw" data-i18n="modal.m10">確定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 列表 -->
+    <div class="modal fade" id="list-modal" tabindex="-1" role="dialog" aria-labelledby="list-modalLabal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="list-modalLabel" v-text="listTitle"></h4>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-info" role="alert" v-show="list.length > 49" data-i18n="modal.m11">僅顯示前50筆</div>
+                    <div class="list-group">
+                        <div class="list-wrap" v-repeat="list | orderBy listOrder true">
+                            <a href="#{{ id }}" class="list-group-item" data-dismiss="modal" v-on="click:loadOption(id)">
+                                <i v-show="isPrivate" class="fa fa-unlock-alt" aria-hidden="true"></i>
+                                <span class="item-title" v-text="title || '沒名字'"></span>
+                                <div class="row">
+                                    <div class="col-xs-6">
+                                        <small title="人氣" v-show="hot > 0">
+                                            <i class="fa fa-eye"></i>
+                                            <span v-text="hot"></span>
+                                        </small>
+                                    </div>
+                                    <div class="col-xs-6 text-right">
+                                        <small class="timeago" title="{{ts}}"></small>
+                                    </div>
+                                </div>
+                            </a>
+                            <i v-if="listType == 'my'" v-on="click:deleteData(id)" class="fa fa-trash list-trash fa-2x" title="刪除" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 儲存 -->
+    <div class="modal fade" id="save-modal" tabindex="-1" role="dialog" aria-labelledby="save-modalLabal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="save-modalLabel">
+                        <span v-show="saveType != 'new'" data-i18n="modal.m13">儲存轉盤</span>
+                        <span v-show="saveType == 'new'" data-i18n="modal.m14">另存轉盤</span>
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label data-i18n="modal.m15">給他個標題吧！</label>
+                            <input class="form-control" placeholder="標題" v-model="set.title">
+                        </div>
+                        <div class="form-check" title="不會出現在公開列表裡">
+                            <input class="form-check-input" type="checkbox" v-model="set.isPrivate" value="1" id="defaultCheck1">
+                            <label class="form-check-label" for="defaultCheck1" data-i18n="modal.m16">
+                                不公開的轉盤
+                            </label>
+                            <p>
+                                <span data-i18n="modal.m17">不會出現在公開列表裡</span>
+                                <span v-show="user.uid == ''" data-i18n="modal.m18">，可以先登入帳號，就會出現在[我的轉盤]中</span>
+                                <span v-show="user.uid" data-i18n="modal.m19">，會出現在[我的轉盤]中</span>
+                            </p>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn" data-dismiss="modal" data-i18n="modal.m20">取消</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" v-on="click:saveOnFireBase" data-i18n="modal.m21">確定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="disqus-modal" tabindex="-1" role="dialog" aria-labelledby="disqus-modalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="disqus-modalLabel" data-i18n="modal.m22">留言</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-info" role="alert" data-i18n="modal.m23">歡迎提供意見!</div>
+                    <div id="disqus-modal-host"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="fb-root"></div>
+    <!--<script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.5.0.min.js"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/i18next/8.1.0/i18next.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-analytics.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js" integrity="sha256-qXBd/EfAdjOA2FGrGAG+b3YBn2tn5A6bhz+LSgYD96k=" crossorigin="anonymous"></script>
+    <script>window.ROULETTE_PRESET = {"id":"r--LG95vAaAyGDHChSSAbI","rid":"-LG95vAaAyGDHChSSAbI","url":"https://z358z358.github.io/Roulette/r/-LG95vAaAyGDHChSSAbI/","title":"刷首抽","options":[{"name":"科科斯（基林）群島","weight":0.0001},{"name":"梵蒂岡","weight":0.0001},{"name":"托克勞","weight":0.0002},{"name":"紐埃","weight":0.0002},{"name":"福克蘭群島","weight":0.0004},{"name":"聖赫勒拿","weight":0.0005},{"name":"蒙哲臘","weight":0.0007},{"name":"吐瓦魯","weight":0.0013},{"name":"諾魯","weight":0.0014},{"name":"庫克群島","weight":0.0025},{"name":"安圭拉","weight":0.0021},{"name":"帛琉","weight":0.0028},{"name":"英屬維京群島","weight":0.0042},{"name":"直布羅陀","weight":0.0043},{"name":"聖馬利諾","weight":0.0043},{"name":"摩納哥","weight":0.0049},{"name":"特克斯與凱科斯群島","weight":0.005},{"name":"列支敦斯登","weight":0.005},{"name":"荷屬聖馬丁","weight":0.0056},{"name":"北馬利亞納群島","weight":0.0063},{"name":"法羅群島","weight":0.0064},{"name":"格陵蘭","weight":0.0074},{"name":"馬紹爾群島","weight":0.0074},{"name":"聖克里斯多福與尼維斯","weight":0.0075},{"name":"美屬薩摩亞","weight":0.0076},{"name":"開曼群島","weight":0.0084},{"name":"百慕達","weight":0.0083},{"name":"安道爾","weight":0.001},{"name":"多米尼克","weight":0.0096},{"name":"曼島","weight":0.012},{"name":"安地卡及巴布達","weight":0.012},{"name":"塞席爾","weight":0.013},{"name":"密克羅尼西亞聯邦","weight":0.014},{"name":"阿魯巴","weight":0.014},{"name":"美屬維京群島","weight":0.014},{"name":"東加","weight":0.014},{"name":"格瑞那達","weight":0.014},{"name":"聖文森及格瑞那丁","weight":0.014},{"name":"吉里巴斯","weight":0.016},{"name":"古拉索","weight":0.021},{"name":"澤西/耿西","weight":0.022},{"name":"關島","weight":0.023},{"name":"聖露西亞","weight":0.025},{"name":"薩摩亞","weight":0.026},{"name":"聖多美普林西比","weight":0.027},{"name":"萬那杜","weight":0.027},{"name":"巴貝多","weight":0.038},{"name":"冰島","weight":0.044},{"name":"貝里斯","weight":0.05},{"name":"馬爾地夫","weight":0.05},{"name":"巴哈馬","weight":0.053},{"name":"馬爾他","weight":0.056},{"name":"汶萊","weight":0.058},{"name":"維德角","weight":0.071},{"name":"蘇利南","weight":0.073},{"name":"盧森堡","weight":0.079},{"name":"撒拉威阿拉伯民主共和國","weight":0.08},{"name":"索羅門群島","weight":0.081},{"name":"澳門","weight":0.082},{"name":"蒙特內哥羅","weight":0.083},{"name":"蓋亞那","weight":0.102},{"name":"不丹","weight":0.106},{"name":"葛摩","weight":0.111},{"name":"斐濟","weight":0.12},{"name":"赤道幾內亞","weight":0.121},{"name":"吉布地","weight":0.121},{"name":"賽普勒斯","weight":0.158},{"name":"東帝汶","weight":0.166},{"name":"模里西斯","weight":0.17},{"name":"愛沙尼亞","weight":0.171},{"name":"史瓦濟蘭","weight":0.177},{"name":"千里達及托巴哥","weight":0.181},{"name":"巴林","weight":0.19},{"name":"科索沃","weight":0.24},{"name":"加彭","weight":0.24},{"name":"拉脫維亞","weight":0.25},{"name":"幾內亞比索","weight":0.26},{"name":"斯洛維尼亞","weight":0.27},{"name":"馬其頓","weight":0.27},{"name":"甘比亞","weight":0.29},{"name":"賴索托","weight":0.29},{"name":"波札那","weight":0.31},{"name":"卡達","weight":0.34},{"name":"納米比亞","weight":0.34},{"name":"立陶宛","weight":0.36},{"name":"牙買加","weight":0.37},{"name":"阿爾巴尼亞","weight":0.38},{"name":"亞美尼亞","weight":0.4},{"name":"蒙古","weight":0.42},{"name":"烏拉圭","weight":0.46},{"name":"波多黎各","weight":0.48},{"name":"波赫","weight":0.5},{"name":"喬治亞","weight":0.51},{"name":"摩爾多瓦","weight":0.53},{"name":"巴拿馬","weight":0.54},{"name":"克羅埃西亞","weight":0.55},{"name":"茅利塔尼亞","weight":0.57},{"name":"科威特","weight":0.59},{"name":"賴比瑞亞","weight":0.64},{"name":"紐西蘭","weight":0.64},{"name":"愛爾蘭","weight":0.62},{"name":"剛果共和國","weight":0.65},{"name":"哥斯大黎加","weight":0.65},{"name":"巴勒斯坦","weight":0.66},{"name":"中非","weight":0.68},{"name":"挪威","weight":0.72},{"name":"斯洛伐克","weight":0.72},{"name":"芬蘭","weight":0.73},{"name":"厄利垂亞","weight":0.73},{"name":"土庫曼","weight":0.73},{"name":"阿曼","weight":0.75},{"name":"丹麥","weight":0.76},{"name":"新加坡","weight":0.78},{"name":"薩爾瓦多","weight":0.81},{"name":"吉爾吉斯","weight":0.82},{"name":"利比亞","weight":0.83},{"name":"尼加拉瓜","weight":0.83},{"name":"獅子山","weight":0.9},{"name":"巴拉圭","weight":0.91},{"name":"黎巴嫩","weight":0.91},{"name":"保加利亞","weight":0.92},{"name":"寮國","weight":0.94},{"name":"香港","weight":0.98},{"name":"多哥","weight":1.04},{"name":"巴布亞紐幾內亞","weight":1.06},{"name":"約旦","weight":1.09},{"name":"宏都拉斯","weight":1.11},{"name":"以色列","weight":1.11},{"name":"瑞士","weight":1.13},{"name":"奧地利","weight":1.14},{"name":"塞爾維亞","weight":1.15},{"name":"塔吉克","weight":1.19},{"name":"白俄羅斯","weight":1.25},{"name":"阿聯","weight":1.28},{"name":"匈牙利","weight":1.29},{"name":"瑞典","weight":1.32},{"name":"亞塞拜然","weight":1.33},{"name":"葡萄牙","weight":1.35},{"name":"捷克","weight":1.39},{"name":"希臘","weight":1.43},{"name":"多明尼加","weight":1.43},{"name":"海地","weight":1.46},{"name":"玻利維亞","weight":1.47},{"name":"古巴","weight":1.51},{"name":"索馬利亞","weight":1.51},{"name":"比利時","weight":1.52},{"name":"突尼西亞","weight":1.53},{"name":"貝南","weight":1.54},{"name":"蒲隆地","weight":1.61},{"name":"盧安達","weight":1.63},{"name":"幾內亞","weight":1.79},{"name":"南蘇丹","weight":1.82},{"name":"查德","weight":0.2},{"name":"柬埔寨","weight":0.21},{"name":"塞內加爾","weight":0.22},{"name":"辛巴威","weight":0.22},{"name":"厄瓜多","weight":0.22},{"name":"荷蘭","weight":0.23},{"name":"敘利亞","weight":0.23},{"name":"瓜地馬拉","weight":0.23},{"name":"尚比亞","weight":0.23},{"name":"哈薩克","weight":0.24},{"name":"智利","weight":0.24},{"name":"馬拉威","weight":0.24},{"name":"羅馬尼亞","weight":0.25},{"name":"馬利","weight":0.25},{"name":"布吉納法索","weight":0.26},{"name":"斯里蘭卡","weight":0.28},{"name":"尼日","weight":0.29},{"name":"台灣","weight":0.31},{"name":"象牙海岸","weight":0.32},{"name":"澳洲","weight":0.33},{"name":"喀麥隆","weight":0.33},{"name":"北韓","weight":0.34},{"name":"馬達加斯加","weight":0.34},{"name":"安哥拉","weight":0.36},{"name":"葉門","weight":0.38},{"name":"迦納","weight":0.39},{"name":"尼泊爾","weight":0.39},{"name":"莫三比克","weight":0.4},{"name":"烏茲別克","weight":0.41},{"name":"委內瑞拉","weight":0.43},{"name":"馬來西亞","weight":0.43},{"name":"祕魯","weight":0.43},{"name":"沙烏地阿拉伯","weight":0.44},{"name":"阿富汗","weight":0.47},{"name":"摩洛哥","weight":0.47},{"name":"加拿大","weight":0.49},{"name":"波蘭","weight":0.51},{"name":"伊拉克","weight":0.53},{"name":"阿爾及利亞","weight":0.55},{"name":"烏克蘭","weight":0.56},{"name":"烏干達","weight":0.56},{"name":"蘇丹","weight":0.56},{"name":"阿根廷","weight":0.59},{"name":"西班牙","weight":0.6},{"name":"肯亞","weight":0.65},{"name":"哥倫比亞","weight":0.65},{"name":"韓國","weight":0.67},{"name":"緬甸","weight":0.73},{"name":"南非","weight":0.74},{"name":"坦尚尼亞","weight":0.77},{"name":"義大利","weight":0.79},{"name":"英國","weight":0.87},{"name":"法國","weight":0.88},{"name":"泰國","weight":0.9},{"name":"德國","weight":1.07},{"name":"伊朗","weight":1.08},{"name":"土耳其","weight":1.09},{"name":"剛果民主共和國","weight":1.11},{"name":"越南","weight":1.27},{"name":"埃及","weight":1.27},{"name":"菲律賓","weight":1.39},{"name":"衣索比亞","weight":1.41},{"name":"日本","weight":1.67},{"name":"墨西哥","weight":1.74},{"name":"俄羅斯","weight":1.93},{"name":"孟加拉","weight":2.2},{"name":"奈及利亞","weight":2.59},{"name":"巴基斯坦","weight":2.65},{"name":"巴西","weight":2.75},{"name":"印度尼西亞","weight":3.52},{"name":"米國","weight":4.32},{"name":"印度","weight":17.74},{"name":"支那","weight":18.3}]};</script>
+    <script type="text/javascript" src="../../dist/scripts/main.js?20"></script>
+    <script>
+    // 桌機側欄廣告：螢幕夠寬時在轉盤左側空白放一個 160x600（窄螢幕不載入，避免空廣告位）
+    (function() {
+        // 建議到 AdSense 另建一個「側欄」展示型廣告單元，把編號換成新的，報表才分得開
+        var RAIL_SLOT = '5554403276';
+        if (!window.matchMedia || !window.matchMedia('(min-width: 1200px)').matches) return;
+        var plate = document.querySelector('.ly-plate');
+        if (!plate) return;
+        var wrap = document.createElement('div');
+        wrap.className = 'ad-rail ad-rail-left';
+        wrap.innerHTML = '<ins class="adsbygoogle" style="display:inline-block;width:160px;height:600px" data-ad-client="ca-pub-5518310153941700" data-ad-slot="' + RAIL_SLOT + '"></ins>';
+        plate.appendChild(wrap);
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
+    })();
+    </script>
+    <!--<script type="text/javascript" src="export.js"></script>
+    <script type="text/javascript" src="forDebug.js"></script>-->
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <script>
+    google.charts.load('current', { packages: ['corechart'] });
+    google.charts.setOnLoadCallback(vue.draw);
+    </script>
+    <script>
+    (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "//connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v4.0&appId=482845198525908";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+    </script>
+    <script type="text/javascript">
+    var disqus_shortname = 'roulette-tw';
+    var disqus_config = function() {
+        this.language = 'zh_TW';
+        this.page = this.page || {};
+        this.page.url = 'https://z358z358.github.io/Roulette/#!default-wheel';
+        this.page.identifier = 'default-wheel';
+    };
+    </script>
+</body>
+
+</html>
