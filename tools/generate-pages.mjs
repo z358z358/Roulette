@@ -72,10 +72,26 @@ function optionTable(options) {
             </table>${more}`;
 }
 
+// ---------- 熱門轉盤頁的清單（r/<id>/ 資料夾 + r/pages.json 依人氣排序） ----------
+const rDir = path.join(ROOT, 'r');
+const manifestPath = path.join(rDir, 'pages.json');
+const existingIds = () => (fs.existsSync(rDir)
+    ? fs.readdirSync(rDir).filter((d) => fs.existsSync(path.join(rDir, d, 'index.html'))).sort()
+    : []);
+function readManifest() {
+    let list = [];
+    try { list = JSON.parse(fs.readFileSync(manifestPath, 'utf8')); } catch { /* 第一次執行還沒有 */ }
+    const ids = new Set(existingIds());
+    return list.filter((p) => ids.has(p.id));
+}
+const HOME_POPULAR = 12;       // 首頁「熱門轉盤」區塊顯示幾個
+let hasPopularPages = existingIds().length > 0 || withPopular;
+
 function themeLinks(prefix, exceptSlug) {
     const items = themes
         .filter((t) => t.slug !== exceptSlug)
         .map((t) => `<li><a href="${prefix}${t.slug}/">${esc(t.name)}</a></li>`);
+    if (hasPopularPages) items.push(`<li><a href="${prefix}r/">熱門轉盤排行</a></li>`);
     items.push(`<li><a href="${prefix}">自訂轉盤首頁</a></li>`);
     return `<ul class="theme-links">\n                ${items.join('\n                ')}\n            </ul>`;
 }
@@ -230,6 +246,7 @@ function roulettePage(r, related) {
             <ul class="theme-links">
                 ${relatedItems.join('\n                ')}
             </ul>
+            <p><a href="${prefix}r/">看全部熱門轉盤 →</a></p>
             <h2>常用轉盤</h2>
             ${themeLinks(prefix, null)}
         </section>`;
@@ -241,11 +258,6 @@ function roulettePage(r, related) {
         preset: { id: `r-${r.id}`, rid: r.id, url, title: r.title, options: r.options },
     });
 }
-
-const rDir = path.join(ROOT, 'r');
-const existingIds = () => (fs.existsSync(rDir)
-    ? fs.readdirSync(rDir).filter((d) => fs.existsSync(path.join(rDir, d, 'index.html'))).sort()
-    : []);
 
 if (withPopular) {
     const popular = await fetchPopular();
@@ -267,6 +279,60 @@ if (withPopular) {
 
     for (const r of keep.values()) writePage(path.join('r', r.id), roulettePage(r, popular));
     console.log(`熱門轉盤頁：${keep.size} 頁（本次熱門 ${popular.length}，移除 ${removed}）`);
+
+    // 清單：依人氣排序，給總覽頁、首頁區塊、網頁的「熱門轉盤」清單使用
+    const manifest = [...keep.values()]
+        .sort((a, b) => b.hot - a.hot || a.id.localeCompare(b.id))
+        .map((r) => ({ id: r.id, title: r.title, options: r.options.length, hot: r.hot }));
+    fs.mkdirSync(rDir, { recursive: true });
+    fs.writeFileSync(manifestPath, JSON.stringify(manifest, null, 1) + '\n');
+}
+
+// ---------- 熱門轉盤總覽頁 r/ + 首頁區塊 ----------
+const manifest = readManifest();
+hasPopularPages = manifest.length > 0;
+
+if (hasPopularPages) {
+    const url = `${SITE}r/`;
+    const prefix = '../';
+    const items = manifest.map((p) =>
+        `<li><a href="${p.id}/">${esc(clip(p.title, 40))}</a> <small class="text-muted">${p.options} 個選項</small></li>`);
+    const intro = `<section class="page-intro">
+            <h1>熱門轉盤排行</h1>
+            <p class="lead">網友在自訂轉盤分享、最多人轉過的 ${manifest.length} 個轉盤，每週更新。點名稱就能直接轉，也可以改成自己的版本再存檔；不知道玩哪個，就轉上面的轉盤隨機挑一個。</p>
+            <ol class="popular-list">
+                ${items.join('\n                ')}
+            </ol>
+            <h2>常用轉盤</h2>
+            ${themeLinks(prefix, null)}
+        </section>`;
+    writePage('r', buildPage({
+        prefix,
+        head: headBlock({
+            title: '熱門轉盤排行｜網友最常用的轉盤 - 自訂轉盤',
+            description: `自訂轉盤網友最常用的 ${manifest.length} 個轉盤排行：${manifest.slice(0, 5).map((p) => clip(p.title, 12)).join('、')}等，每週更新，點一下就能轉。`,
+            url,
+        }),
+        intro,
+        preset: {
+            id: 'popular-index',
+            url,
+            title: '熱門轉盤隨機挑一個',
+            // 8 個以內：每格超過 10%，轉盤上才會顯示文字
+            options: manifest.slice(0, 8).map((p) => ({ name: clip(p.title, 10), weight: 1 })),
+        },
+    }));
+
+    // 首頁 index.html 的 <!-- page:popular --> 區塊（其他頁面會整個換掉 page:intro，不受影響）
+    const home = read('index.html');
+    const block = `<!-- page:popular -->
+            <ul class="theme-links">
+                ${manifest.slice(0, HOME_POPULAR).map((p) => `<li><a href="r/${p.id}/">${esc(clip(p.title, 24))}</a></li>`).join('\n                ')}
+            </ul>
+            <!-- /page:popular -->`;
+    const updated = replaceBlock(home, 'popular', block);
+    if (updated !== home) fs.writeFileSync(path.join(ROOT, 'index.html'), updated);
+    console.log(`熱門轉盤總覽頁：${manifest.length} 個，首頁區塊：${Math.min(HOME_POPULAR, manifest.length)} 個`);
 }
 
 // ---------- sitemap.xml ----------
@@ -278,6 +344,7 @@ const urls = [
         <xhtml:link rel="alternate" hreflang="x-default" href="${SITE}" />
     </url>`,
     ...themes.map((t) => `    <url>\n        <loc>${SITE}${t.slug}/</loc>\n    </url>`),
+    ...(hasPopularPages ? [`    <url>\n        <loc>${SITE}r/</loc>\n    </url>`] : []),
     ...existingIds().map((id) => `    <url>\n        <loc>${SITE}r/${id}/</loc>\n    </url>`),
 ];
 fs.writeFileSync(path.join(ROOT, 'sitemap.xml'),

@@ -58,7 +58,9 @@ var vue = new Vue({
         lang: i18nextDefaultLang,
         getOptions: {},
         copiedMsg: '',
-        navigatorShare: false
+        navigatorShare: false,
+        sitePrefix: '',
+        staticPages: {}
     },
 
     // 為了讓v-repeat v-model v-on一起用
@@ -148,6 +150,7 @@ var vue = new Vue({
         }
         this.setOptionOn();
         this.sendGa('網址', window.location.href);
+        this.loadStaticPages();
 
         if (navigator.share) {
             this.navigatorShare = true;
@@ -460,6 +463,8 @@ var vue = new Vue({
                 querySnapshot.forEach(function(doc) {
                     var a = doc.data();
                     a.id = doc.id;
+                    // 有靜態頁（r/<id>/）的轉盤，點了直接開靜態頁
+                    a.page = that.staticPages[doc.id] ? that.sitePrefix + 'r/' + doc.id + '/' : '';
 
                     listArray.push(a);
                     // console.log(doc.id, doc.data());
@@ -473,6 +478,29 @@ var vue = new Vue({
 
             this.sendGa('取得list', type);
 
+        },
+
+        // 讀取有哪些轉盤已經有靜態頁（r/pages.json，由 tools/generate-pages.mjs 產生）
+        loadStaticPages: function() {
+            var that = this;
+            var home = $('.navbar-brand').attr('href') || '.';
+            this.sitePrefix = (home === '.' || home === './') ? '' : home;
+            $.getJSON(this.sitePrefix + 'r/pages.json').done(function(list) {
+                var map = {};
+                (list || []).forEach(function(p) { map[p.id] = true; });
+                that.staticPages = map;
+            });
+        },
+
+        // 列表點擊：有靜態頁就前往靜態頁，否則照舊在本頁載入
+        // （data-dismiss="modal" 會取消連結的預設動作，所以要自己換頁）
+        openItem: function(id, page) {
+            if (page) {
+                this.sendGa('點擊按鈕', '開啟熱門轉盤頁');
+                window.location.href = page;
+                return;
+            }
+            this.loadOption(id);
         },
 
         loadOption: function(id, keepUrl) {

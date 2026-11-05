@@ -324,6 +324,13 @@
                 <li><a href="punishment/" data-i18n="seo.themePunishment">懲罰轉盤</a></li>
             </ul>
 
+            <h2 data-i18n="seo.popularTitle">熱門轉盤</h2>
+            <!-- page:popular -->
+            <ul class="theme-links">
+            </ul>
+            <!-- /page:popular -->
+            <p><a href="r/" data-i18n="seo.popularAll">看全部熱門轉盤 →</a></p>
+
             <h2 data-i18n="seo.faqTitle">常見問題</h2>
             <dl class="faq">
                 <dt data-i18n="seo.q1">結果是隨機的嗎？</dt>
@@ -436,7 +443,7 @@
                     <div class="alert alert-info" role="alert" v-show="list.length > 49" data-i18n="modal.m11">僅顯示前50筆</div>
                     <div class="list-group">
                         <div class="list-wrap" v-repeat="list | orderBy listOrder true">
-                            <a href="#{{ id }}" class="list-group-item" data-dismiss="modal" v-on="click:loadOption(id)">
+                            <a href="{{ page || ('#' + id) }}" class="list-group-item" data-dismiss="modal" v-on="click:openItem(id, page)">
                                 <i v-show="isPrivate" class="fa fa-unlock-alt" aria-hidden="true"></i>
                                 <span class="item-title" v-text="title || '沒名字'"></span>
                                 <div class="row">
@@ -517,7 +524,7 @@
     <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-analytics.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js" integrity="sha256-qXBd/EfAdjOA2FGrGAG+b3YBn2tn5A6bhz+LSgYD96k=" crossorigin="anonymous"></script>
     <!-- page:preset --><!-- /page:preset -->
-    <script type="text/javascript" src="dist/scripts/main.js?20"></script>
+    <script type="text/javascript" src="dist/scripts/main.js?21"></script>
     <script>
     // 桌機側欄廣告：螢幕夠寬時在轉盤左側空白放一個 160x600（窄螢幕不載入，避免空廣告位）
     (function() {
