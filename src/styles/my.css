@@ -91,6 +91,11 @@
     .nav>li.share-li {
         display: inline-block;
     }
+
+    /* 手機選單展開時可用到整個螢幕高度（Bootstrap 預設只有 340px，下拉選單會被切掉） */
+    .navbar-fixed-top .navbar-collapse {
+        max-height: calc(100vh - 55px);
+    }
 }
 
 .ly-plate {

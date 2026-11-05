@@ -24,7 +24,7 @@ const MAX_TABLE_ROWS = 100;    // 選項表最多列幾行
 const withPopular = process.argv.includes('--popular');
 
 const read = (p) => fs.readFileSync(path.join(ROOT, p), 'utf8');
-const template = read('index.html');
+let template = read('index.html');
 const themes = JSON.parse(read('tools/themes.json'));
 const blocklist = JSON.parse(read('tools/blocklist.json'));
 
@@ -44,11 +44,34 @@ function replaceBlock(html, name, content) {
     return html.replace(re, () => content);
 }
 
-// 子資料夾的頁面要把相對路徑往上一層（asset/、dist/、首頁連結）
+// 子資料夾的頁面要把相對路徑往上一層（asset/、dist/、首頁連結、導覽列的主題頁與 r/ 連結）
+const navTargets = [...themes.map((t) => t.slug), 'r']
+    .map((s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '/');
+const navTargetRe = new RegExp(`href="(${navTargets.join('|')})`, 'g');
 function relocate(html, prefix) {
     return html
         .replace(/(href|src)="(asset\/|dist\/)/g, `$1="${prefix}$2`)
+        .replace(navTargetRe, `href="${prefix}$1`)
         .replace(/href="\."/g, `href="${prefix}"`);
+}
+
+// 導覽列「常用轉盤」下拉選單：依 themes.json 產生，寫回 index.html（之後所有頁面都用這份模板）
+const SLUG_I18N = {
+    food: 'seo.themeFood', lottery: 'seo.themeLottery', gacha: 'seo.themeGacha',
+    'yes-no': 'seo.themeYesNo', numbers: 'seo.themeNumbers', punishment: 'seo.themePunishment',
+};
+{
+    const pad = '                            ';
+    const items = themes.map((t) =>
+        `<li><a href="${t.slug}/"${SLUG_I18N[t.slug] ? ` data-i18n="${SLUG_I18N[t.slug]}"` : ''}>${esc(t.name)}</a></li>`);
+    items.push('<li role="separator" class="divider"></li>');
+    items.push('<li><a href="r/" data-i18n="nav.ranking">熱門轉盤排行</a></li>');
+    const block = `<!-- page:navthemes -->\n${items.map((i) => pad + i).join('\n')}\n${pad}<!-- /page:navthemes -->`;
+    const withNav = replaceBlock(template, 'navthemes', block);
+    if (withNav !== template) {
+        fs.writeFileSync(path.join(ROOT, 'index.html'), withNav);
+        template = withNav;
+    }
 }
 
 function percent(weight, sum) {

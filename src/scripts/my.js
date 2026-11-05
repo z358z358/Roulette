@@ -1042,8 +1042,15 @@ document.getElementsByTagName('head')[0].appendChild(script);
 
 $(window).resize(vue.draw);
 
+// 選項名稱是網友輸入的內容，畫到轉盤上前要先跳脫，避免被當成 HTML 執行（XSS）
+function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, function(c) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+}
+
 function labelFormatter(label, series) {
-    return "<div style='text-anchor: start;font-family: Arial;font-size: 15px;text-align:center; padding:2px; color:white;'>" + label + "<br/>" + Math.round(series.percent) + "%</div>";
+    return "<div style='text-anchor: start;font-family: Arial;font-size: 15px;text-align:center; padding:2px; color:white;'>" + escapeHtml(label) + "<br/>" + Math.round(series.percent) + "%</div>";
 }
 
 function afterChangeLang(lang) {
