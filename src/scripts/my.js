@@ -118,17 +118,25 @@ var vue = new Vue({
     },
 
     ready: function() {
+        var preset = window.ROULETTE_PRESET;
+        if (preset && preset.url) {
+            // 主題頁 / 熱門轉盤頁：分享連結用該頁網址（s._url 不動，站台意見留言串靠它）
+            this.s.url = preset.url;
+        }
+
         var url = new URL(window.location.href);
         var getLang = url.searchParams.get('lang');
         if (getLang) {
+            // ?lang= 不再轉址回首頁：這樣 hreflang 指到的英文網址真的會顯示英文版
             this.changeLang(getLang, 'getLang');
-            window.location.href = this.s.url;
-            return;
-        }
-
-        var lang = $.cookie(this.cookieKeyLang);
-        if (lang) {
-            this.changeLang(lang, 'cookie');
+            if (getLang == 'en' && !preset) {
+                $('link[rel="canonical"]').attr('href', this.s._url + '?lang=en');
+            }
+        } else {
+            var lang = $.cookie(this.cookieKeyLang);
+            if (lang) {
+                this.changeLang(lang, 'cookie');
+            }
         }
 
         var c = $.cookie(this.cookieKey);
@@ -250,6 +258,12 @@ var vue = new Vue({
 
             if (this.goFlag == true || this.sum == 0) {
                 return;
+            }
+
+            // GA4：只在使用者按下開始時記一次（連續旋轉 / 血統模式的後續自動旋轉不重複記）
+            var autoContinue = this.turnFlag >= 1 || this.targetUntil.action == 'run';
+            if (!autoContinue) {
+                this.trackSpin(type == 'c' ? 'continuous' : (type == 'option' ? 'until' : 'single'));
             }
 
             if (type == 'c') {
@@ -461,14 +475,16 @@ var vue = new Vue({
 
         },
 
-        loadOption: function(id) {
+        loadOption: function(id, keepUrl) {
             var that = this;
             var docRef = db.collection("list").doc(id);
             docRef.get(this.getOptions).then(function(doc) {
                 that.setOptions(doc);
                 $("#list-modal").modal('hide');
                 $(".navbar-toggle:not(.collapsed)").click();
-                window.location.hash = id;
+                if (!keepUrl) {
+                    window.location.hash = id;
+                }
             }).catch(function(error) {
                 console.log("Error getting cached document:", error);
             });
@@ -496,7 +512,8 @@ var vue = new Vue({
             this.draw();
 
             this.rid = doc.id;
-            this.s.url = this.s._url + '#' + this.rid;
+            var preset = window.ROULETTE_PRESET;
+            this.s.url = (preset && preset.rid === doc.id) ? preset.url : this.s._url + '#' + this.rid;
 
             if (!$.cookie(this.hotKey)) {
                 $.cookie(this.hotKey, '1', { path: '/', expires: 1 });
@@ -630,6 +647,15 @@ var vue = new Vue({
                     title: this.s.title || document.title
                 };
             }
+            // 主題頁：每頁各自一串留言
+            var preset = window.ROULETTE_PRESET;
+            if (preset && preset.id) {
+                return {
+                    url: preset.url,
+                    identifier: preset.id,
+                    title: document.title
+                };
+            }
             return {
                 url: this.s._url + '#!default-wheel',
                 identifier: 'default-wheel',
@@ -712,9 +738,16 @@ var vue = new Vue({
         fireOn: function() {
             var that = this;
             this.bindDisqusModal();
+            var preset = window.ROULETTE_PRESET;
             if (window.location.hash) {
                 this.rid = window.location.hash.substring(1); //Puts hash in variable, and removes the # character
                 this.loadOption(this.rid);
+            } else if (preset && preset.rid) {
+                // 熱門轉盤靜態頁：先畫頁面裡的快照，再載入最新內容（網址不加 #，維持乾淨的網址）
+                this.loadDefaultOption();
+                this.draw();
+                this.rid = preset.rid;
+                this.loadOption(this.rid, true);
             } else {
                 this.loadDefaultOption();
                 this.draw();
@@ -865,7 +898,25 @@ var vue = new Vue({
             });
         },
 
+        // GA4 事件 spin：可在 GA4「管理 > 事件」把 spin 標成重要活動
+        trackSpin: function(mode) {
+            gtag('event', 'spin', {
+                'spin_mode': mode,
+                'roulette_id': this.rid || (window.ROULETTE_PRESET && window.ROULETTE_PRESET.id) || 'default',
+                'roulette_title': this.set.title
+            });
+        },
+
         loadDefaultOption: function() {
+            var preset = window.ROULETTE_PRESET;
+            if (preset && preset.options && preset.options.length) {
+                // 主題頁：用頁面內建的預設選項
+                this.set.options = preset.options.map(function(o) {
+                    return { name: o.name, weight: o.weight, on: true };
+                });
+                this.set.title = preset.title;
+                return;
+            }
             this.set.options = [
                 { name: i18next.t('js.j1'), weight: 1, on: true },
                 { name: i18next.t('js.j2'), weight: 1, on: true },
@@ -975,7 +1026,10 @@ function afterChangeLang(lang) {
     $('.intro-step').each(function() {
         $(this).attr('data-intro', i18next.t($(this).data('intro-key')));
     });
-    document.title = i18next.t('nav.home');
+    // 主題頁、熱門轉盤頁、已載入轉盤時保留原本的標題；首頁用完整 SEO 標題（Google 會讀 JS 執行後的標題）
+    if (!window.ROULETTE_PRESET && !(window.vue && vue.rid)) {
+        document.title = i18next.t('seo.title');
+    }
 
     $.timeago.settings.strings = webLangCustom[lang].translation.timeago;
 

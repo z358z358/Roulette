@@ -109,3 +109,80 @@ body {
     padding-top: 55px;
     overflow-x: hidden;
 }
+
+/* 廣告位 */
+.ad-slot {
+    text-align: center;
+}
+
+/* 轉盤下方：上方留白，避免點轉盤時誤觸廣告 */
+.ad-below-wheel {
+    margin: 24px 0 16px;
+}
+
+/* 桌機側欄（只在 >=1200px 由 JS 插入），放在轉盤左側空白 */
+.ad-rail {
+    position: absolute;
+    top: 110px;
+    width: 160px;
+    z-index: 4;
+}
+
+.ad-rail-left {
+    left: -12px;
+}
+
+/* 說明區（SEO） */
+.page-intro {
+    max-width: 760px;
+    margin: 0 auto 24px;
+    color: #444;
+}
+
+.page-intro h1 {
+    font-size: 24px;
+    margin-top: 8px;
+}
+
+.page-intro h2 {
+    font-size: 18px;
+    margin-top: 24px;
+}
+
+.page-intro ol,
+.page-intro ul {
+    padding-left: 1.4em;
+}
+
+.page-intro li {
+    margin-bottom: 4px;
+}
+
+.page-intro .theme-links {
+    list-style: none;
+    padding-left: 0;
+}
+
+.page-intro .theme-links li {
+    display: inline-block;
+    margin: 0 6px 8px 0;
+}
+
+.page-intro .theme-links a {
+    display: inline-block;
+    padding: 4px 12px;
+    border: 1px solid #ddd;
+    border-radius: 16px;
+}
+
+.page-intro .faq dt {
+    margin-top: 12px;
+}
+
+.page-intro .faq dd {
+    margin-left: 0;
+}
+
+.page-intro .option-table {
+    max-width: 480px;
+}

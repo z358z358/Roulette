@@ -1,0 +1,44 @@
+name: Generate roulette pages
+
+# 每週一台灣時間 03:30 自動更新熱門轉盤頁；改了 index.html 或 tools/ 也會重新產生；也可以在 Actions 頁面手動執行
+on:
+  schedule:
+    - cron: '30 19 * * 0'
+  push:
+    branches: [gh-pages]
+    paths:
+      - 'index.html'
+      - 'tools/**'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: generate-pages
+  cancel-in-progress: false
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Generate pages
+        run: node tools/generate-pages.mjs --popular
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No changes"
+          else
+            git commit -m "Update generated roulette pages"
+            git push
+          fi

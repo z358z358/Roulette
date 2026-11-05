@@ -102,6 +102,33 @@ var webLangCustom = {
                 j17: 'New'
             },
 
+            seo: {
+                title: 'Custom Roulette | Free Online Spinner Wheel & Random Picker',
+                h1: 'Custom Roulette: free online spinner wheel',
+                lead: 'Type your own options, set how likely each one is, and tap the wheel to get a random result. No download, no sign-up, works on phone and desktop.',
+                howTitle: 'How to use',
+                how1: 'Tap "Edit" at the top and enter a title and your options.',
+                how2: 'A bigger weight means a higher chance. The Analytics tab shows the expected and actual probability of every option.',
+                how3: 'Tap the wheel or the arrow to spin. In Settings you can spin many times in a row, or keep spinning until a chosen option comes up.',
+                how4: 'Tap "Save" to get a link you can share. Tick "Private Roulette" to keep it out of the public lists.',
+                themesTitle: 'Popular wheels',
+                themeFood: 'What to eat wheel',
+                themeLottery: 'Prize draw wheel',
+                themeGacha: 'Gacha pull simulator',
+                themeYesNo: 'Yes or no wheel',
+                themeNumbers: 'Number wheel 1–10',
+                themePunishment: 'Party dare wheel',
+                faqTitle: 'FAQ',
+                q1: 'Is the result random?',
+                a1: 'Yes. Every spin is drawn at random in your browser, using only the weights you set.',
+                q2: 'Can options have different chances?',
+                a2: 'Yes. An option with weight 2 is twice as likely as one with weight 1, and the Analytics tab shows the percentages.',
+                q3: 'Do I need to log in to save?',
+                a3: 'No. Tap "Save" and you get a share link. Log in if you want to manage your saved wheels under "My Roulette".',
+                q4: 'Can I spin many times at once?',
+                a4: 'Yes. Set the number of spins in Settings and press "Continuous rotation Go"; every result is listed in the Records tab.'
+            },
+
             timeago: {
                 prefixAgo: null,
                 prefixFromNow: null,
@@ -249,6 +276,33 @@ var webLangCustom = {
                 j17: '最新上架'
             },
 
+            seo: {
+                title: '自訂轉盤｜免費線上轉盤、抽籤抽獎、今天吃什麼',
+                h1: '自訂轉盤：免費線上轉盤產生器',
+                lead: '輸入你想要的選項、調整每個選項的比重（機率），點一下轉盤就會隨機選出結果。不用下載、不用註冊，手機和電腦都能用。',
+                howTitle: '怎麼用',
+                how1: '點上方「修改轉盤」，輸入轉盤標題和選項。',
+                how2: '「比重」數字越大，轉到的機率越高；「分析」分頁會列出每個選項的期望機率和實際轉到的次數。',
+                how3: '點轉盤或中間的箭頭開始轉。「轉盤設定/功能」可以一次連轉很多次，或用「血統模式」一直轉到指定選項為止。',
+                how4: '按「儲存轉盤」就會產生專屬連結，可以分享給朋友；勾選「不公開的轉盤」就不會出現在熱門列表。',
+                themesTitle: '常用轉盤',
+                themeFood: '今天吃什麼轉盤',
+                themeLottery: '抽獎轉盤',
+                themeGacha: '抽卡模擬轉盤',
+                themeYesNo: '是非轉盤（要不要）',
+                themeNumbers: '數字轉盤 1～10',
+                themePunishment: '懲罰轉盤',
+                faqTitle: '常見問題',
+                q1: '結果是隨機的嗎？',
+                a1: '是。每次旋轉都由瀏覽器隨機抽選，只依照你設定的比重決定機率。',
+                q2: '可以讓每個選項的機率不一樣嗎？',
+                a2: '可以。比重 2 的選項機率是比重 1 的兩倍，「分析」分頁會直接算出百分比。',
+                q3: '存檔要登入嗎？',
+                a3: '不用，直接按「儲存轉盤」就有分享連結。登入後可以在「我的轉盤」管理自己存過的轉盤。',
+                q4: '可以一次轉很多次嗎？',
+                a4: '可以。在「轉盤設定/功能」調整旋轉次數後按「連續旋轉Go！」，結果會自動記錄在「紀錄」分頁。'
+            },
+
             timeago: {
                 prefixAgo: null,
                 prefixFromNow: null,
@@ -294,9 +348,10 @@ var webLangCustom = {
     }
 }
 
+// 語言由網址決定（?lang=en），或使用者自己切換過的 cookie（在 my.js 讀取），不再依瀏覽器語言自動切換：
+// Google 的爬蟲是英文環境，自動切換會讓它收錄到英文版，中文搜尋就排不上去
 var i18nextDefaultLang = 'tw';
-var userLang = navigator.language || navigator.userLanguage;
-if (/^en\b/.test(userLang)) {
+if (/[?&]lang=en\b/.test(window.location.search)) {
     i18nextDefaultLang = 'en';
 }
 

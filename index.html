@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="zh-tw">
 
 <head>
@@ -6,35 +7,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="google-site-verification" content="kYcmjzq-TI-hxjlWzRE1goDJJ8GUrBd03awieiYpjBw" />
     <link rel="icon" href="asset/favicon.ico">
-    <title>自訂轉盤</title>
-    <meta name="description" content="自訂轉盤、機率、選項！">
-    <meta name="og:description" content="自訂轉盤、機率、選項！" />
-    <meta property="fb:app_id" content="1606433366287698" />
+    <!-- page:head -->
+    <title>自訂轉盤｜免費線上轉盤、抽籤抽獎、今天吃什麼</title>
+    <meta name="description" content="免費線上自訂轉盤：自己輸入選項、設定機率，點一下就轉。可用來抽籤、抽獎、決定今天吃什麼、刷首抽，存檔後還能分享連結給朋友一起轉。">
+    <link rel="canonical" href="https://z358z358.github.io/Roulette/" />
+    <link rel="alternate" hreflang="zh-Hant" href="https://z358z358.github.io/Roulette/" />
+    <link rel="alternate" hreflang="en" href="https://z358z358.github.io/Roulette/?lang=en" />
+    <link rel="alternate" hreflang="x-default" href="https://z358z358.github.io/Roulette/" />
     <meta property="og:locale" content="zh_TW" />
-    <meta property="og:title" content="自訂轉盤" />
+    <meta property="og:title" content="自訂轉盤｜免費線上轉盤、抽籤抽獎" />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="http://z358z358.github.io/Roulette/" />
+    <meta property="og:url" content="https://z358z358.github.io/Roulette/" />
+    <meta property="og:description" content="自己輸入選項、設定機率，點一下就轉。抽籤、抽獎、決定今天吃什麼都好用。" />
+    <meta property="og:image" content="https://z358z358.github.io/Roulette/asset/200x200.jpg" />
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"WebApplication","name":"自訂轉盤","alternateName":"Custom Roulette","url":"https://z358z358.github.io/Roulette/","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","inLanguage":["zh-Hant","en"],"offers":{"@type":"Offer","price":"0","priceCurrency":"TWD"}}
+    </script>
+    <!-- /page:head -->
     <meta property="og:site_name" content="自訂轉盤" />
-    <meta property="og:description" content="自訂轉盤、機率、選項！" />
-    <meta property="og:image" content="http://z358z358.github.io/Roulette/asset/200x200.jpg" />
+    <meta property="fb:app_id" content="1606433366287698" />
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials.css" />
     <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials-theme-flat.css" />
-    <link href="dist/styles/main.css?2" rel="stylesheet">
-    <script src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" async></script>
-    <link rel="alternate" hreflang="en" href="https://z358z358.github.io/Roulette/?lang=en" />
-    <link rel="alternate" hreflang="zh-tw" href="https://z358z358.github.io/Roulette/?lang=tw" />
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-53250580-3"></script>
+    <link href="dist/styles/main.css?3" rel="stylesheet">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5518310153941700" crossorigin="anonymous"></script>
+    <!-- GA4 (G-4HJT8VYHTF) 由 Firebase Analytics 載入，這裡只先建立 gtag 佇列 -->
     <script>
         window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-53250580-3');
-</script>
-    <script data-ad-client="ca-pub-5518310153941700" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+    </script>
     <!-- Global site tag (gtag.js) - Google Ads: 969874823 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-969874823"></script>
     <script>
@@ -51,9 +53,6 @@
 </head>
 
 <body id="main">
-    <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MNGDS4" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
     <nav class="navbar navbar-default  navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -162,6 +161,13 @@
             <button class="btn btn-danger btn-sm" data-i18n="alert.stop" type="button" v-on="click:targetUntil.action = ''">停止</button>
         </div>
         <div class="clearfix"></div>
+        <!-- 轉盤正下方：手機第一屏就看得到；上方留白避免點轉盤時誤觸 -->
+        <div class="ad-slot ad-below-wheel">
+            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5518310153941700" data-ad-slot="2728124907" data-ad-format="auto" data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
         <div class="z-10">
             <ul id="ptt_nav" class="nav nav-tabs" role="tablist">
                 <li class=""><a href="#logs" role="tab" data-toggle="tab" data-i18n="tab.records">紀錄</a></li>
@@ -295,11 +301,42 @@
             </div>
         </div>
         <hr />
-        <!-- disqus留言上面 -->
-        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5518310153941700" data-ad-slot="2728124907" data-ad-format="auto" data-full-width-responsive="true"></ins>
-        <script>
-            (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
+        <!-- page:intro -->
+        <section class="page-intro">
+            <h1 data-i18n="seo.h1">自訂轉盤：免費線上轉盤產生器</h1>
+            <p class="lead" data-i18n="seo.lead">輸入你想要的選項、調整每個選項的比重（機率），點一下轉盤就會隨機選出結果。不用下載、不用註冊，手機和電腦都能用。</p>
+
+            <h2 data-i18n="seo.howTitle">怎麼用</h2>
+            <ol>
+                <li data-i18n="seo.how1">點上方「修改轉盤」，輸入轉盤標題和選項。</li>
+                <li data-i18n="seo.how2">「比重」數字越大，轉到的機率越高；「分析」分頁會列出每個選項的期望機率和實際轉到的次數。</li>
+                <li data-i18n="seo.how3">點轉盤或中間的箭頭開始轉。「轉盤設定/功能」可以一次連轉很多次，或用「血統模式」一直轉到指定選項為止。</li>
+                <li data-i18n="seo.how4">按「儲存轉盤」就會產生專屬連結，可以分享給朋友；勾選「不公開的轉盤」就不會出現在熱門列表。</li>
+            </ol>
+
+            <h2 data-i18n="seo.themesTitle">常用轉盤</h2>
+            <ul class="theme-links">
+                <li><a href="food/" data-i18n="seo.themeFood">今天吃什麼轉盤</a></li>
+                <li><a href="lottery/" data-i18n="seo.themeLottery">抽獎轉盤</a></li>
+                <li><a href="gacha/" data-i18n="seo.themeGacha">抽卡模擬轉盤</a></li>
+                <li><a href="yes-no/" data-i18n="seo.themeYesNo">是非轉盤（要不要）</a></li>
+                <li><a href="numbers/" data-i18n="seo.themeNumbers">數字轉盤 1～10</a></li>
+                <li><a href="punishment/" data-i18n="seo.themePunishment">懲罰轉盤</a></li>
+            </ul>
+
+            <h2 data-i18n="seo.faqTitle">常見問題</h2>
+            <dl class="faq">
+                <dt data-i18n="seo.q1">結果是隨機的嗎？</dt>
+                <dd data-i18n="seo.a1">是。每次旋轉都由瀏覽器隨機抽選，只依照你設定的比重決定機率。</dd>
+                <dt data-i18n="seo.q2">可以讓每個選項的機率不一樣嗎？</dt>
+                <dd data-i18n="seo.a2">可以。比重 2 的選項機率是比重 1 的兩倍，「分析」分頁會直接算出百分比。</dd>
+                <dt data-i18n="seo.q3">存檔要登入嗎？</dt>
+                <dd data-i18n="seo.a3">不用，直接按「儲存轉盤」就有分享連結。登入後可以在「我的轉盤」管理自己存過的轉盤。</dd>
+                <dt data-i18n="seo.q4">可以一次轉很多次嗎？</dt>
+                <dd data-i18n="seo.a4">可以。在「轉盤設定/功能」調整旋轉次數後按「連續旋轉Go！」，結果會自動記錄在「紀錄」分頁。</dd>
+            </dl>
+        </section>
+        <!-- /page:intro -->
         <div id="disqus-bottom">
             <hr />
             <div id="disqus_thread"></div>
@@ -479,7 +516,23 @@
     <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-analytics.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js" integrity="sha256-qXBd/EfAdjOA2FGrGAG+b3YBn2tn5A6bhz+LSgYD96k=" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="dist/scripts/main.js?19"></script>
+    <!-- page:preset --><!-- /page:preset -->
+    <script type="text/javascript" src="dist/scripts/main.js?20"></script>
+    <script>
+    // 桌機側欄廣告：螢幕夠寬時在轉盤左側空白放一個 160x600（窄螢幕不載入，避免空廣告位）
+    (function() {
+        // 建議到 AdSense 另建一個「側欄」展示型廣告單元，把編號換成新的，報表才分得開
+        var RAIL_SLOT = '5554403276';
+        if (!window.matchMedia || !window.matchMedia('(min-width: 1200px)').matches) return;
+        var plate = document.querySelector('.ly-plate');
+        if (!plate) return;
+        var wrap = document.createElement('div');
+        wrap.className = 'ad-rail ad-rail-left';
+        wrap.innerHTML = '<ins class="adsbygoogle" style="display:inline-block;width:160px;height:600px" data-ad-client="ca-pub-5518310153941700" data-ad-slot="' + RAIL_SLOT + '"></ins>';
+        plate.appendChild(wrap);
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
+    })();
+    </script>
     <!--<script type="text/javascript" src="export.js"></script>
     <script type="text/javascript" src="forDebug.js"></script>-->
     <script src="https://www.gstatic.com/charts/loader.js"></script>

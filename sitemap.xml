@@ -2,7 +2,26 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
     <url>
         <loc>https://z358z358.github.io/Roulette/</loc>
-        <xhtml:link rel="alternate" hreflang="zh-tw" href="https://z358z358.github.io/Roulette/?lang=tw" />
+        <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://z358z358.github.io/Roulette/" />
         <xhtml:link rel="alternate" hreflang="en" href="https://z358z358.github.io/Roulette/?lang=en" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://z358z358.github.io/Roulette/" />
+    </url>
+    <url>
+        <loc>https://z358z358.github.io/Roulette/food/</loc>
+    </url>
+    <url>
+        <loc>https://z358z358.github.io/Roulette/lottery/</loc>
+    </url>
+    <url>
+        <loc>https://z358z358.github.io/Roulette/gacha/</loc>
+    </url>
+    <url>
+        <loc>https://z358z358.github.io/Roulette/yes-no/</loc>
+    </url>
+    <url>
+        <loc>https://z358z358.github.io/Roulette/numbers/</loc>
+    </url>
+    <url>
+        <loc>https://z358z358.github.io/Roulette/punishment/</loc>
     </url>
 </urlset>
